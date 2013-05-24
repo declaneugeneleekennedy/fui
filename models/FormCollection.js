@@ -1,0 +1,14 @@
+define(['vpl/collection', 'models/FormModel'],
+function(VplCollection) {
+    return VplCollection.extend({
+        dataSource: 'form',
+        parse: function(result, args) {
+            var formId  = args.formId || null;
+            var forms   = [];
+
+            forms.push(result.form);
+
+            return forms;
+        }
+    });
+});
