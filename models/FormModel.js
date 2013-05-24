@@ -1,6 +1,6 @@
 define(
-['vpl/model', 'models/FormCollection', 'models/FormPageModel', 'models/FormPageCollection'],
-function(VplModel, FormCollection, FormPageModel, FormPageCollection) {
+['vpl/model', 'models/FormCollection', 'models/PageModel', 'models/PageCollection'],
+function(VplModel, FormCollection, PageModel, PageCollection) {
     return VplModel.extend({
         idAttribute: 'formUrl',
         collection: FormCollection,
@@ -18,10 +18,10 @@ function(VplModel, FormCollection, FormPageModel, FormPageCollection) {
         setMembers: function(modelData) {
             var $t = this;
 
-            var pageCollection = new FormPageCollection();
+            var pageCollection = new PageCollection();
 
             $.each(modelData[0].get('pages'), function() {
-                pageCollection.add(new FormPageModel(this));
+                pageCollection.add(new PageModel(this));
             });
 
             $t.attributes.pages = pageCollection;
