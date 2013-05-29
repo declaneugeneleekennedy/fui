@@ -16,70 +16,6 @@
         },
         "defaultTitle": "FormBanc"
     },
-    "theme": {    
-        "settings": {
-            "fontFamily": "Arial",
-            "backgroundColour": "#eeeeee",
-            "roundedCorners": true,
-            "borderRadius": "4px 4px 4px 4px",
-            "boxShadow": true,
-            "boxShadowColour":"#666666",
-            "boxShadowDims":"0 2px 2px 0",
-            "iPhoneApp": false,
-            "iPhoneAppLogo":"apps/downloadApp",
-            "iPhoneAppLink":"http://google.com",
-            "androidApp": false,
-            "androidAppLogo":"apps/downloadGoogle",
-            "androidAppLink":"http://android.com",
-            "jsonLinkStartPoint": "data",
-            "highlightColour1": "#003D79",
-            "highlightColour2": "#008B95"
-        },
-        "colourMap": {
-            "default": 1,
-            "internetbanking": 1,
-            "product": 2,
-            "map": 2,
-            "apply": 1,
-            "information": 2,
-            "contact": 2,
-            "mainsite": 1,
-            "campaign": 1,
-            "calculator": 1,
-            "news":1,
-            "video":1
-        },
-        "colours": {
-            "1": {
-                "bgColour" : "#75B72A",
-                "gradient": true,
-                "dropShadowTopColour": "#82C341",
-                "dropShadowTopMiddleColour": "#63A70A",
-                "dropShadowMiddleBottom": "#49853C",
-                "dropShadowBottomColour": "#63A70A",
-                "textColour" : "#FFFFFF"
-            },
-            "2":{
-                "bgColour" : "#00A2BC",
-                "gradient": true,
-                "dropShadowTopColour": "#00B2DB",
-                "dropShadowTopMiddleColour": "#0097A5",
-                "dropShadowMiddleBottom": "#026B83",
-                "dropShadowBottomColour": "#008AAB",
-                "textColour" : "#FFFFFF"
-
-            },
-            "3":{
-                "bgColour" : "#A81D1E",
-                "gradient": true,
-                "dropShadowTopColour": "#3B84ED",
-                "dropShadowTopMiddleColour": "#2859A0",
-                "dropShadowMiddleBottom": "#1D4077",
-                "dropShadowBottomColour": "#2859A0",
-                "textColour" : "#FFFFFF"
-            }
-        }
-    },
     "route": {
         "home": {
             "view": "HomeView"
@@ -91,8 +27,13 @@
         },
 
         ":formUrl/:pageUrl": {
-            "view": "FormView",
+            "view": "PageView",
             "args": ["formUrl", "pageUrl"]
+        }
+    },
+    "require": {
+        "paths": {
+            "theme": "theme/formbanc"
         }
     }
 }
