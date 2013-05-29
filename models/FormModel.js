@@ -13,7 +13,7 @@ function(VplModel, FormCollection, PageModel, PageCollection) {
             totalPersona:           1,
             saveAllowed:            false,
             signaturePanelEnabled:  false,
-            pages:                  []
+            pages:                  new PageCollection
         },
         setMembers: function(modelData) {
             var $t = this;
