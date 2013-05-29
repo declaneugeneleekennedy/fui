@@ -1,4 +1,8 @@
 define(['vpl/model'],
 function(VplModel) {
-    return VplModel.extend({});
+    return VplModel.extend({
+        defaults: {
+            value: ''
+        }
+    });
 });
