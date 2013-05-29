@@ -1,7 +1,7 @@
 define(['vpl/view', 'viewModels/FormViewModel'],
 function(VplView, FormViewModel) {
     return VplView.extend({
-        template: '/templates/Form.html',
+        template: '/templates/page/Form.html',
         viewModel: new FormViewModel,
         initialize: function(args) {
             var $t = this;
