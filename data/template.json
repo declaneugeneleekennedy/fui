@@ -1,0 +1,46 @@
+{
+   "templateId":1,
+   "templateSettings":{
+      "colour":{
+         "0":{
+            "default":"#a71f23",
+            "light":"#c8252a",
+            "dark":"#86191c",
+            "alternative":"#"
+         },
+         "1":{
+            "default":"#0093a0",
+            "light":"#00b0c0",
+            "dark":"#007680",
+            "alternative":"#ffffff"
+         },
+         "headerBackground":"#e3f1f9",
+         "pageTitleOverride":"#",
+         "sectionBarBackground":{
+            "default":"#dce7ea",
+            "light":"#ffffff"
+         },
+         "sectionBarFont":"#0093a0",
+         "multipleActiveOverride":"#"
+      },
+      "sprite":"\/img\/FTID\/sprite.png",
+      "headerBackgroundImage":"",
+      "headerImage":"\/img\/FTID\/ladyOnLaptop.png",
+      "formTitleImage":"\/img\/FTID\/logo.png",
+      "formContactType":"phone",
+      "formContactContent":"0456874562",
+      "radius":"5px",
+      "headingsFontFamily":"",
+      "fontFamily":"",
+      "fontSize":-0.1,
+      "3dEnabled":true,
+      "btnLabelPrevious":"Previous",
+      "btnLabelNext":"Proceed",
+      "btnLabelSave":"Complete Later",
+      "btnLabelSaveSub":"Save my application",
+      "btnLabelPrint":"Print this form",
+      "btnLabelPrintSub":"This will load a PDF",
+      "btnLabelComplete":"Complete",
+      "bulletPointUnicodeCharacter":""
+   }
+}
