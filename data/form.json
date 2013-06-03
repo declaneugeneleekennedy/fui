@@ -19,6 +19,7 @@
             "progressBarTitle":"Getting Started",
             "sections":[
                {
+                  "sectionId": 0,                
                   "sectionTitle":"Get started with our fast online application",
                   "contents":[
                      {
@@ -32,6 +33,7 @@
                   ]
                },
                {
+                  "sectionId": 1,
                   "sectionTitle":"Your application details",
                   "contents":[
                      {
@@ -94,6 +96,7 @@
                   ]
                },
                {
+                  "sectionId": 2,
                   "sectionTitle":"Details for applicant 1",
                   "contents":[
                      {
@@ -144,6 +147,7 @@
                   ]
                },
                {
+                  "sectionId": 3,
                   "sectionTitle":"Details for applicant 2",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -204,6 +208,7 @@
                   ]
                },
                {
+                  "sectionId": 4,
                   "sectionTitle":"Details for applicant 3",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -264,6 +269,7 @@
                   ]
                },
                {
+                  "sectionId": 5,
                   "sectionTitle":"Is this a section on its own?",
                   "contents":[
                      {
@@ -293,6 +299,7 @@
                   ]
                },
                {
+                  "sectionId": 6,
                   "sectionTitle":"Details for authorised signatory 1",
                   "contents":[
                      {
@@ -325,6 +332,7 @@
                   ]
                },
                {
+                  "sectionId": 7,
                   "sectionTitle":"Details for authorised signatory 2",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -367,6 +375,7 @@
                   ]
                },
                {
+                  "sectionId": 8,
                   "sectionTitle":"Details for authorised signatory 3",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -416,6 +425,7 @@
             "pageUrl":"personal-details",
             "sections":[
                {
+                  "sectionId": 9,
                   "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Personal Details",
                   "contents":[
                      {
@@ -521,6 +531,7 @@
                   ]
                },
                {
+                  "sectionId": 10,
                   "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Internet Banking",
                   "contents":[
                      {
@@ -544,6 +555,7 @@
                   ]
                },
                {
+                  "sectionId": 11,                
                   "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Address Details",
                   "contents":[
                      {
@@ -595,6 +607,7 @@
                   ]
                },
                {
+                  "sectionId": 12,
                   "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Personal Details",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -710,6 +723,7 @@
                   ]
                },
                {
+                  "sectionId": 13,
                   "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Internet Banking",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -743,6 +757,7 @@
                   ]
                },
                {
+                  "sectionId": 14,
                   "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Address Details",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -804,6 +819,7 @@
                   ]
                },
                {
+                  "sectionId": 15,
                   "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Personal Details",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -919,6 +935,7 @@
                   ]
                },
                {
+                  "sectionId": 16,
                   "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Internet Banking",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -952,6 +969,7 @@
                   ]
                },
                {
+                  "sectionId": 17,
                   "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Address Details",
                   "displayRule":{
                      "logicalOperator":"or",
@@ -1020,6 +1038,7 @@
             "pageUrl":"account-details",
             "sections":[
                {
+                  "sectionId": 18,
                   "sectionTitle":"Account Preferences",
                   "contents":[
                      {
@@ -1077,6 +1096,7 @@
             "pageUrl":"review",
             "sections":[
                {
+                  "sectionId": 19,
                   "sectionTitle":"Account Preferences",
                   "contents":[
                      {
@@ -1097,6 +1117,7 @@
             "progressBarTitle":"Verify Your Identity",
             "sections":[
                {
+                  "sectionId": 20,
                   "sectionTitle":"Verify Your Identity",
                   "contents":[
                      {
@@ -1185,6 +1206,7 @@
             "progressBarTitle":"Confirmation",
             "sections":[
                {
+                  "sectionId": 21,
                   "sectionTitle":"Congratulations...",
                   "contents":[
                      {
