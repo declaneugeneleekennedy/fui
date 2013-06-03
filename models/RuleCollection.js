@@ -1,5 +1,7 @@
 define(
-['vpl/collection'],
-function(VplCollection) {
-    return VplCollection.extend({});
+['backbone', 'models/RuleModel'],
+function(Backbone, RuleModel) {
+    return Backbone.Collection.extend({
+        model: RuleModel
+    });
 });

@@ -1,6 +1,7 @@
-define(['vpl/model'],
-function(VplModel) {
-    return VplModel.extend({
+define(
+['backbone'],
+function(Backbone) {
+    return Backbone.Model.extend({
         defaults: {
             triggerContentId: null,
             operator: '=',

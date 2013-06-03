@@ -1,17 +1,31 @@
 define(
-['jquery', 'vpl/model', 'models/ContentCollection', 'models/ContentModel'],
-function($, VplModel, ContentCollection, ContentModel) {
-    return VplModel.extend({
-        defaults: {},
-        initialize: function(attributes) {
+['underscore', 'backbone', 'models/DisplayRuleModel',
+    'models/ContentCollection', 'text!templates/include/Section.html'],
+function(_, Backbone, DisplayRuleModel, ContentCollection, Template) {
+    return Backbone.Model.extend({
+        template: Template,
+        idAttribute: 'sectionId',
+        defaults: {    
+            sectionTitle: 'Section',
+            persona: 1,
+            displayRule: {},
+            contents: [],
+            display: true,
+            element: null
+        },
+        initialize: function() {
             var $t = this;
 
-            var contentCollection = new ContentCollection();
-            $.each(attributes.contents, function() {
-                contentCollection.add(new ContentModel(this));
-            });
+            $t.attributes.displayRule   = new DisplayRuleModel($t.get('displayRule'));
+            $t.attributes.contents      = new ContentCollection($t.get('contents'));
+        },
+        getHtml: function() {
+            var $t = this;
 
-            $t.set('contents', contentCollection);
+            return _.template($t.template).call($t, {
+                sectionId:  $t.id,
+                title:      $t.get('sectionTitle')
+            });
         }
     });
 });

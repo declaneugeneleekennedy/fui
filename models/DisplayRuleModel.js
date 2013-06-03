@@ -1,21 +1,15 @@
 define(
-['vpl/model', 'models/DisplayRuleCollection', 'models/RuleCollection'],
-function(VplModel, DisplayRuleCollection, RuleCollection) {
-    return VplModel.extend({
-        collection: DisplayRuleCollection,
+['backbone', 'models/RuleCollection'],
+function(Backbone, RuleCollection) {
+    return Backbone.Model.extend({
         defaults: {
             logicalOperator: 'and',
-            rules: new RuleCollection
+            rules: []
         },
-        _operators: ['and', 'or'],
-        setOperator: function(operator) {
+        initialize: function() {
             var $t = this;
 
-            if(!$.inArray(operator, $t._operators)) {
-                throw 'Unknown operator specified: ' + operator;
-            }
-
-            $t.set('logicalOperator') = operator;
+            $t.attributes.rules = new RuleCollection($t.get('rules'));
         }
     });
 });

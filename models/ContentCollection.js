@@ -1,6 +1,6 @@
-define(['vpl/collection'],
-function(VplCollection) {
-    return VplCollection.extend({
-    
+define(['backbone', 'models/ContentModel'],
+function(Backbone, ContentModel) {
+    return Backbone.Collection.extend({
+        model: ContentModel
     });
 });

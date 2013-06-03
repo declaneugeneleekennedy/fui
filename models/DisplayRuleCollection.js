@@ -1,5 +1,6 @@
-define(['jquery', 'vpl/collection'],
-function($, VplCollection) {
-    return VplCollection.extend({
+define(['backbone', 'models/DisplayRuleModel'],
+function(Backbone, DisplayRuleModel) {
+    return Backbone.Collection.extend({
+        model: DisplayRuleModel
     });
 });
