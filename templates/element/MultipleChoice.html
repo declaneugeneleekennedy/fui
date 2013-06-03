@@ -1,0 +1,15 @@
+<%
+    var $a = contentAttributes;
+    var $e = 'input_' + contentId;
+%>
+<label for="<%= $e %>"><%= $a.question %></label>
+<select id="<%= $e %>" name="<%= $e %>">
+<%
+    for(var i = 0; i < $a.options.length; ++i) {
+        var option = $a.options[i];
+%>
+    <option><%= option.value %></option>
+<%
+    }
+%>
+</select>

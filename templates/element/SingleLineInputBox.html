@@ -1,0 +1,6 @@
+<%
+    var $a = contentAttributes;
+    var $e = "input_" + contentId;
+%>
+<label for="<%= $e %>"><%= $a.question %></label>
+<input type="text" name="<%= $e %>" id="<%= $e %>" default="<%= $a.suggestedInput %>" />

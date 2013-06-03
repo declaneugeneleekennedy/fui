@@ -1,28 +1,4 @@
+<% var form = assigns.form; %>
 <div id="form-container">
-    <form name="" action="" method="">
-    <%
-        var section = null;
-        for(var i = 0; i < assigns.sections.length; i++) {
-            section = assigns.sections[i];
-    %>
-        <div class="section" id="section_<%= i %>">
-            <h3><%= section.sectionTitle %></h3>
-            <div class="sectionBody">
-            <%
-                var content = null;
-                for(var c = 0; c < section.contents.length; c++) {
-                    content = section.contents.at(c).toJSON();
-            %>
-                <div class="contentElement">
-                    <label for="input_<%= content.contentId %>">
-                        Content element <%= content.contentId %>
-                    <label>
-                    <input type="text" id="input_<%= content.contentId %>" name="input_<%= content.contentId %>" />
-                    <br />
-                </div>
-            <% } %>
-            </div>
-        </div>
-    <% } %>
-    </form>
+    <form id="form_<%= form.formVerId %>" name="" action="" method=""></form>
 </div>
