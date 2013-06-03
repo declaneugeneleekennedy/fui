@@ -7,24 +7,58 @@ function($, VplView, PageViewModel) {
         initialize: function() {
             var $t = this;
 
-            $(document).one('dispatchComplete', function() {
-                $('.contentElement input').on('blur', function() {
-                    console.log(this, 'Changed Element');
+            // check display rules to ensure page is meant to display
+            $t.bind('fetchComplete', function() {
+                var destination = $t.viewModel.get('destination');
+                if(destination) {
+                    $t.goTo(destination);
+                }
+            });
 
-                    var sectionI    = parseInt($(this).parents('.section').attr('id').replace(/[^0-9]/gi, ''));
-                    var section     = $t.viewModel.getCollection('sections').at(sectionI);
+            // attach sections and elements to DOM, bind element change events
+            $t.bind('renderComplete', function() {
+                $t.viewModel.getCollection('sections').each(function(section) {
+                    var sectionElement = $(section.getHtml());
 
-                    console.log(section, 'Element Section');
+                    section.bind('change:display', function() {
+                        if(section.get('display')) {
+                            sectionElement.show();
+                        } else {
+                            sectionElement.hide();
+                        }
+                    });
 
-                    var contentId   = parseInt($(this).attr('id').replace(/[^0-9]/gi, ''));
-                    var content     = section.get('contents').where({contentId: contentId})[0];
+                    section.trigger('change:display');
 
-                    console.log(content, 'Element Content');
-                    
-                    if($(this).val() != content.get('value')) {
-                        console.log('Value changed to "%s"', $(this).val());
-                        content.set('value', $(this).val());
-                    }
+                    section.get('contents').each(function(content) {
+                        var contentElement = $(content.getHtml());
+
+                        // bind display rule events
+
+                        content.bind('change:display', function() {
+                            if(content.get('display')) {
+                                contentElement.show();
+                            } else {
+                                contentElement.hide();
+                            }
+                        });
+
+                        // trigger initial event
+                        content.trigger('change:display');
+
+                        // bind change event
+                        var changeEvent = content.get('contentElement').get('changeEvent');
+                        $('*[name="input_' + content.get('contentId') + '"]', contentElement).bind(changeEvent, function() {
+                            if($(this).val() != content.get('value')) {
+                                content.set('value', $(this).val());
+                            }
+                        });
+
+                        sectionElement.append(contentElement);
+                    });
+
+                    // append the section
+                    $('#form-container form', $t.$el).append(sectionElement);
                 });
             });
         }
