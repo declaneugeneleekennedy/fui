@@ -1,104 +1,110 @@
 define(
-['underscore', 'backbone', 'vpl/viewModel', 'models/FormModel', 'models/ContentCollection'],
-function(_, Backbone, VplViewModel, FormModel, ContentCollection) {
+['underscore', 'backbone', 'vpl/viewModel', 'models/FormModel', 'models/ContentCollection',
+    'models/RuleMapCollection'],
+function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollection) {
     return VplViewModel.extend({
         models: {form: new FormModel},
         assignVars: function(args) {
             var $t = this;
 
-            // assign page and sections for convenience
-            var pages = $t.getModel('form').get('pages');
+            // assign page, sections and contents for rule mapping
 
-            $t.addModel('page', pages.findWhere({pageUrl: args.pageUrl}));
-            $t.addCollection('sections', $t.getModel('page').get('sections'));
+            $t.addCollection('pages',       $t.getModel('form').getPages());
+            $t.addCollection('sections',    $t.getModel('form').getSections());
+            $t.addCollection('contents',    $t.getModel('form').getContents());
 
-            // create a mapping of display rule trigger IDs to content IDs and create flat content collection
-            var sectionRuleMap  = {};
-            var contentRuleMap  = {};
-            var contents        = new ContentCollection;
+            $t.mapDisplayRules();
 
-            $t.getCollection('sections').each(function(section) {
-                section.get('displayRule').get('rules').each(function(rule) {
-                    if(!sectionRuleMap[rule.get('triggerContentId')]) {
-                        sectionRuleMap[rule.get('triggerContentId')] = [];
-                    }
+            console.log($t.getCollection('ruleMap'), 'Rule Map');
 
-                    sectionRuleMap[rule.get('triggerContentId')].push(section.get('sectionId'));
+            // bind change events and set starting values
+            $t.getCollection('contents').each(function(content) {
+                var ruleMap = $t.getCollection('ruleMap').findWhere({
+                    triggerContentId: content.get('contentId')
                 });
 
-                section.get('contents').each(function(content) {
-                    content.get('displayRule').get('rules').each(function(rule) {
-                        if(!contentRuleMap[rule.get('triggerContentId')]) {
-                            console.log('Initializing IDs triggered by %s', rule.get('triggerContentId'));
-                            contentRuleMap[rule.get('triggerContentId')] = [];
-                        }
-
-                        contentRuleMap[rule.get('triggerContentId')].push(content.get('contentId'));
-                    });
-
-                    // add to flat content collection
-                    contents.add(content);
-                });
-            });
-
-            console.log(sectionRuleMap, 'Section Rule Map');
-            console.log(contentRuleMap, 'Content Rule Map');
-            console.log(contents,       'Flat Content Collection');
-
-            $t.addVar('sectionRuleMap',     sectionRuleMap);
-            $t.addVar('contentRuleMap',     contentRuleMap);
-            $t.addCollection('contents',    contents);
-
-            /*
-             * Now that all of the mappings have been made, bind relevant change events
-             * to the appropriate models
-             */
-
-             var bindMap = {
-                sections: sectionRuleMap,
-                contents: contentRuleMap
-             }
-
-             _.each(bindMap, function(ruleMap, collection) {
-                _.each(ruleMap, function(modelIds, id) {             
-                    $t.getCollection('contents').findWhere({contentId: parseInt(id)}).bind('change:value', function() {
-                        var affected = $t.getCollection(collection).filter(function(model) {
-                            return _.indexOf(modelIds, model.id) != -1;
-                        });
-
-                        _.each(affected, function(model) {
+                if(ruleMap) {
+                    content.bind('change:value', function() {
+                        _.each(ruleMap.get('entities'), function(model) {
                             model.set('display', $t.checkDisplayRule(model.get('displayRule')));
                         });
                     });
-                });
-             });
+                }
 
-            // set all current/default values (PLACEHOLDER to trigger initial display rule events)
-            $t.getCollection('contents').each(function(content) {
+                // PLACEHOLDER - triggers change events to set initial display rules
                 content.trigger('change:value');
             });
+
+            $t.addModel('page', $t.getCollection('pages').findWhere({pageUrl: args.pageUrl}));
+
+            // now that the display rules are processed, check that this page is okay to show
+            if(!$t.getModel('page').get('display')) {
+                var atNow = null;
+                $t.getCollection('pages').each(function(page, at) {
+                    if(atNow != null) {
+                        return;
+                    }
+
+                    if(page.get('pageUrl') == args.pageUrl) {
+                        atNow = at;
+                    }
+                });
+
+                var destination =
+                    $t.getModel('form').get('formUrl') + '/' +
+                    $t.getCollection('pages').at(atNow + 1).get('pageUrl');
+
+                $t.addVar('destination', destination);
+            }
         },
-        checkDisplayRule: function(displayRule) {
-            var $t = this, passCount = 0;
+        mapDisplayRules: function() {
+            var $t = this;
 
-            displayRule.get('rules').each(function(rule) {
-                console.log(rule, 'Checking Rule');
-                var ruleValue = rule.get('value');
-                var formValue = $t.getCollection('contents')
-                    .findWhere({contentId: rule.get('triggerContentId')})
-                    .get('value');
+            var map = new RuleMapCollection();
 
-                var operator = rule.get('operator');
+            $t.getModel('form').get('pages').each(function(page) {                
+                page.get('displayRule').get('rules').each(function(rule) {
+                    map.addRuleMap(rule.get('triggerContentId'), page);
+                });
 
-                if($t.compareByRule(ruleValue, formValue, operator)) {
-                    ++passCount;
-                }
+                page.get('sections').each(function(section) {
+                    section.get('displayRule').get('rules').each(function(rule) {
+                        map.addRuleMap(rule.get('triggerContentId'), section);
+                    });
+
+                    section.get('contents').each(function(content) {
+                        content.get('displayRule').get('rules').each(function(rule) {
+                            map.addRuleMap(rule.get('triggerContentId'), content);
+                        });
+                    });
+                });
             });
 
-            return ((displayRule.get('logicalOperator') == 'or' && passCount > 0) ||
-                    passCount == displayRule.get('rules').length);
+            $t.addCollection('ruleMap', map);
         },
-        compareByRule: function(ruleValue, formValue, operator) {
+        checkDisplayRule: function(displayRule) {
+            var $t = this;
+
+            var testMethod = function(rule) {
+                return $t.compareByRule.call($t, rule);
+            };
+
+            if(displayRule.get('logicalOperator') == 'and') {
+                return displayRule.get('rules').every(testMethod);
+            } else {
+                return displayRule.get('rules').some(testMethod);
+            }
+        },
+        compareByRule: function(rule) {
+            var $t = this;
+
+            var ruleValue = rule.get('value');
+            var formValue = $t.getCollection('contents')
+                .findWhere({contentId: rule.get('triggerContentId')})
+                .get('value');
+
+            var operator = rule.get('operator');
+
             switch(operator) {
                 case '>':
                     return (formValue > ruleValue);

@@ -17,7 +17,7 @@ function($, VplView, PageViewModel) {
 
             // attach sections and elements to DOM, bind element change events
             $t.bind('renderComplete', function() {
-                $t.viewModel.getCollection('sections').each(function(section) {
+                $t.viewModel.getModel('page').get('sections').each(function(section) {
                     var sectionElement = $(section.getHtml());
 
                     section.bind('change:display', function() {
