@@ -2,3 +2,11 @@
 <div id="form-container">
     <form id="form_<%= form.formVerId %>" name="" action="" method=""></form>
 </div>
+
+<%
+    $.each(assigns.links, function(title, link) {        
+%>
+<a href="<%= link %>"><%= title %></a>
+<%
+    });
+%>

@@ -19,6 +19,8 @@ function(VplModel, FormCollection, PageModel, PageCollection, SectionCollection,
         setMembers: function(modelData) {
             var $t = this;
 
+            $t.attributes = modelData[0].attributes;
+
             var pageCollection = new PageCollection();
 
             $.each(modelData[0].get('pages'), function() {

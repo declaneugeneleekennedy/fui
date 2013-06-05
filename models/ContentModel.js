@@ -46,21 +46,6 @@ function($, Backbone, DisplayRuleModel, ContentAttributeModelFactory, ContentEle
             };
 
             return $t.get('contentElement').getHtml(data);
-        },
-        setElement: function(element) {
-            var $t = this;
-
-            $t.get('contentElement').set('element', element);
-            
-            // bind the change event for display as the element has been added
-            $t.bind('change:display', function(content) {
-                var element = $t.get('contentElement').get('element');
-                if(content.get('display')) {
-                    element.show();
-                } else {
-                    element.hide();
-                }
-            });
-        }
+        }        
     });
 });

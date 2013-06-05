@@ -426,7 +426,7 @@
             "sections":[
                {
                   "sectionId": 9,
-                  "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Personal Details",
+                  "sectionTitle":"{Formbanc_populate|4|Applicant 1} Personal Details",
                   "contents":[
                      {
                         "contentId":26,
@@ -532,7 +532,7 @@
                },
                {
                   "sectionId": 10,
-                  "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Internet Banking",
+                  "sectionTitle":"{Formbanc_populate|4|Applicant 1} Internet Banking",
                   "contents":[
                      {
                         "contentId":34,
@@ -556,7 +556,7 @@
                },
                {
                   "sectionId": 11,                
-                  "sectionTitle":"{Formbanc_populate|4||'s|Applicant 1} Address Details",
+                  "sectionTitle":"{Formbanc_populate|4|Applicant 1} Address Details",
                   "contents":[
                      {
                         "contentId":36,
@@ -608,7 +608,7 @@
                },
                {
                   "sectionId": 12,
-                  "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Personal Details",
+                  "sectionTitle":"{Formbanc_populate|8|Applicant 2} Personal Details",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[
@@ -724,7 +724,7 @@
                },
                {
                   "sectionId": 13,
-                  "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Internet Banking",
+                  "sectionTitle":"{Formbanc_populate|8|Applicant 2} Internet Banking",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[
@@ -758,7 +758,7 @@
                },
                {
                   "sectionId": 14,
-                  "sectionTitle":"{Formbanc_populate|8||'s|Applicant 2} Address Details",
+                  "sectionTitle":"{Formbanc_populate|8|Applicant 2} Address Details",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[
@@ -820,7 +820,7 @@
                },
                {
                   "sectionId": 15,
-                  "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Personal Details",
+                  "sectionTitle":"{Formbanc_populate|12|Applicant 3} Personal Details",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[
@@ -936,7 +936,7 @@
                },
                {
                   "sectionId": 16,
-                  "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Internet Banking",
+                  "sectionTitle":"{Formbanc_populate|12|Applicant 3} Internet Banking",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[
@@ -970,7 +970,7 @@
                },
                {
                   "sectionId": 17,
-                  "sectionTitle":"{Formbanc_populate|12||'s|Applicant 3} Address Details",
+                  "sectionTitle":"{Formbanc_populate|12|Applicant 3} Address Details",
                   "displayRule":{
                      "logicalOperator":"or",
                      "rules":[

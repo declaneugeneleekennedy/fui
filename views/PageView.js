@@ -3,16 +3,29 @@ define(
 function($, VplView, PageViewModel) {
     return VplView.extend({        
         template: '/templates/page/Form.html',
-        viewModel: new PageViewModel,
+        viewModel: null,
         initialize: function() {
             var $t = this;
 
+            // @todo [dk] - need a cleaner way to do this
+            $t.viewModel = window.viewModel || new PageViewModel;            
+
             // check display rules to ensure page is meant to display
-            $t.bind('fetchComplete', function() {
+            $t.viewModel.bind('fetchComplete', function() {
                 var destination = $t.viewModel.get('destination');
                 if(destination) {
                     $t.goTo(destination);
                 }
+
+                // PLACEHOLDER - prepare progress links for testing viewModel persistence
+                var links = {}, prefix = '/' + $t.viewModel.getModel('form').get('formUrl');
+                $t.viewModel.getModel('form').get('pages').each(function(page) {
+                    links[page.get('pageTitle')] = prefix + '/' + page.get('pageUrl');
+                });
+
+                $t.viewModel.addVar('links', links);
+
+                $t.setTitle($t.viewModel.getModel('page').get('pageTitle'));
             });
 
             // attach sections and elements to DOM, bind element change events
@@ -59,6 +72,9 @@ function($, VplView, PageViewModel) {
 
                     // append the section
                     $('#form-container form', $t.$el).append(sectionElement);
+
+                    // persist the view model
+                    window.viewModel = $t.viewModel;
                 });
             });
         }
