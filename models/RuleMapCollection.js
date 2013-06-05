@@ -2,19 +2,19 @@ define(['backbone', 'models/RuleMapModel'],
 function(Backbone, RuleMapModel) {
     return Backbone.Collection.extend({
         model: RuleMapModel,
-        addRuleMap: function(triggerContentId, entity) {
+        addRuleMap: function(triggerContentId, model) {
             var $t = this;
 
-            var model = $t.findWhere({
+            var rule = $t.findWhere({
                 triggerContentId: triggerContentId
             });
 
-            if(model) {
-                model.get('entities').push(entity);
+            if(rule) {
+                rule.get('models').push(model);
             } else {
                 $t.add(new RuleMapModel({
                     triggerContentId: triggerContentId,
-                    entities: [entity]
+                    models: [model]
                 }));
             }
         }

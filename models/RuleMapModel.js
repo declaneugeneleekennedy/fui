@@ -5,7 +5,7 @@ function(Backbone) {
         defaults: {
             type: null,
             triggerContentId: null,
-            rules: []
+            models: []
         }
     });
 });
