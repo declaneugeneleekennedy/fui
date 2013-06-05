@@ -1,60 +1,64 @@
 define(
 ['underscore', 'backbone', 'vpl/viewModel', 'models/FormModel', 'models/ContentCollection',
-    'models/RuleMapCollection'],
-function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollection) {
+    'models/RuleMapCollection', 'models/TaggedValueModelFactory', 'models/TaggedValueMapCollection'],
+function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollection,
+    TaggedValueModelFactory, TaggedValueMapCollection
+) {
     return VplViewModel.extend({
         models: {form: new FormModel},
         assignVars: function(args) {
             var $t = this;
 
-            // assign page, sections and contents for rule mapping
+            // bind these operations to fetchComplete as they're only needed once
+            $t.bind('fetchComplete', function() {                
+                // assign page, sections and contents for rule mapping
 
-            $t.addCollection('pages',       $t.getModel('form').getPages());
-            $t.addCollection('sections',    $t.getModel('form').getSections());
-            $t.addCollection('contents',    $t.getModel('form').getContents());
+                $t.addCollection('pages',       $t.getModel('form').getPages());
+                $t.addCollection('sections',    $t.getModel('form').getSections());
+                $t.addCollection('contents',    $t.getModel('form').getContents());
 
-            $t.mapDisplayRules();
+                $t.mapDisplayRules();
+                $t.mapTaggedValues();
 
-            console.log($t.getCollection('ruleMap'), 'Rule Map');
+                console.log($t.getCollection('ruleMap'), 'Rule Map');
+                console.log($t.getCollection('tagMap'), 'Tag Map');
 
-            // bind change events and set starting values
-            $t.getCollection('contents').each(function(content) {
-                var ruleMap = $t.getCollection('ruleMap').findWhere({
-                    triggerContentId: content.get('contentId')
-                });
-
-                if(ruleMap) {
-                    content.bind('change:value', function() {
-                        _.each(ruleMap.get('entities'), function(model) {
-                            model.set('display', $t.checkDisplayRule(model.get('displayRule')));
-                        });
+                // bind change events and set starting values
+                $t.getCollection('contents').each(function(content) {
+                    var ruleMap = $t.getCollection('ruleMap').findWhere({
+                        triggerContentId: content.get('contentId')
                     });
-                }
 
-                // PLACEHOLDER - triggers change events to set initial display rules
-                content.trigger('change:value');
+                    if(ruleMap) {
+                        content.bind('change:value', function() {
+                            _.each(ruleMap.get('models'), function(model) {
+                                model.set('display', $t.checkDisplayRule(model.get('displayRule')));
+                            });
+                        });
+                    }
+
+                    var tagMap = $t.getCollection('tagMap').findWhere({
+                        triggerContentId: content.get('contentId')
+                    });
+
+                    if(tagMap) {
+                        content.bind('change:value', function() {
+                            _.each(tagMap.get('models'), function(taggedValue) {
+                                taggedValue.processTag(content.get('value'));
+                            });
+                        });
+                    }                        
+
+                    // @todo [dk] - set saved values
+                    content.trigger('change:value');
+                });
             });
 
-            $t.addModel('page', $t.getCollection('pages').findWhere({pageUrl: args.pageUrl}));
+            $t.addModel('page', $t.getModel('form').get('pages').findWhere({pageUrl: args.pageUrl}));
 
             // now that the display rules are processed, check that this page is okay to show
             if(!$t.getModel('page').get('display')) {
-                var atNow = null;
-                $t.getCollection('pages').each(function(page, at) {
-                    if(atNow != null) {
-                        return;
-                    }
-
-                    if(page.get('pageUrl') == args.pageUrl) {
-                        atNow = at;
-                    }
-                });
-
-                var destination =
-                    $t.getModel('form').get('formUrl') + '/' +
-                    $t.getCollection('pages').at(atNow + 1).get('pageUrl');
-
-                $t.addVar('destination', destination);
+                // @todo [dk] - redirect to the next page
             }
         },
         mapDisplayRules: function() {
@@ -125,6 +129,45 @@ function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollect
                     return (formValue == ruleValue);
                     break;
             }
+        },
+        addTaggedValues: function(taggedValues) {
+            var $t = this;
+
+            if(taggedValues) {
+                if(!$t.getCollection('tagMap')) {
+                    $t.addCollection('tagMap', new TaggedValueMapCollection);
+                }
+
+                _.each(taggedValues, function(taggedValue) {
+                    $t.getCollection('tagMap')
+                        .addTaggedValueMap(taggedValue.get('triggerContentId'), taggedValue);
+                });
+            }
+        },
+        mapTaggedValues: function() {
+            var $t = this;
+
+            // map page titles
+            $t.getCollection('pages').each(function(page) {
+                $t.addTaggedValues(TaggedValueModelFactory.getInstances(page, 'pageTitle'));
+            });
+
+            // map section titles
+            $t.getCollection('sections').each(function(section) {
+                $t.addTaggedValues(TaggedValueModelFactory.getInstances(section, 'sectionTitle'));
+            });
+
+            // map content attribute changes
+            var tests = ['question', 'suggestedInput'];
+
+            $t.getCollection('contents').each(function(content) {
+                _.each(tests, function(property) {
+                    if(content.get('contentAttributes').get(property)) {
+                        $t.addTaggedValues(TaggedValueModelFactory
+                            .getInstances(content.get('contentAttributes'), property));
+                    }
+                });
+            });
         }
     });
 });
