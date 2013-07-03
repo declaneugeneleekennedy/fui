@@ -28,6 +28,13 @@ function(VplModel, FormCollection, PageModel, PageCollection, SectionCollection,
             });
 
             $t.attributes.pages = pageCollection;
+
+            // bind validation events
+            $t.getContents().each(function(content) {
+                content.bind('change:value', function() {
+                    content.validate($t);
+                });
+            });
         },
         getPages: function() {
             var $t = this;
