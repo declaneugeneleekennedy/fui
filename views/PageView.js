@@ -4,11 +4,17 @@ function($, VplView, PageViewModel) {
     return VplView.extend({        
         template: '/templates/page/Form.html',
         viewModel: null,
+        getPersistentViewModel: function() {
+            return window.viewModel || new PageViewModel;
+        },
+        setPersistentViewModel: function(viewModel) {
+            window.viewModel = viewModel;
+        },
         initialize: function() {
             var $t = this;
 
             // @todo [dk] - need a cleaner way to do this
-            $t.viewModel = window.viewModel || new PageViewModel;            
+            $t.viewModel = $t.getPersistentViewModel();            
 
             // check display rules to ensure page is meant to display
             $t.viewModel.bind('fetchComplete', function() {
@@ -18,7 +24,7 @@ function($, VplView, PageViewModel) {
                 }
 
                 // PLACEHOLDER - prepare progress links for testing viewModel persistence
-                var links = {}, prefix = '/' + $t.viewModel.getModel('form').get('formUrl');
+                var links = {}, prefix = '/#' + $t.viewModel.getModel('form').get('formUrl');
                 $t.viewModel.getModel('form').get('pages').each(function(page) {
                     links[page.get('pageTitle')] = prefix + '/' + page.get('pageUrl');
                 });
@@ -44,10 +50,9 @@ function($, VplView, PageViewModel) {
                     section.trigger('change:display');
 
                     section.get('contents').each(function(content) {
-                        var contentElement = $(content.getHtml());
+                        var contentElement = $(content.getHtml($t.viewModel.getModel('form')));
 
                         // bind display rule events
-
                         content.bind('change:display', function() {
                             if(content.get('display')) {
                                 contentElement.show();
@@ -59,23 +64,40 @@ function($, VplView, PageViewModel) {
                         // trigger initial event
                         content.trigger('change:display');
 
-                        // bind change event
-                        var changeEvent = content.get('contentElement').get('changeEvent');
-                        $('*[name="input_' + content.get('contentId') + '"]', contentElement).bind(changeEvent, function() {
-                            if($(this).val() != content.get('value')) {
-                                content.set('value', $(this).val());
+                        // bind validity change events
+                        content.bind('change:valid', function() {
+                            // default state is null - neither valid nor invalid
+                            if(content.get('valid') == null) {
+                                return;
                             }
+
+                            var oldClass, newClass;
+                            if(content.get('valid')) {
+                                console.log('Content is valid');
+                                oldClass = 'invalid';
+                                newClass = 'valid';
+                            } else {
+                                console.log('Content is invalid');
+                                oldClass = 'valid';
+                                newClass = 'invalid';
+                            }
+
+                            contentElement
+                                .removeClass(oldClass)
+                                .addClass(newClass);
                         });
 
-                        sectionElement.append(contentElement);
+                        // bind change events
+                        content.bindChanges(contentElement);
+
+                        ('.sectionBody', sectionElement).append(contentElement);
                     });
 
                     // append the section
-                    $('#form-container form', $t.$el).append(sectionElement);
-
-                    // persist the view model
-                    window.viewModel = $t.viewModel;
+                    $('#formContainer form', $t.$el).append(sectionElement);
                 });
+
+                $t.setPersistentViewModel($t.viewModel);
             });
         }
     });

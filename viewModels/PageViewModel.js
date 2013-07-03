@@ -5,12 +5,13 @@ function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollect
     TaggedValueModelFactory, TaggedValueMapCollection
 ) {
     return VplViewModel.extend({
+        isMapped: false,
         models: {form: new FormModel},
         assignVars: function(args) {
             var $t = this;
 
-            // bind these operations to fetchComplete as they're only needed once
-            $t.bind('fetchComplete', function() {                
+            // this should only need to be done once
+            if(!$t.isMapped) {
                 // assign page, sections and contents for rule mapping
 
                 $t.addCollection('pages',       $t.getModel('form').getPages());
@@ -47,12 +48,14 @@ function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollect
                                 taggedValue.processTag(content.get('value'));
                             });
                         });
-                    }                        
+                    }
 
                     // @todo [dk] - set saved values
                     content.trigger('change:value');
                 });
-            });
+
+                $t.isMapped = true;
+            }
 
             $t.addModel('page', $t.getModel('form').get('pages').findWhere({pageUrl: args.pageUrl}));
 
@@ -162,9 +165,9 @@ function(_, Backbone, VplViewModel, FormModel, ContentCollection, RuleMapCollect
 
             $t.getCollection('contents').each(function(content) {
                 _.each(tests, function(property) {
-                    if(content.get('contentAttributes').get(property)) {
+                    if(content.get(property)) {
                         $t.addTaggedValues(TaggedValueModelFactory
-                            .getInstances(content.get('contentAttributes'), property));
+                            .getInstances(content, property));
                     }
                 });
             });
