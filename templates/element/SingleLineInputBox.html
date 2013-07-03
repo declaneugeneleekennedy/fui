@@ -1,6 +1,34 @@
 <%
-    var $a = contentAttributes;
-    var $e = "input_" + contentId;
+    var $e = name;
+    var $f = 'format' + inputFormatId;
 %>
-<label for="<%= $e %>"><%= $a.question %></label>
-<input type="text" name="<%= $e %>" id="<%= $e %>" default="<%= $a.suggestedInput %>" value="<%= value %>" />
+<div class="singleLineInputBox <%= inputType %>">
+    <label class="question" for="<%= $e %>">
+        <span class="text"><%= question %></span>
+    </label>
+
+    <div class="input <%= $f %>">
+        <span class="element">
+            <input type="<%= inputType %>" name="<%= $e %>" id="<%= $e %>" value="<%= value %>" placeholder="<%= suggestedInput %>" data-input-format="<%= inputFormatId %>" />
+        </span>
+    </div>
+</div>
+
+<%
+    if(confirmationLabel) {
+        var $c = $e + 'Confirmation';
+%>
+<div class="singleLineInputBox <%= inputType %> confirm">
+    <label class="question" for="<%= $c %>">
+        <span class="text"><%= confirmationLabel %></span>
+    </label>
+
+    <div class="input <%= $f %>">
+        <span class="element">
+            <input type="<%= inputType %>" name="<%= $c %>" id="<%= $c %>" value="<%= value %>" placeholder="<%= suggestedInput %>" data-input-format="<%= inputFormatId %>" />
+        </span>
+    </div>
+</div>
+<%
+    }
+%>

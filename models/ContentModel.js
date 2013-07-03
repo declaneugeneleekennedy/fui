@@ -1,51 +1,99 @@
 define(
-['jquery', 'backbone', 'models/DisplayRuleModel',
-    'models/ContentAttributeModelFactory', 'models/ContentElementModelFactory'],
-function($, Backbone, DisplayRuleModel, ContentAttributeModelFactory, ContentElementModelFactory) {
+['jquery', 'underscore', 'backbone', 'models/DisplayRuleModel'],
+function($, _, Backbone, DisplayRuleModel) {
     return Backbone.Model.extend({
         defaults: {
+            name: null,
             contentId: null,
             contentTypeId: null,
             tooltip: '',
             value: '',
             displayRule: {},
-            contentAttributes: {},
-            contentElement: {},
-            display: true
+            template: '',
+            required: false,
+            errors: [],
+            display: true,
+            valid: null,
+            inputs: []
+        },
+        setExtendedAttributes: function() {
+            console.log('Calling ContentModel.setExtendedAttributes no-op');
         },
         initialize: function() {
             var $t = this;
+            
+            $t.set('displayRule', new DisplayRuleModel($t.get('displayRule')));
 
-            $t.attributes.displayRule = new DisplayRuleModel($t.get('displayRule'));
+            if($t.get('contentAttributes')) {
+                _.each($t.get('contentAttributes'), function(value, name) {
+                    $t.set(name, value);
+                });
 
-            $t.attributes.contentAttributes =
-                ContentAttributeModelFactory.getInstance(
-                    $t.get('contentTypeId'),
-                    $t.get('contentAttributes'));
+                $t.setExtendedAttributes();
 
-            $t.attributes.contentElement =
-                ContentElementModelFactory.getInstance($t.get('contentTypeId'));
+                $t.unset('contentAttributes');
+            }
+
+            $t.set('name', 'input' + $t.get('contentId'));
         },
-        getHtml: function() {
+        bindChanges: function(contentElement) {
+            console.log('Calling ContentModel.bindChanges no-op')
+        },
+        getHtml: function(form) {
             var $t = this;
 
-            return $(document.createElement('div'))
+            var element = $(document.createElement('div'))
                 .attr('id', 'element_' + $t.get('contentId'))
                 .addClass('contentElement')
-                .append($($t.renderElement()));
+                .append($($t.renderElement(form)));
 
+            if($t.get('required')) {
+                element.addClass('required');
+            }
+
+            return element;
         },
-        renderElement: function() {
+        getElementData: function(form) {
             var $t = this;
 
-            var data = {
-                contentId:          $t.get('contentId'),
-                tooltip:            $t.get('tooltip'),
-                value:              $t.get('value'),
-                contentAttributes:  $t.get('contentAttributes').toJSON()
-            };
+            return $t.toJSON();
+        },
+        renderElement: function(form) {
+            var $t = this;
 
-            return $t.get('contentElement').getHtml(data);
-        }        
+            if(!$t.get('template')) {
+                throw "Can't render element: no template found";
+            }
+
+            return _.template($t.get('template')).call($t, $t.getElementData(form));
+        },
+        clearErrors: function() {
+            var $t = this;
+            $t.set('errors', []);            
+        },
+        addError: function(message) {
+            var $t = this;
+            $t.get('errors').push(message);
+        },
+        validateValue: function(value, form) {
+            console.log('Calling ContentModel.validateValue no-op with value %s', value);
+        },
+        validate: function(form, allowEmpty) {
+            var $t = this;
+
+            $t.clearErrors();
+
+            var value = $t.get('value');
+            if(!value) {
+                if($t.get('required') && !allowEmpty) {
+                    $t.addError('Input is required');
+                }
+            } else {
+                $t.validateValue(value, form);
+                $t.set('valid', ($t.get('errors').length == 0));
+            }
+
+            console.log($t.get('errors'), 'Validation Errors');
+        }
     });
 });

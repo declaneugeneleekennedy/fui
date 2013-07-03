@@ -1,6 +1,6 @@
-<%
-    var $a = contentAttributes;
-    var $e = 'input_' + contentId;
-%>
-<label for="<%= $e %>"><%= $a.question %></label>
-<textarea id="<%= $e %>" name="<%= $e %>" rows="<%= $a.numOfLines %>"><%= value %></textarea>
+<div class="multilineInput">
+    <label class="question" data-icon="<%= questionIcon %>" for="<%= name %>"><%= question %></label>
+    <div class="input">
+        <textarea id="<%= $e %>" name="<%= name %>" rows="<%= numOfLines %>"><%= value %></textarea>
+    </div>
+</div>

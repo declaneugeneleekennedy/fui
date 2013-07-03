@@ -1,16 +1,26 @@
-<%
-    var $a = contentAttributes;
-    var $e = 'input_' + contentId;
-%>
-<label for="<%= $e %>"><%= $a.question %></label>
-<select id="<%= $e %>" name="<%= $e %>">
-<%
-    for(var i = 0; i < $a.options.length; ++i) {
-        var option = $a.options[i];
-        var selected = (option.value == value) ? ' selected="selected"' : '';
-%>
-    <option<%= selected %>><%= option.value %></option>
-<%
-    }
-%>
-</select>
+
+<div class="multipleChoice">
+    <label class="question" for="<%= name %>"><%= question %></label>
+
+    <div class="input <%= output %>">
+    <%
+        for(var i = 0; i < options.length; ++i) {
+            var option  = options[i];
+            var checked = (option.value == value) ? ' checked="checked"' : '';
+    %>
+        <label class="option">
+            <input type="<%= inputType %>" name="<%= name %>" value="<%= option.value %>"<%= checked %> />
+        <%
+            if(option.optionIcon) {
+        %>
+            <img src="<%= option.optionIcon %>" />
+        <%
+            }
+        %>
+            <span class="text"><%= option.value %></span>
+        </label>
+    <%
+        }
+    %>
+    </div>
+</div>
