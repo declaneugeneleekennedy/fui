@@ -1,7 +1,8 @@
 define(
 ['underscore', 'backbone', 'models/DisplayRuleModel',
-    'models/ContentCollection', 'text!templates/include/Section.html'],
-function(_, Backbone, DisplayRuleModel, ContentCollection, Template) {
+    'models/ContentModelFactory', 'models/ContentCollection',
+    'text!templates/include/Section.html'],
+function(_, Backbone, DisplayRuleModel, ContentModelFactory, ContentCollection, Template) {
     return Backbone.Model.extend({
         template: Template,
         idAttribute: 'sectionId',
@@ -16,8 +17,15 @@ function(_, Backbone, DisplayRuleModel, ContentCollection, Template) {
         initialize: function() {
             var $t = this;
 
-            $t.attributes.displayRule   = new DisplayRuleModel($t.get('displayRule'));
-            $t.attributes.contents      = new ContentCollection($t.get('contents'));
+            $t.attributes.displayRule = new DisplayRuleModel($t.get('displayRule'));
+
+            var contents = [];
+
+            _.each($t.get('contents'), function(content) {
+                contents.push(ContentModelFactory.getInstance(content.contentTypeId, content));
+            });
+
+            $t.attributes.contents = new ContentCollection(contents);
         },
         getHtml: function() {
             var $t = this;
