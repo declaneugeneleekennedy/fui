@@ -6,14 +6,14 @@
     <%
         for(var i = 0; i < options.length; ++i) {
             var option  = options[i];
-            var checked = (option.value == value) ? ' checked="checked"' : '';
+            var checked = (option.checked) ? ' checked="checked"' : '';
     %>
         <label class="option">
             <input type="<%= inputType %>" name="<%= name %>" value="<%= option.value %>"<%= checked %> />
         <%
             if(option.optionIcon) {
         %>
-            <img src="<%= option.optionIcon %>" />
+            <img src="<%= option.iconUrl %>" />
         <%
             }
         %>

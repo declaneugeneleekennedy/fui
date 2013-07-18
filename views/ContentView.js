@@ -38,8 +38,6 @@ function($, View) {
 
             $t.bindModelChanges();
 
-            $t.$el.attr('id', 'element' + $t.model.get('contentId'));
-
             $t.prepare();
 
             $t.$el.html($t.html($t.model.toJSON()));

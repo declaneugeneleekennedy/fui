@@ -30,9 +30,8 @@ function($, _, ContentView) {
             var $t = this;
 
             _.each($t.model.get('options'), function(option) {
-                if(option.optionIcon) {
-                    option.optionIcon = $t.template.getFileUrl(option.optionIcon);
-                }
+                option.checked = (option.value == $t.model.get('value'));
+                option.iconUrl = $t.template.getFileUrl(option.optionIcon);
             });
         }
     });
