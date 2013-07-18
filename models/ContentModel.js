@@ -9,7 +9,7 @@ function($, _, Backbone, DisplayRuleModel) {
             tooltip: '',
             value: '',
             displayRule: {},
-            template: '',
+            html: '',
             required: false,
             errors: [],
             display: true,
@@ -35,37 +35,6 @@ function($, _, Backbone, DisplayRuleModel) {
             }
 
             $t.set('name', 'input' + $t.get('contentId'));
-        },
-        bindChanges: function(contentElement) {
-            console.log('Calling ContentModel.bindChanges no-op')
-        },
-        getHtml: function(form) {
-            var $t = this;
-
-            var element = $(document.createElement('div'))
-                .attr('id', 'element_' + $t.get('contentId'))
-                .addClass('contentElement')
-                .append($($t.renderElement(form)));
-
-            if($t.get('required')) {
-                element.addClass('required');
-            }
-
-            return element;
-        },
-        getElementData: function(form) {
-            var $t = this;
-
-            return $t.toJSON();
-        },
-        renderElement: function(form) {
-            var $t = this;
-
-            if(!$t.get('template')) {
-                throw "Can't render element: no template found";
-            }
-
-            return _.template($t.get('template')).call($t, $t.getElementData(form));
         },
         clearErrors: function() {
             var $t = this;

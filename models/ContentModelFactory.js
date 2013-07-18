@@ -36,7 +36,9 @@ function(SingleLineInputBoxModel, MultipleChoiceModel, MultilineInputBoxModel,
     };
 
     return {
-        getInstance: function(contentTypeId, attributes, options) {
+        getInstance: function(attributes, options) {
+            var contentTypeId = attributes.contentTypeId;
+
             if(classes[contentTypeId]) {
                 return new classes[contentTypeId](attributes, options);
             }

@@ -1,8 +1,6 @@
-define(['underscore', 'models/ContentModel', 'text!templates/element/IdentityVerification.html'],
+define(['underscore', 'models/ContentModel'],
 function(_, ContentModel, Template) {
     return ContentModel.extend({
-        defaults: _.defaults({
-            template: Template
-        }, ContentModel.prototype.extend)
+        defaults: _.defaults({}, ContentModel.prototype.extend)
     });
 });

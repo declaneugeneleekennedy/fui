@@ -17,11 +17,10 @@ Input formats, see: https://brighton.atlassian.net/wiki/display/FMB/FormBanc+For
 13 = INPUT_FORMAT_ABN
 14 = INPUT_FORMAT_ADDRESS
 */
-define(['jquery', 'underscore', 'models/ContentModel', 'text!templates/element/SingleLineInputBox.html'],
+define(['jquery', 'underscore', 'models/ContentModel'],
 function($, _, ContentModel, Template) {
     return ContentModel.extend({
         defaults: _.defaults({
-            template: Template,
             question: '',
             questionIcon: '',
             suggestedInput: '',
@@ -40,22 +39,6 @@ function($, _, ContentModel, Template) {
             var $t = this;
 
             $t.set('inputType', $t.getInputType($t.get('inputFormatId')));
-        },
-        bindChanges: function(contentElement) {
-            var $t = this;
-
-            $('[name="' + $t.get('name') + '"]', contentElement).on('blur', function() {
-                $t.set('value', $(this).val());
-            });
-
-            if($t.get('confirmationLabel')) {
-
-                 // force revalidation after confirmation input blur
-                $('[name="' + $t.get('name') + 'Confirmation"]', contentElement).on('blur', function() {
-                    $t.set('confirmationValue', $(this).val());
-                    $t.trigger('change:value');
-                })
-            }
         },
         getInputType: function(id) {
             var $t = this;

@@ -1,5 +1,5 @@
 define(['underscore', 'models/TaggedValueModel'],
-function(_, TaggedValueModel, TagCollection) {
+function(_, TaggedValueModel) {
     return {
         getInstances: function(model, property) {
             var $t = this;
