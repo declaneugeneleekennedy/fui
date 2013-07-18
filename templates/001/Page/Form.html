@@ -1,0 +1,37 @@
+
+<div class="containerFluid" id="page">
+    <div id="headerContainer">
+        <div class="container">
+            <div class="header">
+                <h1 class="title"><%= title %></h1>
+                <a href="tel:+61280111400" title="Click to call +61 2 8011 1400"><i class="icon-46-phone pull-right span1"></i></a>
+            </div>
+            <div id="progressBar" class="navbar">
+                <div class="inner">
+                    <ul>                        
+                    <%
+
+                        var liClass = 'inactive';
+                        $.each(links, function(title, link) {        
+                            liClass = (window.location.href.indexOf(link) != -1) ? 'active' : 'inactive';
+                    %>
+                        <li class="<%= liClass %>">                            
+                            <a href="<%= link %>">
+                                <div class="text">
+                                    <%= title %>
+                                </div>
+                            </a>
+                        </li>
+                    <%
+                        });
+                    %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="formContainer" class="container">
+        <form id="form" action="" method=""></form>
+    </div>
+</div>

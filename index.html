@@ -5,7 +5,6 @@
         <title>FormBanc</title>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
         <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
-        <link rel="stylesheet" href="/css/style.css" />
 
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
@@ -31,16 +30,14 @@
 
                     requireTag.setAttribute('type',         'text/javascript');
                     requireTag.setAttribute('src',          frameworkHost + '/js/require/require.js');
-                    requireTag.setAttribute('data-main',    frameworkHost + '/js/bootstrap');
+                    requireTag.setAttribute('data-main',    clientHost + '/js/bootstrap');
 
-                    document.head.appendChild(requireTag);
+                    document.getElementsByTagName('head')[0].appendChild(requireTag);
                 });
             });
         </script>
     </head>
     <body>
-        <div id="page-container">
-            <!-- This space is intentionally blank -->
-        </div>
+        <!-- This space is intentionally blank -->
     </body>
 </html>
