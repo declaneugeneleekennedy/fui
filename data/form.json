@@ -1,7 +1,50 @@
 {
    "template":{
-      "logo":"http:\/\/www.imb.com.au\/templates\/client\/images\/imb-logo.gif"
-   },
+       "templateId":1,
+       "templateSettings":{
+          "colour":{
+             "0":{
+                "default":"#a71f23",
+                "light":"#c8252a",
+                "dark":"#86191c",
+                "alternative":"#"
+             },
+             "1":{
+                "default":"#0093a0",
+                "light":"#00b0c0",
+                "dark":"#007680",
+                "alternative":"#ffffff"
+             },
+             "headerBackground":"#e3f1f9",
+             "pageTitleOverride":"#",
+             "sectionBarBackground":{
+                "default":"#dce7ea",
+                "light":"#ffffff"
+             },
+             "sectionBarFont":"#0093a0",
+             "multipleActiveOverride":"#"
+          },
+          "sprite":"\/img\/FTID\/sprite.png",
+          "headerBackgroundImage":"",
+          "headerImage":"\/img\/FTID\/ladyOnLaptop.png",
+          "formTitleImage":"\/img\/FTID\/logo.png",
+          "formContactType":"phone",
+          "formContactContent":"0456874562",
+          "radius":"5px",
+          "headingsFontFamily":"",
+          "fontFamily":"",
+          "fontSize":-0.1,
+          "threeDEnabled":true,
+          "btnLabelPrevious":"Previous",
+          "btnLabelNext":"Proceed",
+          "btnLabelSave":"Complete Later",
+          "btnLabelSaveSub":"Save my application",
+          "btnLabelPrint":"Print this form",
+          "btnLabelPrintSub":"This will load a PDF",
+          "btnLabelComplete":"Complete",
+          "bulletPointUnicodeCharacter":""
+       }
+    },
    "form":{
       "formVerId":1,
       "formTitle":"Joint Loan Application",
@@ -9,7 +52,7 @@
       "progressBarEnabled":true,
       "progressBarFormat":"pageTitles",
       "totalPersona":3,
-      "saveAllowed":false,
+      "saveAllowed":true,
       "signaturePanelEnabled":false,
       "pages":[
          {
@@ -47,24 +90,20 @@
                            "output":"horizontal",
                            "options":[
                               {
-                                 "value":"Savings",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "value":"Online Saver",
+                                 "optionIcon":"asset\/img\/multiChoice\/online-saver.png"
                               },
                               {
                                  "value":"Credit Card",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/credit-card.png"
                               },
                               {
-                                 "value":"Business",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "value":"Construction Loan Package",
+                                 "optionIcon":"asset\/img\/multiChoice\/construction-loan-package.png"
                               },
                               {
-                                 "value":"Home Loan",
-                                 "optionIcon":"\/img\/pig.png"
-                              },
-                              {
-                                 "value":"Other",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "value":"Home and Contents Insurance",
+                                 "optionIcon":"asset\/img\/multiChoice\/home-and-contents-insurance.png"
                               }
                            ]
                         }
@@ -80,15 +119,15 @@
                            "options":[
                               {
                                  "value":"1",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/001-app.png"
                               },
                               {
                                  "value":"2",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/002-app.png"
                               },
                               {
                                  "value":"3",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/003-app.png"
                               }
                            ]
                         }
@@ -104,6 +143,7 @@
                         "contentTypeId":1,
                         "contentAttributes":{
                            "question":"Please enter your first name",
+                           "suggestedInput": "e.g. Andrew",
                            "required":true,
                            "inputFormatId":1
                         }
@@ -113,6 +153,7 @@
                         "contentTypeId":1,
                         "contentAttributes":{
                            "question":"Please enter your last name",
+                           "suggestedInput": "e.g. Citizen",
                            "required":true,
                            "inputFormatId":1
                         }
@@ -122,6 +163,8 @@
                         "contentTypeId":1,
                         "contentAttributes":{
                            "question":"Please enter email address",
+                           "confirmationLabel": "Please confirm your email address",
+                           "suggestedInput": "e.g. acitizen@email.com",
                            "required":false,
                            "inputFormatId":6
                         }
@@ -282,16 +325,20 @@
                            "output":"horizontal",
                            "options":[
                               {
+                                 "value":"0",
+                                 "optionIcon":"asset\/img\/multiChoice\/000-app.png"
+                              },
+                              {
                                  "value":"1",
-                                 "optionIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/001-app.png"
                               },
                               {
                                  "value":"2",
-                                 "answerIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/002-app.png"
                               },
                               {
                                  "value":"3",
-                                 "answerIcon":"\/img\/pig.png"
+                                 "optionIcon":"asset\/img\/multiChoice\/003-app.png"
                               }
                            ]
                         }
@@ -301,6 +348,16 @@
                {
                   "sectionId": 6,
                   "sectionTitle":"Details for authorised signatory 1",
+                  "displayRule":{
+                     "logicalOperator":"or",
+                     "rules":[
+                        {
+                           "triggerContentId":16,
+                           "operator":">",
+                           "value":"0"
+                        }
+                     ]
+                  },
                   "contents":[
                      {
                         "contentId":17,
