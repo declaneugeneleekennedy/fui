@@ -1,6 +1,7 @@
-define(['jquery', 'js/view',
-    'views/StyleView', 'views/SectionView', 'views/ButtonsView'],
-function($, View, StyleView, SectionView, ButtonsView) {
+define(['jquery', 'global', 'js/view',
+    'views/StyleView', 'views/ProgressBarView', 'views/SectionView',
+    'views/ButtonsView'],
+function($, Global, View, StyleView, ProgressBarView, SectionView, ButtonsView) {
     return View.extend({
         templateUrl: 'Page/Form.html',
         tagName: 'div',
@@ -11,21 +12,17 @@ function($, View, StyleView, SectionView, ButtonsView) {
         render: function() {
             var $t = this;
 
-            // PLACEHOLDER - replace with progress bar
-
             $t.setTitle($t.model.get('currentPage').get('pageTitle'));
 
-            var style = new StyleView();
-
-            var links = {}, prefix = '/' + $t.model.get('formUrl');
-            $t.model.get('pages').each(function(page) {
-                links[page.get('pageTitle')] = prefix + '/' + page.get('pageUrl');
-            });
+            var style = new StyleView({ model: Global.get('template') });
 
             $t.$el.html($t.html({
-                title: $t.model.get('currentPage').get('pageTitle'),
-                links: links
+                title: $t.model.get('currentPage').get('pageTitle')
             }));
+
+            var progress = new ProgressBarView({ model: $t.model });
+
+            $('#progressBar', $t.$el).append(progress.el);
 
             $t.model.get('currentPage').get('sections').each(function(section) {
                 var view = new SectionView({ model: section });

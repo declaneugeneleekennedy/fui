@@ -29,8 +29,6 @@ function($, _, Global, Loader, Backbone) {
                 });
 
             $('head').append(staticStyle);
-
-            console.log($t.css);
         }
     });
 });

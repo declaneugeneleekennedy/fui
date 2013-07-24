@@ -1,1 +1,17 @@
-<!-- Progress Bar -->
+<ul>                        
+<%
+    var link;
+    for(var i = 0; i < links.length; ++i) {
+        link = links[i];
+%>
+    <li class="<%= link.className %>">                            
+        <a href="<%= link.href %>">
+            <div class="text">
+                <%= link.text %>
+            </div>
+        </a>
+    </li>
+<%
+    };
+%>
+</ul>
