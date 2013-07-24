@@ -1,13 +1,12 @@
 define(
-['jquery', 'underscore', 'backbone', 'loader',
+['jquery', 'underscore', 'backbone',
     'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection',
-    'models/RuleMapCollection', 'models/TaggedValueModelFactory', 'models/TaggedValueMapCollection'],
-function($, _, Backbone, Loader,
+    'models/TaggedValueModelFactory', 'models/TaggedValueMapCollection'],
+function($, _, Backbone,
     PageCollection, SectionCollection, ContentCollection,
-    RuleMapCollection, TaggedValueModelFactory, TaggedValueMapCollection
+    TaggedValueModelFactory, TaggedValueMapCollection
 ) {
     return Backbone.Model.extend({
-        loader: new Loader,
         idAttribute: 'formUrl',
         defaults: {
             applicationId:          null,
@@ -70,7 +69,7 @@ function($, _, Backbone, Loader,
 
             var sections = new SectionCollection;
 
-            $t.get('pages').each(function(page) {
+            $t.getPages().each(function(page) {
                 page.get('sections').each(function(section) {
                     sections.add(section);
                 });
@@ -91,6 +90,28 @@ function($, _, Backbone, Loader,
 
             return contents;
         },
+        getModels: function() {
+            var $t = this;
+
+            var methods = ['getPages', 'getSections', 'getContents'];
+
+            var models = [];
+
+            _.each(methods, function(name) {
+                $t[name].call($t).each(function(model) {
+                    models.push(model);
+                });
+            });
+
+            return new Backbone.Collection(models);
+        },
+        getDisplayRuleModels: function() {
+            var $t = this;
+
+            return new Backbone.Collection($t.getModels().filter(function(model) {
+                return model.get('displayRule').active();
+            }));
+        },
         mapEvents: function() {
             var $t = this;
 
@@ -106,10 +127,13 @@ function($, _, Backbone, Loader,
 
             $t.bind('change:currentPage', function() {
                 // silent to prevent loops
-                $t.set({'currentPageUrl': $t.get('currentPage').get('pageUrl')}, {silent: true});
+                $t.set({ 'currentPageUrl': $t.get('currentPage').get('pageUrl') }, {silent: true});
             });
 
-            $t.mapDisplayRules();
+            $t.getDisplayRuleModels().each(function(model) {
+                model.get('displayRule').bindTo($t, model);
+            });
+
             $t.mapTaggedValues();
 
             // bind handlers            
@@ -119,19 +143,6 @@ function($, _, Backbone, Loader,
                 content.bind('change:value', function() {
                     content.validate($t);
                 });
-
-                // bind display rule events
-                var ruleMap = $t.get('ruleMap').findWhere({
-                    triggerContentId: content.get('contentId')
-                });
-
-                if(ruleMap) {
-                    content.bind('change:value', function() {
-                        _.each(ruleMap.get('models'), function(model) {
-                            model.set('display', $t.checkDisplayRule(model.get('displayRule')));
-                        });
-                    });
-                }
 
                 // bind tagged value events
                 var tagMap = $t.get('tagMap').findWhere({
@@ -151,75 +162,6 @@ function($, _, Backbone, Loader,
             });
 
             $t.isMapped = true;  
-        },
-        mapDisplayRules: function() {
-            var $t = this;
-
-            var map = new RuleMapCollection();
-
-            $t.getPages().each(function(page) {                
-                page.get('displayRule').get('rules').each(function(rule) {
-                    map.addRuleMap(rule.get('triggerContentId'), page);
-                });
-
-                page.get('sections').each(function(section) {
-                    section.get('displayRule').get('rules').each(function(rule) {
-                        map.addRuleMap(rule.get('triggerContentId'), section);
-                    });
-
-                    section.get('contents').each(function(content) {
-                        content.get('displayRule').get('rules').each(function(rule) {
-                            map.addRuleMap(rule.get('triggerContentId'), content);
-                        });
-                    });
-                });
-            });
-
-            $t.set('ruleMap', map);
-        },
-        checkDisplayRule: function(displayRule) {
-            var $t = this;
-
-            var testMethod = function(rule) {
-                return $t.compareByRule.call($t, rule);
-            };
-
-            if(displayRule.get('logicalOperator') == 'and') {
-                return displayRule.get('rules').every(testMethod);
-            } else {
-                return displayRule.get('rules').some(testMethod);
-            }
-        },
-        compareByRule: function(rule) {
-            var $t = this;
-
-            var ruleValue = rule.get('value');
-            var formValue = $t.getContents()
-                .findWhere({contentId: rule.get('triggerContentId')})
-                .get('value');
-
-            var operator = rule.get('operator');
-
-            switch(operator) {
-                case '>':
-                    return (formValue > ruleValue);
-                    break;
-                case '<':
-                    return (formValue < ruleValue);
-                    break;
-                case '>=':
-                    return (formValue >= ruleValue);
-                    break;
-                case '<=':
-                    return (formValue <= ruleValue);
-                    break;
-                case '!=':
-                    return (formValue != ruleValue);
-                case '==':
-                default:
-                    return (formValue == ruleValue);
-                    break;
-            }
         },
         addTaggedValues: function(taggedValues) {
             var $t = this;
