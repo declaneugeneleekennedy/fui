@@ -1,0 +1,81 @@
+
+/* Progress Bar -- Titles format */
+
+#headerContainer {
+    height:220px;
+}
+
+#progressBar {
+    margin:0 2%;
+    width:96%;
+}
+
+#progressBar ul {
+    height:123px;
+    border: #ccc 1px solid;
+    border-bottom:none;
+}
+
+#progressBar ul li {
+    list-style:none;
+    display:inline-block;
+    text-align:center;
+    height:100%;
+    background-color: #fff;
+    background-image: -ms-linear-gradient(top, #fff 0%, #eee 100%);
+    background-image: -moz-linear-gradient(top, #fff 0%, #eee 100%);
+    background-image: -o-linear-gradient(top, #fff 0%, #eee 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), color-stop(1, #eee));
+    background-image: -webkit-linear-gradient(top, #fff 0%, #eee 100%);
+    background-image: linear-gradient(to bottom, #fff 0%, #eee 100%);
+}
+
+#progressBar ul li.active {
+    background-color: #33a9b3;
+    background-image: -ms-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
+    background-image: -moz-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
+    background-image: -o-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #33a9b3), color-stop(1, #0093a0));
+    background-image: -webkit-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
+    background-image: linear-gradient(to bottom, #33a9b3 0%, #0093a0 100%);
+}
+
+#progressBar ul li a {
+    cursor:default;
+    font-weight:bolder;
+    text-decoration:none;
+    display:inline-block;
+    width:100%;
+    height:100%;
+    background-position: 50% 10px;
+    background-repeat: no-repeat;
+}
+
+#progressBar ul li.active a {
+    color:white;
+}
+
+#progressBar ul li.visited a {
+    cursor:pointer;
+}
+
+#progressBar ul li.active a:after {
+    content: "";
+    position: relative;
+    bottom: -26px;
+    left: 50%;
+    margin-left: -8px;
+    border-width: 9px 8px 0;
+    border-style: solid;
+    border-color: #0093a0 transparent;
+    display: block;
+    width: 0;
+}
+
+#progressBar ul li.unvisited a {
+    color:#666666;
+}
+
+#progressBar ul li a .text {
+    margin-top:80px;
+}

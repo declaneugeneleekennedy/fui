@@ -1,0 +1,1192 @@
+body {
+    padding-bottom: 40px;
+    font-size: 0.9em;
+    color: <?=GLOBAL_COLOUR_1?>;
+    font-family: <?=$theme['templateSettings']['fontFamily']?>;
+}
+label,
+input,
+button,
+select,
+textarea {
+  font-size: 1em;
+  font-weight: normal;
+  line-height: 1.5em;
+  font-family: <?=$theme['templateSettings']['fontFamily']?>;
+}
+h1 {
+    font-size: 1.6em;
+}
+h2 {
+    font-size: 1.8em;
+    color: <?=$theme['templateSettings']['colour'][0]['default']?>;
+    font-family: <?=$theme['templateSettings']['headingsFontFamily']?>;
+    font-weight: normal;
+}
+h3 {
+    font-size: 1.5em;
+}
+h4 {
+    font-size: 1.3em;
+    line-height: 30px;
+}
+h5,h6 {
+    font-size: 1.1em;
+}
+h1,h3,h4,h5,h6, div.applicantRow {
+    color: <?=$theme['templateSettings']['colour'][1]['default']?>;
+    font-family: <?=$theme['templateSettings']['headingsFontFamily']?>;
+    font-weight: normal;
+}
+#page {
+    position:relative;
+    padding:0;
+    height:400px;
+    background-color:<?=$theme['templateSettings']['colour']['headerBackground']?>;
+}
+
+#headerContainer {
+    position:absolute;
+    bottom:0;
+    width: 100%;
+}
+
+#headerImage {
+  position:absolute;
+  top: 0;
+  right:5%;
+}
+
+.header {
+  text-align: right;
+}
+
+.dropShadow, .btn {
+  box-shadow: 1px 1px 3px 0 <?=GLOBAL_COLOUR_1A?>;
+}
+
+#headerContainer .container {
+    border: 1px solid #ccc;
+    -webkit-border-radius: <?=$theme['templateSettings']['radius']?>;
+    -moz-border-radius: <?=$theme['templateSettings']['radius']?>;
+    border-radius: <?=$theme['templateSettings']['radius']?>;
+    padding: 20px 20px 0 20px;
+    background-color:rgba(255,255,255, 0.8);
+    height:200px;
+}
+.section h3 {
+    border: 1px solid <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?>;
+    -webkit-border-radius: <?=$theme['templateSettings']['radius']?>;
+    -moz-border-radius: <?=$theme['templateSettings']['radius']?>;
+    border-radius: <?=$theme['templateSettings']['radius']?>;
+    padding: 8px 14px;
+}
+.section h3 i {
+    margin-right: 20px;
+}
+
+.sectionBody {
+  display: none;
+  margin: 40px 5% 0;
+}
+
+.navbar-inner {
+    height: 120px;
+    margin-top: 15px;
+    padding: 0px;
+    border-radius: 0px;
+}
+
+div.section-btn {
+    text-align:  center
+}
+
+#formContainer {
+    position:relative;
+    padding: 20px;
+    border: 1px solid #ccc;
+    -webkit-border-radius: <?=$theme['templateSettings']['radius']?>;
+    -moz-border-radius: <?=$theme['templateSettings']['radius']?>;
+    border-radius: <?=$theme['templateSettings']['radius']?>;
+    top: 20px;
+}
+
+.inputIconContainer {
+  width:80px;
+  min-height:145px;
+}
+
+.inputIconContainer div {
+  width: 75px;
+  height: 75px;
+  text-align:center;
+  border: 3px solid #ccc;
+  margin:0 auto 10px;
+}
+
+.radio.inline + .radio.inline, .checkbox.inline + .checkbox.inline {
+    margin-left: 0;
+    vertical-align: top;
+    padding-left: 0;
+}
+
+.radio.inline, .checkbox.inline {
+    margin-right: 20px;
+    padding-right: 20px;
+}
+
+.checkbox-radio-icon .radio.inline, .checkbox-radio-icon .checkbox.inline {
+    margin-right: -1px;
+}
+
+label.active {
+  color: <?=$theme['templateSettings']['colour'][1]['default']?>;
+}
+
+.form-horizontal .control-label {
+  float: left;
+  padding: 5px 10px 0 10px;
+  text-align: left;
+  width: 40%;
+}
+
+.control-group p {
+  margin: 0 10px;
+}
+
+.gradientDarkToLight1 {
+  /* Default color for browser that dont support gradients */
+  background-color: <?=$theme['templateSettings']['colour'][0]['dark']?>;
+
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, <?=$theme['templateSettings']['colour'][0]['dark']?> 0%, <?=$theme['templateSettings']['colour'][0]['light']?> 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, <?=$theme['templateSettings']['colour'][0]['dark']?> 0%, <?=$theme['templateSettings']['colour'][0]['light']?> 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, <?=$theme['templateSettings']['colour'][0]['dark']?> 0%, <?=$theme['templateSettings']['colour'][0]['light']?> 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <?=$theme['templateSettings']['colour'][0]['dark']?>), color-stop(1, <?=$theme['templateSettings']['colour'][0]['light']?>));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, <?=$theme['templateSettings']['colour'][0]['dark']?> 0%, <?=$theme['templateSettings']['colour'][0]['light']?> 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, <?=$theme['templateSettings']['colour'][0]['dark']?> 0%, <?=$theme['templateSettings']['colour'][0]['light']?> 100%);
+
+
+   /* IE6,IE7 - we cant use this in combination with the border radius as it fills a square :`(
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFEDA6', EndColorStr='#EF5A1A');
+  */
+
+   /* IE8 - same problem ^^
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFEDA6', EndColorStr='#EF5A1A')";
+   */
+}
+
+
+.gradientLightToDark2 {
+  /* Default color for browser that dont support gradients */
+  background-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['dark']?> 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['dark']?> 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['dark']?> 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <?=$theme['templateSettings']['colour'][1]['light']?>), color-stop(1, <?=$theme['templateSettings']['colour'][1]['dark']?>));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['dark']?> 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['dark']?> 100%);
+
+
+   /* IE6,IE7 - we cant use this in combination with the border radius as it fills a square :`(
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFEDA6', EndColorStr='#EF5A1A');
+  */
+
+   /* IE8 - same problem ^^
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#FFEDA6', EndColorStr='#EF5A1A')";
+   */
+}
+
+.gradientLightToDefault2, .navbar .nav > .active > a, .btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary.active {
+  /* Default color for browser that dont support gradients */
+  background-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['default']?> 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['default']?> 100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['default']?> 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <?=$theme['templateSettings']['colour'][1]['light']?>), color-stop(1, <?=$theme['templateSettings']['colour'][1]['default']?>));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['default']?> 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, <?=$theme['templateSettings']['colour'][1]['light']?> 0%, <?=$theme['templateSettings']['colour'][1]['default']?> 100%);
+
+
+   /* IE6,IE7 */
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='<?=$theme['templateSettings']['colour'][1]['light']?>', EndColorStr='<?=$theme['templateSettings']['colour'][1]['default']?>');
+
+   /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='<?=$theme['templateSettings']['colour'][1]['light']?>', EndColorStr='<?=$theme['templateSettings']['colour'][1]['default']?>')";
+}
+
+.gradientSuccess, .btn.gradientSuccess:hover, .btn.gradientSuccess:focus, .btn.gradientSuccess.active, .btn.gradientSuccess:active {
+  /* Default color for browser that dont support gradients */
+  background-color: <?=GLOBAL_COLOUR_3A?>;
+
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, <?=GLOBAL_COLOUR_3A?> 0%, <?=GLOBAL_COLOUR_3?> 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, <?=GLOBAL_COLOUR_3A?> 0%, <?=GLOBAL_COLOUR_3?>100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, <?=GLOBAL_COLOUR_3A?> 0%, <?=GLOBAL_COLOUR_3?> 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <?=GLOBAL_COLOUR_3A?>), color-stop(1, <?=GLOBAL_COLOUR_3?>));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, <?=GLOBAL_COLOUR_3A?> 0%, <?=GLOBAL_COLOUR_3?> 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, <?=GLOBAL_COLOUR_3A?> 0%, <?=GLOBAL_COLOUR_3?> 100%);
+
+
+   /* IE6,IE7 */
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='<?=GLOBAL_COLOUR_3A?>', EndColorStr='<?=GLOBAL_COLOUR_3?>');
+
+   /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='GLOBAL_COLOUR_3A?>', EndColorStr='<?=GLOBAL_COLOUR_3?>')";
+}
+
+.gradientSectionHeader {
+  /* Default color for browser that dont support gradients */
+  background-color: <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?>;
+
+  /* IE10 Consumer Preview */
+  background-image: -ms-linear-gradient(top, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?> 0%, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?> 100%);
+
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?> 0%, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?>100%);
+
+  /* Opera */
+  background-image: -o-linear-gradient(top, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?> 0%, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?> 100%);
+
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?>), color-stop(1, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?>));
+
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?> 0%, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?> 100%);
+
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, <?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?> 0%, <?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?> 100%);
+
+   /* IE6,IE7 */
+  filter:  progid:DXImageTransform.Microsoft.gradient(startColorStr='<?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?>', EndColorStr='<?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?>');
+
+   /* IE8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='<?=$theme['templateSettings']['colour']['sectionBarBackground']['light']?>', EndColorStr='<?=$theme['templateSettings']['colour']['sectionBarBackground']['default']?>')";
+}
+
+div.input-prepend span.add-on.prepend {
+  background-color: transparent !important;
+  border-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+  border-right: none;
+  <?=$boxShadowCSS?>
+}
+div.input-append span.add-on.append {
+  background-color: transparent !important;
+  border-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+  border-left: none;
+  <?=$boxShadowCSS?>
+}
+.error div.input-prepend span.add-on.prepend, .error div.input-append span.add-on.append {
+  border-color: <?=GLOBAL_COLOUR_4?>;
+}
+div.input-prepend input {
+  border-left: none;
+  width: 284px;
+}
+div.input-append input {
+  border-right: none;
+  width: 284px;
+}
+
+div.input-append.input-prepend  input {
+  width: 259px;
+}
+
+.multiselect-append {
+    margin-left: 10px;
+}
+
+.image-multiselect-append {
+    position: absolute;
+    right: 0;
+    top: 2px;
+    margin-right: 2px;
+}
+
+/* all form input standard styles */
+textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input
+{
+  border-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+  <?=$boxShadowCSS?>
+}
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .uneditable-input:focus,input:focus:invalid:focus, textarea:focus:invalid:focus, select:focus:invalid:focus
+{
+  <?=$boxShadowCSS?>
+  border-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+  color: <?=GLOBAL_COLOUR_1?>;
+}
+
+/* same as above, but for error state */
+.error textarea, .error input[type="text"], .error input[type="password"], .error input[type="datetime"], .error input[type="datetime-local"], .error input[type="date"], .error input[type="month"], .error input[type="time"], .error input[type="week"], .error input[type="number"], .error input[type="email"], .error input[type="url"], .error input[type="search"], .error input[type="tel"], .error input[type="color"], .error .uneditable-input, .error .bootstrap-select .btn
+{
+  <?=$boxShadowCSS?>
+  border-color: <?=GLOBAL_COLOUR_4?>;
+  color: <?=GLOBAL_COLOUR_4?>;
+}
+.error textarea:focus, .error input[type="text"]:focus, .error input[type="password"]:focus, .error input[type="datetime"]:focus, .error input[type="datetime-local"]:focus, .error input[type="date"]:focus, .error input[type="month"]:focus, .error input[type="time"]:focus, .error input[type="week"]:focus, .error input[type="number"]:focus, .error input[type="email"]:focus, .error input[type="url"]:focus, .error input[type="search"]:focus, .error input[type="tel"]:focus, .error input[type="color"]:focus, .error .uneditable-input:focus, .error input:focus:invalid:focus, .error textarea:focus:invalid:focus, .error select:focus:invalid:focus
+{
+  <?=$boxShadowCSS?>
+  border-color: <?=GLOBAL_COLOUR_4?>;
+  color: <?=GLOBAL_COLOUR_4?>;
+}
+
+/* same as above, but for success state */
+.success textarea, .success input[type="text"], .success input[type="password"], .success input[type="datetime"], .success input[type="datetime-local"], .success input[type="date"], .success input[type="month"], .success input[type="time"], .success input[type="week"], .success input[type="number"], .success input[type="email"], .success input[type="url"], .success input[type="search"], .success input[type="tel"], .success input[type="color"], .success .uneditable-input, .success .bootstrap-select .btn
+{
+  <?=$boxShadowCSS?>
+  border-color: <?=GLOBAL_COLOUR_3?>;
+  color: <?=GLOBAL_COLOUR_3?>;
+}
+.success textarea:focus, .success input[type="text"]:focus, .success input[type="password"]:focus, .success input[type="datetime"]:focus, .success input[type="datetime-local"]:focus, .success input[type="date"]:focus, .success input[type="month"]:focus, .success input[type="time"]:focus, .success input[type="week"]:focus, .success input[type="number"]:focus, .success input[type="email"]:focus, .success input[type="url"]:focus, .success input[type="search"]:focus, .success input[type="tel"]:focus, .success input[type="color"]:focus, .success .uneditable-input:focus, .success input:focus:invalid:focus, .success textarea:focus:invalid:focus, .success select:focus:invalid:focus
+{
+  <?=$boxShadowCSS?>
+  border-color: <?=GLOBAL_COLOUR_3?>;
+  color: <?=GLOBAL_COLOUR_3?>;
+}
+
+select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+  color: <?=GLOBAL_COLOUR_1?>;
+  height: 25px;
+  line-height: 25px;
+}
+
+
+.control-group.error input,
+.control-group.error select,
+.control-group.error textarea,
+.control-group.error .checkbox-mobile-menu
+{
+  color: <?=GLOBAL_COLOUR_4?>;
+  border-color: <?=GLOBAL_COLOUR_4?>;
+}
+
+label.inputIconContainer.active {
+  color: <?=USER_COLOUR_1?>!important;
+}
+
+.control-group.success .checkbox, .control-group.success .radio {
+    color: <?=GLOBAL_COLOUR_1?>;
+}
+.control-group.error .checkbox, .control-group.error .radio {
+    color: <?=GLOBAL_COLOUR_4?>;
+}
+
+.control-group.error .controls.checkbox-radio-icon {
+border: 1px solid <?=GLOBAL_COLOUR_4?>;
+-webkit-border-radius: 6px;
+-moz-border-radius: 6px;
+border-radius: 6px;
+background-color: <?=GLOBAL_COLOUR_4A?>;
+position: relative;
+}
+
+.controls.checkbox-radio-icon {
+    margin-left: 43%;
+    margin-right: 11%;
+    /*padding: 5px;*/
+    border: 1px solid transparent;
+}
+
+.control-group.success .input-prepend .add-on, .control-group.success .input-append .add-on {
+  border-color: <?=GLOBAL_COLOUR_3?>;
+}
+
+.input-append .add-on, .input-prepend .add-on {
+  height: 25px;
+  line-height: 25px;
+}
+
+.input-append {
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    background-color: <?=GLOBAL_COLOUR_2?>;
+
+}
+
+.control-group.success .control-label, .control-group.success .help-block, .control-group.success .help-inline {
+    color: <?=GLOBAL_COLOUR_1?>;
+}
+
+.control-group.error .control-label, .control-group.error .help-block, .control-group.error .help-inline {
+  color: <?=GLOBAL_COLOUR_1?>;
+}
+
+.controls .radio:first-child, .controls .checkbox:first-child {
+  padding-left: 0;
+}
+
+.radio.inline.actualCheckRadioContainer, .checkbox.inline.actualCheckRadioContainer{
+    padding-top:9px;
+}
+
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  margin-top: 1px;
+  *margin-right: .3em;
+  vertical-align: middle;
+  background-image: url("/img/sprites.png");
+  background-repeat: no-repeat;
+}
+
+[class^="icon-46"],
+[class*=" icon-46"] {
+  width: 46px;
+  height: 46px;
+  line-height: 46px;
+}
+
+[class^="icon-30"],
+[class*=" icon-30"] {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+[class^="icon-26"],
+[class*=" icon-26"] {
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+}
+
+[class^="icon-20"],
+[class*=" icon-20"] {
+  width: 20px;
+  height: 20px;
+  line-height: 1.5em;
+}
+
+[class^="icon-16"],
+[class*=" icon-16"] {
+  width: 17px;
+  height: 17px;
+  line-height: 17px;
+}
+
+
+/* all 46px icons are seperated by 1px so should increment -47 */
+.icon-46-phone {
+  background-position: 0px 0px;
+}
+.icon-46-mouse {
+  background-position: -47px 0px;
+}
+
+/* all 30px icons are seperated by 1px so should increment -31 */
+.icon-30-thick-arrow-left {
+  background-position: 0px -54px;
+}
+.icon-30-thick-arrow-right {
+  background-position: -31px -54px;
+}
+.icon-30-thick-arrow-down {
+  background-position: -62px -54px;
+}
+.icon-30-thick-arrow-up {
+  background-position: -93px -54px;
+}
+.icon-30-refresh {
+  background-position: -124px -54px;
+}
+.icon-30-pdf {
+  background-position: -155px -54px;
+}
+
+.icon-30-thin-arrow-down {
+  background-position: -186px -54px;
+}
+.icon-30-thin-arrow-up {
+  background-position: -217px -54px;
+}
+.icon-30-edit {
+  background-position: -248px -54px;
+}
+.icon-30-thick-arrow-right.grey {
+  background-position: -279px -54px;
+}
+
+/* all 26px icons are seperated by 1px so should increment -27 */
+.icon-26-checkbox-checked {
+    background-position: 0px -90px;
+}
+.icon-26-checkbox-unchecked {
+    background-position: -27px -90px;
+}
+.icon-26-thick-arrow-right {
+    background-position: -54px -90px;
+}
+.icon-26-green-tick {
+    background-position: -81px -90px;
+}
+.icon-26-grey-cog {
+    background-position: -108px -90px;
+}
+
+
+/* all 20px icons are seperated by 1px so should increment -21 */
+.icon-20-radio-checked {
+    background-position: 0px -122px;
+}
+.icon-20-radio-unchecked {
+    background-position: -21px -122px;
+}
+.icon-20-dropdown {
+    background-position: -42px -122px;
+}
+.icon-20-question {
+    background-position: -63px -122px;
+}
+
+/* all 16px icons are seperated by 1px so should increment -17 */
+.icon-16-email {
+  background-position: 0px -147px;
+}
+.success .icon-16-email {
+  background-position: -17px -147px;
+}
+.error .icon-16-email {
+  background-position: -34px -147px;
+}
+
+.icon-16-cal {
+  background-position: -51px -147px;
+}
+.success .icon-16-cal {
+  background-position: -68px -147px;
+}
+.error .icon-16-cal {
+  background-position: -85px -147px;
+}
+
+.icon-16-mobile {
+  background-position: -102px -147px;
+}
+.success .icon-16-mobile {
+  background-position: -119px -147px;
+}
+.error .icon-16-mobile {
+  background-position: -136px -147px;
+}
+
+.icon-16-phone {
+  background-position: -153px -147px;
+}
+.success .icon-16-phone {
+  background-position: -170px -147px;
+}
+.error .icon-16-phone {
+  background-position: -187px -147px;
+}
+
+.icon-16-padlock {
+  background-position: -204px -147px;
+}
+.success .icon-16-padlock {
+  background-position: -221px -147px;
+}
+.error .icon-16-padlock {
+  background-position: -238px -147px;
+}
+
+.icon-16-home {
+  background-position: -255px -147px;
+}
+.success .icon-16-home {
+  background-position: -272px -147px;
+}
+.error .icon-16-home {
+  background-position: -289px -147px;
+}
+
+.icon-16-input-status-req {
+  background-position: -340px -147px;
+}
+.icon-16-input-status-nonreq {
+  background-position: -357px -147px;
+}
+.success .icon-16-input-status-nonreq {
+  background-position: -306px -147px;
+}
+.error .icon-16-input-status-nonreq {
+  background-position: -323px -147px;
+}
+
+/* Navigation */
+.nav .nav-item {
+    height: 100px;
+}
+
+.nav .nav-item-width {
+    width: 25%;
+}
+
+.nav .non-member-nav-width {
+    width: 20%;
+}
+
+
+
+.navbar .nav {
+    width: 100%;
+}
+
+.navbar .nav, .navbar .nav .nav-item a {
+    height: 100%;
+    border-right: 1px solid #d4d4d4;
+}
+.navbar .nav .nav-item a img {
+    margin-top:10px;
+}
+
+.navbar .nav, .navbar .nav .last a {
+    border-right: 0px;
+}
+
+.navbar .nav > li > a,
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+    color: <?=GLOBAL_COLOUR_1;?>;
+    text-decoration: none;
+    background-color: transparent;
+    text-align: center;
+    padding: 10px 0px;
+    cursor: default;
+}
+
+.navbar .nav > .unlocked > a,
+.navbar .nav > .unlocked > a:hover,
+.navbar .nav > .unlocked > a:focus {
+    color: <?=$theme['templateSettings']['colour'][1]['default']?>;
+    text-decoration: none;
+    background-color: #ffffff;
+    text-align: center;
+    cursor: pointer;
+}
+
+.navbar .nav > li {
+    position: relative;
+}
+
+.navbar .nav > .active > a,
+.navbar .nav > .active > a:hover,
+.navbar .nav > .active > a:focus {
+    font-weight: normal;
+    color: #ffffff;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    text-shadow:none;
+    position: relative;
+}
+
+.navbar .nav .nav-item .nav-item-text p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.3em;
+}
+
+.navbar .nav .nav-item .nav-item-text {
+    display: table;
+    font-weight: bold;
+    height: 65px;
+    position: absolute;
+    top: 55px;
+    width: 100%;
+    padding: 5px 0px;
+}
+
+.triangle-isosceles {
+    position:relative;
+    padding:15px;
+    color:#000;
+}
+
+.triangle-isosceles:after {
+    content:"";
+    position:absolute;
+    bottom:-6px; /* value = - border-top-width - border-bottom-width */
+    left:50%; /* controls horizontal position */
+    margin-left: -8px;
+    border-width:9px 8px 0; /* vary these values to change the angle of the vertex */
+    border-style:solid;
+    border-color:<?=$theme['templateSettings']['colour'][1]['default']?> transparent;
+    /* reduce the damage in FF3.0 */
+    display:block;
+    width:0;
+}
+
+/* Checkbox and Radio Button */
+input[type="checkbox"] + label span, input[type="radio"] + label span {
+    /*display:inline-block;*/
+    margin:-1px 4px 0 0;
+    /*vertical-align:middle;*/
+    cursor:pointer;
+}
+
+/* Select Box */
+.btn.dropdown-toggle {
+  font-family: <?=$theme['templateSettings']['fontFamily']?>;
+}
+
+.selectboxit-btn {
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid <?=$theme['templateSettings']['colour'][1]['light']?>;
+    box-shadow: none;
+    color: #555555;
+}
+
+.error .selectboxit-btn {
+    border-color: <?=GLOBAL_COLOUR_4?>;
+}
+
+.success .selectboxit-btn {
+    border-color: <?=GLOBAL_COLOUR_3?>;
+    color: <?=GLOBAL_COLOUR_3?>;
+}
+
+.selectboxit-container .selectboxit-hover, .selectboxit-btn.selectboxit-enabled:hover, .selectboxit-btn.selectboxit-enabled:focus, .selectboxit-btn.selectboxit-enabled:active {
+    background-color: #ffffff !important;
+}
+
+.bootstrap-select.btn-group .btn .caret {
+    margin-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+}
+
+.btn {
+  text-shadow:none;
+  font-family: <?=$theme['templateSettings']['headingsFontFamily']?>;
+  font-size: 1.5em;
+  color: <?=GLOBAL_COLOUR_1?>;
+  background-color: <?=GLOBAL_COLOUR_1A?>;
+  border-color: <?=GLOBAL_COLOUR_1?>;
+}
+.btn.btn-primary {
+  border-color:<?=$theme['templateSettings']['colour'][1]['default']?>;
+  color: <?=$theme['templateSettings']['colour'][1]['alternative']?>;
+}
+.btn.gradientSuccess {
+  color: <?=GLOBAL_COLOUR_2?>;
+}
+
+.btn.dropdown-toggle, .dropdown-menu > li > a {
+    color: <?=GLOBAL_COLOUR_1?>;
+}
+
+.btn.grey:hover, .btn.grey:focus, .btn.grey.active, .btn.grey:active {
+  background-position: 0;
+  background-image: none;
+  border-color: <?=GLOBAL_COLOUR_1?>;
+  color: <?=GLOBAL_COLOUR_1?>;
+  background-color: <?=GLOBAL_COLOUR_1A?>;
+  text-decoration: none;
+  transition: none;
+}
+
+.btn.gradientSuccess:hover, .btn.gradientSuccess:focus, .btn.gradientSuccess.active, .btn.gradientSuccess:active {
+  background-position: 0;
+  border-color: <?=GLOBAL_COLOUR_1?>;
+  background-color: <?=GLOBAL_COLOUR_1A?>;
+  text-decoration: none;
+  transition: none;
+}
+
+.btn.btn-primary:hover, .btn.btn-primary:focus, .btn.btn-primary.active, .btn.btn-primary:active {
+  background-position: 0;
+  border-color:<?=$theme['templateSettings']['colour'][1]['default']?>;
+  color: <?=$theme['templateSettings']['colour'][1]['alternative']?>;
+  text-decoration: none;
+  transition: none;
+}
+
+/* Address Container */
+.matchedAddressContainer {
+    border: 1px solid #CCCCCC;
+    -webkit-border-radius: <?=$theme['templateSettings']['radius']?>;
+    -moz-border-radius: <?=$theme['templateSettings']['radius']?>;
+    border-radius: <?=$theme['templateSettings']['radius']?>;
+    padding: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    background-color: <?=GLOBAL_COLOUR_1A?>;
+}
+
+.innerbox-triangle-isosceles {
+    border-color: <?=GLOBAL_COLOUR_1?> transparent;
+    border-style: solid;
+    border-width: 9px 8px 0;
+    left: 25px;
+    position: relative;
+    top: -20px;
+    width: 0;
+}
+
+
+.innerbox-triangle-isosceles:after {
+    border-color: #FFFFFF transparent; /* This has to be the same as the body colour. */
+    border-style: solid;
+    border-width: 8px 7px 0;
+    content: "";
+    display: block;
+    left: -7px;
+    position: relative;
+    top: -10px;
+    width: 0;
+}
+
+.matchedAddressContainer .address-menu, .checkbox-mobile-menu {
+    display: block;
+    position: relative;
+    box-shadow: none;
+    border-color: <?=$theme['templateSettings']['colour'][1]['light']?>;
+}
+
+.matchedAddressContainer .address-menu {
+    height: 100px;
+    overflow: auto;
+}
+
+.ui-autocomplete {
+    height: 100px;
+    overflow: auto;
+    z-index: 1100 !important;
+}
+
+button.btn.pull-right {
+  border: 0 none;
+  padding: 9px 6px 9px 30px;
+}
+
+button.btn.pull-left {
+  border: 0 none;
+  padding: 9px 30px 9px 6px;
+}
+
+button.btn.pull-left i {
+  margin-right: 10px;
+}
+button.btn.pull-right i {
+  margin-left: 10px;
+}
+
+input {
+  width: 310px;
+}
+
+div.section .sectionBody.review {
+  display:block;
+}
+
+table.review {
+  width: 80%;
+}
+table.review th {
+  border:none;
+  width: 50%;
+  font-weight: normal;
+}
+table.review td {
+  border:none;
+  border-bottom: 1px dashed #<?=USER_COLOUR_2?>;
+  color: #<?=USER_COLOUR_1?>;
+}
+
+table.review th, table.review td {
+  padding: 12px 8px 2px 8px;
+}
+
+span.edit i {
+  margin-left:10px;
+}
+
+a {
+  color: #<?=USER_COLOUR_1?>;
+}
+
+.buttonDescriptiveText {
+    font-size: 0.6em;
+    margin-top: -11px;
+    width: 135px;
+}
+
+/* Calendar Styling */
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 0.8em;
+}
+
+span.accountNumberText {
+    font-weight: bold;
+    color: green;
+}
+
+div.applicantRow {
+  background-color:<?=$theme['templateSettings']['colour'][1]['lightest']?>;
+  padding:15px;
+  margin: 0 0 10px 0;
+  height:45px;
+  line-height:45px;
+}
+
+/* Account details container */
+.accountDetailsContainer {
+    border: 1px solid #CCCCCC;
+    border-radius: <?=$theme['templateSettings']['radius']?>;
+    padding: 20px;
+    position: relative;
+    margin-bottom: 10px;
+    background-color: <?=GLOBAL_COLOUR_1A?>;
+}
+
+/** style the calendar */
+#ui-datepicker-div {
+  width: 13em;
+  margin: -35px 0 0 310px;
+}
+#ui-datepicker-div.ui-widget-content {
+  border: 1px solid <?=$theme['templateSettings']['colour'][1]['default']?>;
+  line-height: 1em;
+}
+
+#ui-datepicker-div .ui-datepicker-prev, #ui-datepicker-div .ui-datepicker-next {
+  display:none;
+}
+
+#ui-datepicker-div .ui-widget-header {
+  background:<?=$theme['templateSettings']['colour'][1]['lightest']?>;
+  border:none;
+}
+
+#ui-datepicker-div .ui-state-default, #ui-datepicker-div .ui-widget-content .ui-state-default, #ui-datepicker-div .ui-widget-header .ui-state-default {
+  background: none;
+  border: none;
+}
+
+#ui-datepicker-div thead tr {
+  background-color:<?=$theme['templateSettings']['colour'][1]['light']?>;
+  color: <?=$theme['templateSettings']['colour'][1]['alternative']?>;
+}
+
+#ui-datepicker-div .ui-state-active, #ui-datepicker-div .ui-widget-content .ui-state-active, #ui-datepicker-div .ui-widget-header .ui-state-active {
+  background-color:<?=$theme['templateSettings']['colour'][1]['default']?>;
+  color: <?=$theme['templateSettings']['colour'][1]['alternative']?>;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+  text-align: center;
+}
+
+.ui-datepicker .ui-datepicker-title {
+  margin: 0;
+}
+
+.error-message-box {
+    margin-left: 10px;
+    padding: 7px 8px 6px;
+    position: absolute;
+}
+
+.checkbox-radio-icon .error-message-box {
+    position: absolute;
+    right: -124px;
+    top: -1px;
+    width: 95px;
+}
+
+.alert-danger, .alert-error {
+    border-color: <?=GLOBAL_COLOUR_4?>;
+    color: <?=GLOBAL_COLOUR_4?>;
+    background-color: <?=GLOBAL_COLOUR_4A?>;
+
+}
+
+.error-message-box .error-triangle-isosceles:after {
+    border-color: transparent <?=GLOBAL_COLOUR_4A?>;
+    border-style: solid;
+    border-width: 6px 12px 7px 0;
+    bottom: -6px;
+    content: "";
+    left: 3px;
+    position: absolute;
+    top: -6px;
+    width: 0;
+}
+
+.error-message-box .error-triangle-isosceles {
+    border-color: transparent <?=GLOBAL_COLOUR_4?>;
+    border-style: solid;
+    border-width: 4px 8px 5px 0;
+    left: -8px;
+    position: absolute;
+    top: 12px;
+    width: 0;
+}
+
+.tooltip, .error-message-box {
+    font-size: 1em;
+}
+
+.tooltip.right .tooltip-arrow:after {
+    border-color: transparent <?=GLOBAL_COLOUR_6A?>;
+    border-width: 6px 6px 6px 0px;
+    border-style: solid;
+    height: 0;
+    position: absolute;
+    width: 0;
+    line-height: 1.4;
+    content: "";
+    left: 3px;
+    top: -6px;
+}
+
+.tooltip.right .tooltip-arrow {
+    border-right-color: <?=GLOBAL_COLOUR_6?>;
+    border-width: 7px 7px 7px 0;
+    left: -1px;
+}
+
+.tooltip.top .tooltip-arrow:after {
+    border-color: <?=GLOBAL_COLOUR_6A?> transparent;
+    border-width: 6px 6px 0px 6px;
+    border-style: solid;
+    height: 0;
+    position: absolute;
+    width: 0;
+    line-height: 1.4;
+    content: "";
+    left: -6px;
+    top: -7px;
+}
+
+.tooltip.top .tooltip-arrow {
+    border-tio-color: <?=GLOBAL_COLOUR_6?>;
+    border-width: 6px 7px 0px 7px;
+    left: 50%;
+}
+
+.tooltip-inner {
+    background-color: <?=GLOBAL_COLOUR_6A?>;
+    border: 1px solid <?=GLOBAL_COLOUR_6?>;
+    color: #000000;
+}
+
+.control-label .icon-16-input-status-req {
+    float: right;
+}
+
+.control-label .question {
+    float: left;
+    width: 92%;
+}
+
+.sectionBody ul.bulletPointList {
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+
+.sectionBody .bulletPointList li {
+    padding-left: 1em;
+    text-indent: -.7em;
+}
+
+.sectionBody .bulletPointList li .bulletPoint {
+    color: <?=$theme['templateSettings']['colour'][1]['default']?>;
+    margin-right: 5px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.hideRadioCheckbox {
+    position:absolute;
+    right:111111px;
+}
+
+.radioCheckboxTextChecked {
+    border-bottom: 1px dotted <?=$theme['templateSettings']['colour'][1]['default']?>;
+    color: <?=$theme['templateSettings']['colour'][1]['default']?>;
+}
+
+.selectboxit-container .selectboxit-options {
+    max-height: 240px !important;
+}
+
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+    top: 18%;
+}
+
+.ui-menu .ui-menu-item a {
+    color: <?=GLOBAL_COLOUR_1?>;
+    font-size: 0.9em;
+}
+
+.popover.top {
+    background-color: <?=GLOBAL_COLOUR_1A?>;
+}
+
+.popover.top .arrow:after{
+    border-top-color: <?=GLOBAL_COLOUR_1A?>;
+}
+
+.error .popover.top {
+    background-color: <?=GLOBAL_COLOUR_4A?>;
+    border: 1px solid <?=GLOBAL_COLOUR_4?>;
+    color: <?=GLOBAL_COLOUR_4?>;
+}
+
+.error .popover.top .arrow{
+    border-top-color: <?=GLOBAL_COLOUR_4?>;
+}
+.error .popover.top .arrow:after{
+    border-top-color: <?=GLOBAL_COLOUR_4A?>;
+}
