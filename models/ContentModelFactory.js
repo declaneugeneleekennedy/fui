@@ -21,10 +21,12 @@ define(
     'models/Content/MultilineInputBoxModel',
     'models/Content/DescriptiveTextModel',
     'models/Content/IdentityVerificationModel',
-    'models/Content/ContentReviewModel'
+    'models/Content/ContentReviewModel',
+    'models/Content/AddressModel'
 ],
 function(SingleLineInputBoxModel, MultipleChoiceModel, MultilineInputBoxModel,
-    DescriptiveTextModel, IdentityVerificationModel, ContentReviewModel
+    DescriptiveTextModel, IdentityVerificationModel, ContentReviewModel,
+    AddressModel
 ) {
     var classes = {
         1: SingleLineInputBoxModel,
@@ -32,7 +34,8 @@ function(SingleLineInputBoxModel, MultipleChoiceModel, MultilineInputBoxModel,
         3: MultilineInputBoxModel,
         4: DescriptiveTextModel,
         5: IdentityVerificationModel,
-        6: ContentReviewModel
+        6: ContentReviewModel,
+        7: AddressModel
     };
 
     return {

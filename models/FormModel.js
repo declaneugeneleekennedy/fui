@@ -54,15 +54,37 @@ function($, _, Backbone,
 
             return $t.getPages().last();
         },
-        getNextPage: function() {
+        getNextPage: function(page) {
             var $t = this;
 
-            return $t.getPages().next($t.get('currentPage'));
+            if(!page) {
+                page = $t.get('currentPage');
+            }
+
+            var next = $t.getPages().next(page);
+            if(next) {
+                if(!next.get('display')) {
+                    return $t.getNextPage(next);
+                }
+            }
+
+            return next;
         },
-        getPreviousPage: function() {
+        getPreviousPage: function(page) {
             var $t = this;
 
-            return $t.getPages().previous($t.get('currentPage'));
+            if(!page) {
+                page = $t.get('currentPage');
+            }
+
+            var prev = $t.getPages().previous(page);
+            if(prev) {
+                if(!prev.get('display')) {
+                    return $t.getPreviousPage(prev);
+                }
+            }
+
+            return prev;
         },
         getSections: function() {
             var $t = this;
@@ -139,11 +161,6 @@ function($, _, Backbone,
             // bind handlers            
             $t.getContents().each(function(content) {
 
-                // bind validation events
-                content.bind('change:value', function() {
-                    content.validate($t);
-                });
-
                 // bind tagged value events
                 var tagMap = $t.get('tagMap').findWhere({
                     triggerContentId: content.get('contentId')
@@ -159,6 +176,11 @@ function($, _, Backbone,
 
                 // @todo [dk] - set saved values
                 content.trigger('change:value');
+
+                // bind validation events
+                content.bind('change:value', function() {
+                    content.validate($t);
+                });
             });
 
             $t.isMapped = true;  
@@ -191,7 +213,7 @@ function($, _, Backbone,
             });
 
             // map content attribute changes
-            var tests = ['question', 'suggestedInput'];
+            var tests = ['question', 'suggestedInput', 'text'];
 
             $t.getContents().each(function(content) {
                 _.each(tests, function(property) {

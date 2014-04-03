@@ -1,26 +1,30 @@
 
 <div class="multipleChoice">
-    <label class="question" for="<%= name %>"><%= question %></label>
+    <label class="question" for="<%= name %>">
+        <span class="text"><%= question %></span>
+    </label>
 
     <div class="input <%= output %>">
-    <%
-        for(var i = 0; i < options.length; ++i) {
-            var option  = options[i];
-            var checked = (option.checked) ? ' checked="checked"' : '';
-    %>
-        <label class="option">
-            <input type="<%= inputType %>" name="<%= name %>" value="<%= option.value %>"<%= checked %> />
+        <div class="options">
         <%
-            if(option.optionIcon) {
+            for(var i = 0; i < options.length; ++i) {
+                var option  = options[i];
+                var checked = (option.checked) ? ' checked="checked"' : '';
         %>
-            <img src="<%= option.iconUrl %>" />
+            <label class="option">
+                <input type="<%= inputType %>" name="<%= name %>" value="<%= option.value %>"<%= checked %> />
+            <%
+                if(option.optionIcon) {
+            %>
+                <img src="<%= option.iconUrl %>" />
+            <%
+                }
+            %>
+                <span class="text"><%= option.value %></span>
+            </label>
         <%
             }
         %>
-            <span class="text"><%= option.value %></span>
-        </label>
-    <%
-        }
-    %>
+        </div>
     </div>
 </div>

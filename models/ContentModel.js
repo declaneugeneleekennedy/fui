@@ -24,14 +24,14 @@ function($, _, Backbone, DisplayRuleModel) {
             
             $t.set('displayRule', new DisplayRuleModel($t.get('displayRule')));
 
-            if($t.get('contentAttributes')) {
-                _.each($t.get('contentAttributes'), function(value, name) {
+            if($t.get('attribs')) {
+                _.each($t.get('attribs'), function(value, name) {
                     $t.set(name, value);
                 });
 
                 $t.setExtendedAttributes();
 
-                $t.unset('contentAttributes');
+                $t.unset('attribs');
             }
 
             $t.set('name', 'input' + $t.get('contentId'));
@@ -56,11 +56,14 @@ function($, _, Backbone, DisplayRuleModel) {
             if(!value) {
                 if($t.get('required') && !allowEmpty) {
                     $t.addError('Input is required');
+                } else {
+                    return;
                 }
             } else {
                 $t.validateValue(value, form);
-                $t.set('valid', ($t.get('errors').length == 0));
             }
+
+            $t.set('valid', ($t.get('errors').length == 0));
 
             console.log($t.get('errors'), 'Validation Errors');
         }

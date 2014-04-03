@@ -2,8 +2,8 @@ define(['jquery', 'global', 'backbone', 'loader',
     'models/FormModel', 'models/TemplateModel'],
 function($, Global, Backbone, Loader, FormModel, TemplateModel) {
     return Backbone.Model.extend({
-        id: 'form.json',    // @todo [dk] replace with real ID
-        urlRoot: '/data',   // @todo [dk] replace with real root
+        id: 'new.json',    // @todo [dk] replace with real ID
+        urlRoot: '//dl.dropboxusercontent.com/u/1093026/www/fui/data',   // @todo [dk] replace with real root
         loader: new Loader,
         defaults: {
             formUrl: null,

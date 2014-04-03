@@ -1,7 +1,7 @@
 define(['global', 'js/view'],
 function(Global, View) {
     return View.extend({
-        templateUrl: 'html/Include/Contact.html',
+        templateUrl: 'Include/Contact.html',
         tagName: 'div',
         className: 'contact',
         render: function() {

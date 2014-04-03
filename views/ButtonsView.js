@@ -12,8 +12,6 @@ function($, View) {
             var $t = this;
 
             $t.$el.html($t.html({buttons: $t.getButtons()}));
-
-            $t.trigger('renderComplete');
         },
         getButtons: function() {
             var $t = this, buttons = [], template = Global.get('template');
@@ -43,9 +41,11 @@ function($, View) {
         nextPage: function() {
             var $t = this;
 
-            var nextPage = $t.model.getNextPage();
-            if(nextPage) {
-                $t.model.set('currentPageUrl', nextPage.get('pageUrl'));
+            if($t.model.get('currentPage').validate($t.model)) {
+                var nextPage = $t.model.getNextPage();
+                if(nextPage) {
+                    $t.model.set('currentPageUrl', nextPage.get('pageUrl'));
+                }
             }
         },
         previousPage: function() {

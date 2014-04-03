@@ -10,21 +10,13 @@ function($, View) {
         render: function() {
             var $t = this;
 
-            var links = [], afterCurrent = false;
+            var links = [];
             $t.model.get('pages').each(function(page) {
+                links.push($t.getLinkObject(page));
+
                 page.on('change:display', function() {
                     $t.render();
                 });
-
-                if(!page.get('display')) {
-                    return;
-                }
-
-                if(page == $t.model.get('currentPage')) {
-                    afterCurrent = true;
-                }
-
-                links.push($t.getLinkObject(page, afterCurrent));
             });
 
             $t.$el.html($t.html({
@@ -47,22 +39,20 @@ function($, View) {
 
             return ($t.model.get('formUrl') + '/' + page.get('pageUrl'));
         },
-        getLinkObject: function(page, afterCurrent) {
+        getLinkObject: function(page) {
             var $t = this;
 
-            var className;
+            var classes = [];
 
-            if(page == $t.model.get('currentPage')) {
-                className = 'active';
-            } else {
-                className = (afterCurrent) ? 'unvisited' : 'visited';
-            }
+            classes.push((page == $t.model.get('currentPage')) ? 'active' : 'inactive');
+
+            classes.push((page.get('display')) ? 'unlocked' : 'locked');
 
             return {
                 id: page.get('pageUrl'),
                 href: $t.getLinkHref(page),
                 text: page.get('progressBarTitle'),
-                className: className
+                className: classes.join(' ')
             }; 
         },
         changePage: function(e) {

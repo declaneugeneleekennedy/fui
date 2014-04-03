@@ -10,10 +10,10 @@
 
 body {
     padding-bottom: 40px;
-    font-size: 0.8em;
+    font-size: 0.9em;
     color: #666666;
     font-family: Arial,Helvetica,sans-serif;
-    background: #e3f1f9;
+    background: #fff;
 }
 label,
 input,
@@ -49,46 +49,54 @@ h1,h3,h4,h5,h6 {
     font-weight: normal;
 }
 
+ul.bulletPointList {
+    list-style:none;
+    padding:5px 0;
+}
+
+ul.bulletPointList li span.bulletPoint {
+    padding:5px;
+}
+
 .container {
     border: 1px solid #ccc;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
-    border-radius: 6px;    
-}
-
-#page {
-    margin:0 2%;
-    background: url(/theme/asset/img/bgImage.jpg) no-repeat right top;
+    border-radius: 6px;
+    margin:0 5%;
 }
 
 #headerContainer {
     padding-top:180px;
+    background: #e3f1f9;
 }
 
-.header {
-  height:100px;
-  background: url(/theme/asset/img/logo.png) no-repeat right top;
-}
-
-#headerContainer .container {
-    padding: 20px 20px 0 20px;
-    height:200px;
+#navigation {
     background-color:rgba(255,255,255, 0.8);
 }
 
-.navbar ul {
-    list-style-type:none;
-    float:left;
+#navigation h1 {
+    margin:20px 1%;
+    padding-top:20px;
+    height:44px;
+    width:90%;
 }
 
-.navbar ul li {
-    float:left;
-    padding-right:20px;
+#navigation .contact {
+    float:right;
+    margin:-75px 20px 0 0;
 }
 
-.navbar ul li.active {}
+#navigation .contact a {
+    display:block;
+    width:47px;
+    height:47px;
+}
 
-.navbar ul li.inactive {}
+#navigation .contact a .text {
+    display:none;
+    visibility:hidden;
+}
 
 /*
  * Form
@@ -96,7 +104,8 @@ h1,h3,h4,h5,h6 {
 
 #formContainer {
     background:#fff;
-    padding: 20px 20px 0 20px;
+    padding: 0 20px;
+    margin-top:20px;
     background-color:#fff;
 }
 
@@ -130,7 +139,7 @@ h1,h3,h4,h5,h6 {
     display:block;    
     float:left;
     clear:both;
-    width:29%;
+    width:39%;
     padding-right:1%;
 }
 
@@ -139,12 +148,23 @@ h1,h3,h4,h5,h6 {
     width:17px;
     height:17px;
     float:right;
-    background: url(/theme/asset/img/sprites.png) no-repeat -340px -147px;
+    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat -340px -147px;
 }
 
 .contentElement .input {
-    margin-left:30%;
-    width:70%;
+    margin-left:40%;
+    width:60%;
+}
+
+.contentElement .input .errors {
+    position:absolute;
+    display:inline-block;
+    border: #ff4200 1px solid;
+    border-radius:6px;
+    padding:5px;
+    margin-left:10px;
+    color: #ff4200;
+    background-color: #ffece6;
 }
 
 /*
@@ -183,7 +203,7 @@ h1,h3,h4,h5,h6 {
     width:17px;
     height:17px;
     position:absolute;
-    background: url(/theme/asset/img/sprites.png) no-repeat;
+    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
     background-position: -153px -130px; /* BLANK */
 }
 
@@ -308,7 +328,8 @@ h1,h3,h4,h5,h6 {
 
 .contentElement .multipleChoice .horizontal label.option {                
     width:130px;
-    float:left;
+    margin:10px;
+    display:inline-table;
 }
 
 .contentElement .multipleChoice .vertical label.option {
@@ -361,7 +382,7 @@ h1,h3,h4,h5,h6 {
 .contentElement .multipleChoice .input label.option input+span.text:before {
     content: "";
     float:left;
-    background: url(/theme/asset/img/sprites.png) no-repeat;
+    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
 }
 
 .contentElement .multipleChoice .input label.option input[type="radio"]+span.text:before {
@@ -382,6 +403,39 @@ h1,h3,h4,h5,h6 {
 
 .contentElement .multipleChoice .input label.option input[type="checkbox"]:checked+span.text:before {
     background-position: 0 -91px;
+}
+
+.contentElement .multipleChoice .input .options {
+    display:inline-block;
+    border:transparent 1px solid;
+    border-radius:6px;
+}
+
+.invalid .multipleChoice .input .options {
+    border-color:#ff4200;
+    background-color:#ffece6;
+}
+
+.invalid .multipleChoice .input .options span.text {
+    color:#ff4200;
+}
+
+.valid .multipleChoice .input:after,
+.invalid .multipleChoice .input:after {
+    content: "";
+    width:17px;
+    height:17px;
+    position:relative;
+    margin-left:10px;
+    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
+}
+
+.valid .multipleChoice .input:after {    
+    background-position: -306px -147px;
+}
+
+.invalid .multipleChoice .input:after {    
+    background-position: -323px -147px;
 }
 
 /*
@@ -444,7 +498,7 @@ h1,h3,h4,h5,h6 {
     content: "";
     display:inline-block;
     position:relative;
-    background: url(/theme/asset/img/sprites.png) no-repeat;
+    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
     width:30px;
     height:30px;
  }

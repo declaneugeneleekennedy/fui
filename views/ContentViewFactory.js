@@ -20,10 +20,12 @@ define([
     'views/Content/MultilineInputBoxView',
     'views/Content/DescriptiveTextView',
     'views/Content/IdentityVerificationView',
-    'views/Content/ContentReviewView'
+    'views/Content/ContentReviewView',
+    'views/Content/AddressView'
 ],
 function(SingleLineInputBoxView, MultipleChoiceView, MultilineInputBoxView,
-    DescriptiveTextView, IdentityVerificationView, ContentReviewView
+    DescriptiveTextView, IdentityVerificationView, ContentReviewView,
+    AddressView
 ) {
     var views = {
         1: SingleLineInputBoxView,
@@ -31,7 +33,8 @@ function(SingleLineInputBoxView, MultipleChoiceView, MultilineInputBoxView,
         3: MultilineInputBoxView,
         4: DescriptiveTextView,
         5: IdentityVerificationView,
-        6: ContentReviewView
+        6: ContentReviewView,
+        7: AddressView
     };
 
     return {

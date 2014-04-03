@@ -14,10 +14,6 @@ function(_, ContentModel, Template) {
 
             if($t.get('responseType') == 'single') {
                 $t.set('inputType', 'radio');
-
-                if($t.get('value') == ContentModel.prototype.defaults.value) {
-                    $t.set('value', $t.get('options')[0].value);
-                }
             } else {
                 $t.set('inputType', 'checkbox');
             }

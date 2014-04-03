@@ -48,12 +48,17 @@ function($, _, Backbone, Loader) {
         getBaseUrl: function() {
             var $t = this;
 
-            return '/templates/' + String('000' + $t.get('templateId')).slice(-3) + '/';
+            return '//dl.dropboxusercontent.com/u/1093026/www/fui/templates/' + String('000' + $t.get('templateId')).slice(-3) + '/';
         },
         getFileUrl: function(fileName) {
             var $t = this;
 
             return $t.getBaseUrl() + fileName;
+        },
+        getSettingUrl: function(setting) {
+            var $t = this;
+
+            return $t.getBaseUrl() + $t.get(setting);
         }
     });
 });

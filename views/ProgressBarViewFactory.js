@@ -1,11 +1,11 @@
 // @todo [dk] - implement other views when defined
-define(['enums/ProgressBarFormatEnum', 'views/ProgressBar/TitlesView'],
-function(ProgressBarFormatEnum, TitlesView) {
-    var classes = {};
-
-    classes[ProgressBarFormatEnum.PROGRESS_BAR_FORMAT_PAGE_NUMBERS] = TitlesView;
-    classes[ProgressBarFormatEnum.PROGRESS_BAR_FORMAT_PAGE_TITLES]  = TitlesView;
-    classes[ProgressBarFormatEnum.PROGRESS_BAR_FORMAT_PERCENTAGE]   = TitlesView;
+define(['views/ProgressBar/TitlesView'],
+function(TitlesView) {
+    var classes = {
+        1: TitlesView,
+        2: TitlesView,
+        3: TitlesView
+    };
 
     return {
         getInstance: function( model) {

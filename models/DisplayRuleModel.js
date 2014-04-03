@@ -1,25 +1,25 @@
 define(
-['backbone', 'models/RuleCollection'],
-function(Backbone, RuleCollection) {
+['backbone', 'models/PolicyCollection'],
+function(Backbone, PolicyCollection) {
     return Backbone.Model.extend({
         defaults: {
             logicalOperator: 'and',
-            rules: []
+            policies: []
         },
         initialize: function() {
             var $t = this;
 
-            $t.set('rules', new RuleCollection($t.get('rules')));
+            $t.set('policies', new PolicyCollection($t.get('policies')));
         },
         active: function() {
             var $t = this;
 
-            return ($t.get('rules').length > 0);
+            return ($t.get('policies').length > 0);
         },
         getTriggers: function() {
             var $t = this;
 
-            return $t.get('rules').pluck('triggerContentId');
+            return $t.get('policies').pluck('triggerContentId');
         },
         bindTo: function(form, model) {
             var $t = this;
@@ -39,14 +39,14 @@ function(Backbone, RuleCollection) {
         check: function(form) {
             var $t = this;
 
-            var testMethod = function(rule) {
-                return rule.check(form);
+            var testMethod = function(policy) {
+                return policy.check(form);
             };
 
             if($t.get('logicalOperator') == 'and') {
-                return $t.get('rules').every(testMethod);
+                return $t.get('policies').every(testMethod);
             } else {
-                return $t.get('rules').some(testMethod);
+                return $t.get('policies').some(testMethod);
             }
         }
     });

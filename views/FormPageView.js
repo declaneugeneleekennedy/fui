@@ -1,50 +1,54 @@
 define(['jquery', 'global', 'js/view',
-    'views/StyleView', 'views/ProgressBarView', 'views/SectionView',
+    'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
     'views/ButtonsView'],
-function($, Global, View, StyleView, ProgressBarView, SectionView, ButtonsView) {
+function($, Global, View, ProgressBarViewFactory, ContactView, SectionView, ButtonsView) {
     return View.extend({
         templateUrl: 'Page/Form.html',
         tagName: 'div',
         className: 'pageContainer',
-        events: {
-            'click a': 'changePage'
-        },
         render: function() {
             var $t = this;
 
-            $t.setTitle($t.model.get('currentPage').get('pageTitle'));
+            $t.applyTemplate();
 
-            var style = new StyleView({ model: Global.get('template') });
+            $t.setTitle($t.model.get('currentPage').get('pageTitle'));
 
             $t.$el.html($t.html({
                 title: $t.model.get('currentPage').get('pageTitle')
             }));
 
-            var progress = new ProgressBarView({ model: $t.model });
-
-            $('#progressBar', $t.$el).append(progress.el);
+            $nav    = $('#navigation', $t.$el);
+            $form   = $('form', $t.$el);
+            
+            $nav.append(new ContactView({ model: $t.model }).el);
+            $nav.append(ProgressBarViewFactory.getInstance($t.model).el);
 
             $t.model.get('currentPage').get('sections').each(function(section) {
-                var view = new SectionView({ model: section });
-
-                $('form', $t.$el).append(view.el);
+                $form.append(new SectionView({ model: section }).el);
             });
 
-            var buttons = new ButtonsView({ model: $t.model });
-
-            $('form', $t.$el).append(buttons.el);
+            $form.append(new ButtonsView({ model: $t.model }).el);
 
             $(window).scrollTop(0);
         },
-        changePage: function(e) {
+        applyTemplate: function() {
             var $t = this;
 
-            e.preventDefault();
+            var $template = Global.get('template');
 
-            var splitUrl = $(e.currentTarget).attr('href').split('/');
-            if(splitUrl) {
-                $t.model.set('currentPageUrl', splitUrl[splitUrl.length - 1]);
-            }
+            $t.addStylesheet($template.getFileUrl('asset/css/default.css'));
+
+            $t.addCss('#headerContainer', {
+                'background-image': 'url(' + $template.getSettingUrl('headerImage') + ')',
+                'background-repeat': 'no-repeat',
+                'background-position': 'top right'
+            });
+
+            $t.addCss('#headerContainer h1', {
+                'background-image': 'url(' + $template.getSettingUrl('formTitleImage') + ')',
+                'background-repeat': 'no-repeat',
+                'background-position': 'top right'
+            });
         }
     });
 });
