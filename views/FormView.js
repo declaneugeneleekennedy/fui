@@ -1,15 +1,15 @@
 define(['jquery', 'underscore', 'global', 'js/view',
     'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
-    'views/ButtonsView', 'views/TagViewFactory'],
+    'views/ButtonsView'],
 function($, _, Global, View,
     ProgressBarViewFactory, ContactView, SectionView,
-    ButtonsView, TagViewFactory
+    ButtonsView
 ) {
     return View.extend({
         templateUrl: 'html/Page/Form.html',
         tagName: 'div',
         className: 'pageContainer',
-        beforeRender: function() {
+        beforeLoad: function() {
             var $t = this;
 
             // navigation views
@@ -57,8 +57,6 @@ function($, _, Global, View,
             });
 
             $form.append($t.buttons.el);
-
-            TagViewFactory.replaceTags($t.$el);
         }
     });
 });

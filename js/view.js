@@ -1,80 +1,59 @@
-define(['jquery', 'underscore', 'global', 'backbone'],
-function($, _, Global, Backbone) {
+define(['jquery', 'underscore', 'loader',
+    'global', 'backbone', 'js/styler','js/queue'],
+function($, _, Loader, Global, Backbone, Styler, Queue) {
     return Backbone.View.extend({
+        styler: new Styler({ id: 'view' }),
         templateUrl: null,
         html: null,
         initialize: function() {
             var $t = this;
 
-            if($t.stylesheets) {
-                _.each($t.stylesheets, function(url) {
-                    $t.addStylesheet(url);
-                });
-            }
+            $t.beforeLoad();
 
-            if($t.css) {
-                _.each($t.css, function(rules, selector) {
-                    $t.addCss(selector, rules);
-                });
-            }
+            var $p = $t.getHtml($t.templateUrl);
 
-            $t.template = Global.get('template');
+            $.when($p).then(function() {
+                if(!$t.html) {
+                    $t.html = '<!-- ? -->';
+                }
 
-            var $p = $t.template.getHtmlFile($t.templateUrl);
+                $t.html = _.template($t.html);
 
-            $.when($p).then(function(html) {
-                $t.html = _.template(html);
                 $t.render();
             });
         },
-        setTitle: function(title) {
-            document.title = title;
-        },
         addStylesheet: function(url) {
-            if($('head link[href="' + url + '"]').length == 0) {
-                $('head').append($(document.createElement('link')).attr({
-                    type: 'text/css',
-                    rel: 'stylesheet',
-                    href: url
-                }));
-            }
+            var $t = this;
+
+            $t.styler.addStylesheet(url);
         },
         addCss: function(selector, rules) {
             var $t = this;
 
-            $t.addRawCss($t.getCssText(selector, rules));
+            $t.styler.addCss(selector, rules);
         },
-        addRawCss: function(text) {
+        beforeLoad: function() {
+            console.log('Calling View.beforeLoad() no-op');
+        },
+        getHtml: function(url) {
             var $t = this;
 
-            if(Global.get('style') == null) {
-                Global.set('style', $(document.createElement('style')).attr({
-                    id: 'dynamic',
-                    type: 'text/css'
-                }));
+            var $p = $t.getTemplate().getHtmlFile(url);
 
-                $('head').append(Global.get('style'));
-            }
-
-            Global.get('style').text(Global.get('style').text() + text);
-        },
-        getCssText: function(selector, rules) {
-            var $t = this;
-
-            var css = selector + '{' + $t.flattenRules(rules) + '}';
-
-            return css;
-        },
-        flattenRules: function(rules) {
-            var $t = this;
-
-            var css = [];
-
-            _.each(rules, function(value, name) {
-                css.push(name + ':' + value);
+            $.when($p).then(function(html) {
+                $t.html = html;
             });
 
-            return css.join(';');
+            return Global.get('assetQueue').add($p);
+        },
+        getTemplate: function() {
+            var $t = this;
+
+            if(!$t.template) {
+                $t.template = Global.get('template');
+            }
+
+            return $t.template;
         }
     });
 });

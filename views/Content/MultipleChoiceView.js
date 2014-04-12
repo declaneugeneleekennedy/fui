@@ -1,14 +1,16 @@
-define(['jquery', 'underscore', 'views/ContentView'],
-function($, _, ContentView) {
+define(['jquery', 'underscore', 'views/ContentView',
+    'enums/ResponseTypeEnum', 'enums/OutputStyleEnum'],
+function($, _, ContentView, ResponseTypeEnum, OutputStyleEnum) {
     return ContentView.extend({
-        templateUrl: 'Content/MultipleChoice.html',
+        templateUrl: 'html/Content/MultipleChoice.html',
         events: {
             'click input': 'setValue'
         },
         setValue: function(e) {
             var $t = this;
 
-            var single = ($t.model.get('responseType') == 'single');
+            var single = ($t.model.get('responseType') ==
+                ResponseTypeEnum.RESPONSE_TYPE_SINGLE);
 
             var value = (single) ? null : [];
 
@@ -26,13 +28,44 @@ function($, _, ContentView) {
                 $t.model.set('value', value);
             }
         },
-        prepare: function() {
+        beforeLoad: function() {
             var $t = this;
+
+            if($t.model.get('output') == OutputStyleEnum.OUTPUT_STYLE_VERTICAL) {
+                $t.templateUrl = 'html/Content/MultipleChoiceVertical.html';
+            } else {
+                $t.templateUrl = 'html/Content/MultipleChoiceHorizontal.html';
+            }
+
+            var hasIcons = $t.hasIcons($t.model.get('options'));
 
             _.each($t.model.get('options'), function(option) {
                 option.checked = (option.value == $t.model.get('value'));
-                option.iconUrl = $t.template.getFileUrl(option.optionIcon);
+
+                if(hasIcons) {
+                    if(!option.optionIcon) {
+                        option.optionIcon = 'img/multiChoice/missingIcon.png';
+                    }
+
+                    option.iconUrl = $t.getTemplate().getFileUrl(option.optionIcon);
+                }
             });
+        },
+        hasIcons: function(options) {
+            var $t = this;
+
+            var icons = false;
+            _.each(options, function(option) {
+                if(icons) {
+                    return;
+                }
+
+                if(option.optionIcon) {
+                    icons = true;
+                }
+            });
+
+            return icons;
         }
     });
 });

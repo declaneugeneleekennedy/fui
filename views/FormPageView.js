@@ -1,54 +1,44 @@
-define(['jquery', 'global', 'js/view',
+define(['jquery', 'underscore', 'global', 'js/view', 
     'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
     'views/ButtonsView'],
-function($, Global, View, ProgressBarViewFactory, ContactView, SectionView, ButtonsView) {
+function($, _, Global, View, ProgressBarViewFactory, ContactView, SectionView, ButtonsView) {
     return View.extend({
-        templateUrl: 'Page/Form.html',
         tagName: 'div',
         className: 'pageContainer',
+        templateUrl: 'html/Page/Form.html',
+        beforeLoad: function() {
+            var $t = this;
+
+            $t.contact  = new ContactView({ model: $t.model });
+            $t.progress = ProgressBarViewFactory.getInstance($t.model);
+
+            $t.sections = [];
+
+            $t.model.get('currentPage').get('sections').each(function(section) {
+                $t.sections.push(new SectionView({ model: section }));
+            });
+
+            $t.buttons = new ButtonsView({ model: $t.model });
+        },
         render: function() {
             var $t = this;
 
-            $t.applyTemplate();
-
-            $t.setTitle($t.model.get('currentPage').get('pageTitle'));
-
             $t.$el.html($t.html({
-                title: $t.model.get('currentPage').get('pageTitle')
+                title: $t.model.get('currentPage').get('pageTitle'),
+                pageTitle: $t.model.get('currentPage').get('pageTitle')
             }));
 
             $nav    = $('#navigation', $t.$el);
             $form   = $('form', $t.$el);
             
-            $nav.append(new ContactView({ model: $t.model }).el);
-            $nav.append(ProgressBarViewFactory.getInstance($t.model).el);
+            $nav.append($t.contact.el);
+            $nav.append($t.progress.el);
 
-            $t.model.get('currentPage').get('sections').each(function(section) {
-                $form.append(new SectionView({ model: section }).el);
+            _.each($t.sections, function(section) {
+                $form.append(section.el);
             });
 
-            $form.append(new ButtonsView({ model: $t.model }).el);
-
-            $(window).scrollTop(0);
-        },
-        applyTemplate: function() {
-            var $t = this;
-
-            var $template = Global.get('template');
-
-            $t.addStylesheet($template.getFileUrl('asset/css/default.css'));
-
-            $t.addCss('#headerContainer', {
-                'background-image': 'url(' + $template.getSettingUrl('headerImage') + ')',
-                'background-repeat': 'no-repeat',
-                'background-position': 'top right'
-            });
-
-            $t.addCss('#headerContainer h1', {
-                'background-image': 'url(' + $template.getSettingUrl('formTitleImage') + ')',
-                'background-repeat': 'no-repeat',
-                'background-position': 'top right'
-            });
+            $form.append($t.buttons.el);
         }
     });
 });

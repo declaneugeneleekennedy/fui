@@ -30,6 +30,10 @@
     background-image: linear-gradient(to bottom, #fff 0%, #eee 100%);
 }
 
+#progressBar ul li.locked {
+    display:none;
+}
+
 #progressBar ul li.active {
     background-color: #33a9b3;
     background-image: -ms-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
@@ -41,7 +45,8 @@
 }
 
 #progressBar ul li a {
-    cursor:default;
+    cursor:pointer;
+    color:#666666;
     font-weight:bolder;
     text-decoration:none;
     display:inline-block;
@@ -55,10 +60,6 @@
     color:white;
 }
 
-#progressBar ul li.visited a {
-    cursor:pointer;
-}
-
 #progressBar ul li.active a:after {
     content: "";
     position: relative;
@@ -70,10 +71,6 @@
     border-color: #0093a0 transparent;
     display: block;
     width: 0;
-}
-
-#progressBar ul li.unvisited a {
-    color:#666666;
 }
 
 #progressBar ul li a .text {

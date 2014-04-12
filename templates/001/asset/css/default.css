@@ -148,7 +148,6 @@ ul.bulletPointList li span.bulletPoint {
     width:17px;
     height:17px;
     float:right;
-    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat -340px -147px;
 }
 
 .contentElement .input {
@@ -203,7 +202,6 @@ ul.bulletPointList li span.bulletPoint {
     width:17px;
     height:17px;
     position:absolute;
-    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
     background-position: -153px -130px; /* BLANK */
 }
 
@@ -382,7 +380,6 @@ ul.bulletPointList li span.bulletPoint {
 .contentElement .multipleChoice .input label.option input+span.text:before {
     content: "";
     float:left;
-    background: url(//dl.dropboxusercontent.com/u/1093026/www/fui/theme/asset/img/sprites.png) no-repeat;
 }
 
 .contentElement .multipleChoice .input label.option input[type="radio"]+span.text:before {

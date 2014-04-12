@@ -1,0 +1,14 @@
+<div class="contentReview">
+    <%
+        var content;
+        for(var i = 0; i < models.length; ++i) {
+            content = contents[i];
+    %>
+    <div class="review">
+        <span class="name">content.question</span>
+        <span class="value">content.value</span>
+    </div>
+    <%
+        }
+    %>
+</div>

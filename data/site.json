@@ -1,6 +1,9 @@
 {
     "main": {
         "defaultSection": "home",
+        "clientPathMap": {
+            "//formbanc.dev.com": ""
+        },
         "frameworkHostMap": {
             "//formbanc.dev.com": "//ui.formbanc.dev.com"
         },

@@ -1,7 +1,6 @@
 define(
 ['jquery', 'underscore', 'backbone',
-    'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection',
-    'models/TaggedValueModelFactory', 'models/TaggedValueMapCollection'],
+    'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection'],
 function($, _, Backbone,
     PageCollection, SectionCollection, ContentCollection,
     TaggedValueModelFactory, TaggedValueMapCollection
@@ -149,6 +148,7 @@ function($, _, Backbone,
 
             $t.bind('change:currentPage', function() {
                 // silent to prevent loops
+                $t.get('currentPage').set('visited', true);
                 $t.set({ 'currentPageUrl': $t.get('currentPage').get('pageUrl') }, {silent: true});
             });
 
@@ -156,24 +156,8 @@ function($, _, Backbone,
                 model.get('displayRule').bindTo($t, model);
             });
 
-            $t.mapTaggedValues();
-
             // bind handlers            
             $t.getContents().each(function(content) {
-
-                // bind tagged value events
-                var tagMap = $t.get('tagMap').findWhere({
-                    triggerContentId: content.get('contentId')
-                });
-
-                if(tagMap) {
-                    content.bind('change:value', function() {
-                        _.each(tagMap.get('models'), function(taggedValue) {
-                            taggedValue.processTag(content.get('value'));
-                        });
-                    });
-                }
-
                 // @todo [dk] - set saved values
                 content.trigger('change:value');
 
@@ -184,45 +168,6 @@ function($, _, Backbone,
             });
 
             $t.isMapped = true;  
-        },
-        addTaggedValues: function(taggedValues) {
-            var $t = this;
-
-            if(taggedValues) {
-                if(!$t.get('tagMap')) {
-                    $t.set('tagMap', new TaggedValueMapCollection);
-                }
-
-                _.each(taggedValues, function(taggedValue) {
-                    $t.get('tagMap')
-                        .addTaggedValueMap(taggedValue.get('triggerContentId'), taggedValue);
-                });
-            }
-        },
-        mapTaggedValues: function() {
-            var $t = this;
-
-            // map page titles
-            $t.getPages().each(function(page) {
-                $t.addTaggedValues(TaggedValueModelFactory.getInstances(page, 'pageTitle'));
-            });
-
-            // map section titles
-            $t.getSections().each(function(section) {
-                $t.addTaggedValues(TaggedValueModelFactory.getInstances(section, 'sectionTitle'));
-            });
-
-            // map content attribute changes
-            var tests = ['question', 'suggestedInput', 'text'];
-
-            $t.getContents().each(function(content) {
-                _.each(tests, function(property) {
-                    if(content.get(property)) {
-                        $t.addTaggedValues(TaggedValueModelFactory
-                            .getInstances(content, property));
-                    }
-                });
-            });
         }
     });
 });

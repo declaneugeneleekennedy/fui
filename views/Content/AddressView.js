@@ -1,5 +1,6 @@
-define(['js/view'], function(View) {
-    return View.extend({
-    
+define(['views/ContentView'],
+function(ContentView) {
+    return ContentView.extend({
+        templateUrl: 'html/Content/Address.html'
     });
 });

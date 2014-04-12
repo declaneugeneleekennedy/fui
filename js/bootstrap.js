@@ -37,7 +37,11 @@
 
     require(['global', 'router'],
     function(Global, Router) {
-        Global.set('router', new Router());
+        Global.set('router',        new Router());
+        
+        Global.set('clientHost',    clientHost);
+        Global.set('frameworkHost', frameworkHost);
+        Global.set('dataHost',      dataHost);
 
         Backbone.history.start({pushState: false, hashChange: true});
     });

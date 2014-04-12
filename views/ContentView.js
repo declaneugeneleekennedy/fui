@@ -63,8 +63,6 @@ function($, View) {
 
             $t.bindModelChanges();
 
-            $t.prepare();
-
             if($t.model.get('required')) {
                 $t.$el.addClass('required');
             }
@@ -93,9 +91,6 @@ function($, View) {
         },
         setValue: function(e) {
             console.log('Calling ContentView.setValue() no-op');
-        },
-        prepare: function() {
-            console.log('Calling ContentView.prepare() no-op');
         }
     });
 });

@@ -1,6 +1,7 @@
-define(['jquery', 'backbone'],
-function($, Backbone) {
-    return Backbone.Collection.extend({
+define(['jquery', 'underscore', 'js/extendable'],
+function($, _, Extendable) {
+    return Extendable.extend({
+        promises: [],
         deferred: null,
         initialize: function() {
             var $t = this, count = 0;
@@ -8,7 +9,8 @@ function($, Backbone) {
             $t.deferred = $.Deferred().progress(function() {
                 ++count;
 
-                if(count == $t.length) {
+                if(count == $t.promises.length) {
+                    $t.reset();
                     $t.deferred.resolve();
                 }
             });
@@ -18,10 +20,8 @@ function($, Backbone) {
 
             var count = 0;
 
-            if($t.length) {
-                $t.each(function(model) {
-                    var $p = model.fetch();
-
+            if($t.promises.length) {
+                _.each($t.promises, function($p) {
                     $.when($p).then(function() {
                         $t.deferred.notify();
                     });
@@ -32,12 +32,17 @@ function($, Backbone) {
 
             return $t.deferred.promise();
         },
-        add: function(model) {
+        add: function(promise) {
             var $t = this;
 
-            Backbone.Collection.add.call($t, model);
+            $t.promises.push(promise);
 
             return $t.deferred.promise();
+        },
+        reset: function() {
+            var $t = this;
+
+            $t.promises = [];
         }
     });
 });

@@ -1,13 +1,12 @@
-define(['jquery', 'global', 'backbone', 'loader',
+define(['jquery', 'backbone',
 
     // models
-    'models/FormPageModel',
+    'models/DocumentModel',
 
     // views
-    'views/FormPageView'],
-function($, Global, Backbone, Loader, FormPageModel, FormPageView) {
+    'views/DocumentView'],
+function($, Backbone, DocumentModel, DocumentView) {
     return Backbone.Router.extend({
-        loader: new Loader,
 
         routes: {
             '': 'home',            
@@ -22,7 +21,7 @@ function($, Global, Backbone, Loader, FormPageModel, FormPageView) {
         formRoot: function(formUrl) {
             var $t = this;
 
-            var model = new FormPageModel({
+            var model = new DocumentModel({
                 formUrl: formUrl
             });
 
@@ -40,7 +39,7 @@ function($, Global, Backbone, Loader, FormPageModel, FormPageView) {
         formPage: function(formUrl, pageUrl) {
             var $t = this;
 
-            var model = new FormPageModel({
+            var model = new DocumentModel({
                 formUrl: formUrl,
                 pageUrl: pageUrl
             });
@@ -52,9 +51,7 @@ function($, Global, Backbone, Loader, FormPageModel, FormPageView) {
                     $t.navigate(model.get('form').getPageUrl(), {trigger: true});
                 });
 
-                var view = new FormPageView({ model: model.get('form') });
-                
-                $('body').html(view.el);
+                new DocumentView({ model: model });
             });
         }
     });

@@ -1,8 +1,8 @@
 define(['underscore', 'global', 'views/ContentView'],
 function(_, Global, ContentView) {
     return ContentView.extend({
-        templateUrl: 'Content/ContentReview.html',
-        prepare: function() {
+        templateUrl: 'html/Content/ContentReview.html',
+        beforeLoad: function() {
             var $t = this;
 
             var models = [];

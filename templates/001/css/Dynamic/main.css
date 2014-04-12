@@ -2,9 +2,41 @@
 
 body {
     font-family: <%= fontFamily %>;
-    font-size: <%= (1 + fontSize) %>em;
+    font-size: <%= fontSize %>em;
 }
 
 h1,h2,h3,h4,h5,h6 {
     font-family: <%= headingsFontFamily %>;
+}
+
+#headerContainer {
+    background-color: <%= headerBackgroundColour %>;
+    background-image: url(<%= headerImage %>);
+}
+
+#headerContainer h1 {
+    background-image: url(<%= formTitleImage %>);
+}
+
+.rounded,
+.container,
+.section h3,
+.contentElement .input .errors,
+.contentElement .multipleChoice .input .options {    
+    -webkit-border-radius: <%= radius %>;
+    -moz-border-radius: <%= radius %>;
+    border-radius: <%= radius %>;
+}
+
+.sprite,
+.section h3:before,
+.required label.question span.text:before,
+.contentElement .singleLineInputBox .input span.element:before,
+.contentElement .singleLineInputBox .input span.element:after,
+.contentElement .multipleChoice .input label.option input+span.text:before,
+.valid .multipleChoice .input:after,
+.invalid .multipleChoice .input:after,
+.buttons .next:after,
+.buttons .previous:before {
+    background-image: url(<%= sprite %>);
 }

@@ -1,7 +1,7 @@
 define(['jquery', 'js/view'],
 function($, View) {
     return View.extend({
-        templateUrl: 'Include/Buttons.html',
+        templateUrl: 'html/Include/Buttons.html',
         tagName: 'div',
         className: 'buttons',
         events: {

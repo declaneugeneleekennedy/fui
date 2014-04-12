@@ -1,7 +1,7 @@
 define(['jquery', 'views/ContentView'],
 function($, ContentView) {
     return ContentView.extend({
-        templateUrl: 'Content/SingleLineInputBox.html',
+        templateUrl: 'html/Content/SingleLineInputBox.html',
         events: {
             'blur input': 'setValue'
         },

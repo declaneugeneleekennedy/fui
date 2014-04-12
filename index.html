@@ -14,7 +14,7 @@
 
             $(document).ready(function() {
                 var promise = $.ajax({
-                    url: '/data/site.json',
+                    url: 'data/site.json',
                     method: 'get',
                     dataType: 'json'
                 });
@@ -22,9 +22,15 @@
                 $.when(promise).then(function(result) {
                     SiteConfig = result;
 
-                    clientHost      = '//' + window.location.hostname;
-                    frameworkHost   = SiteConfig.main.frameworkHostMap[clientHost] || clientHost;
-                    dataHost        = SiteConfig.main.dataHostMap[clientHost] || clientHost + '/data';
+                    clientId = '//' + window.location.hostname;
+
+                    clientHost = clientId;
+                    if(SiteConfig.main.clientPathMap[clientId]) {
+                        clientHost = clientHost + SiteConfig.main.clientPathMap[clientId];
+                    }
+
+                    frameworkHost   = SiteConfig.main.frameworkHostMap[clientId] || clientHost;
+                    dataHost        = SiteConfig.main.dataHostMap[clientId] || clientHost + '/data';
 
                     var requireTag = document.createElement('script');
 

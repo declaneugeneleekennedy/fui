@@ -44,7 +44,11 @@ function($, View) {
 
             var classes = [];
 
-            classes.push((page == $t.model.get('currentPage')) ? 'active' : 'inactive');
+            if(page == $t.model.get('currentPage')) {
+                classes.push('active');
+            }
+
+            classes.push((page.get('visited')) ?  'inactive' : 'unvisited');
 
             classes.push((page.get('display')) ? 'unlocked' : 'locked');
 

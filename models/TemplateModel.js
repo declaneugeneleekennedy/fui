@@ -1,5 +1,6 @@
-define(['jquery', 'underscore', 'backbone', 'loader'],
-function($, _, Backbone, Loader) {
+define(['jquery', 'underscore', 'backbone', 'loader', 'global',
+    'models/ColourModel'],
+function($, _, Backbone, Loader, Global, ColourModel) {
     return Backbone.Model.extend({
         loader: new Loader,
         queue: {},
@@ -34,6 +35,8 @@ function($, _, Backbone, Loader) {
             });
 
             $t.unset('templateSettings');
+
+            $t.set('colour', new ColourModel($t.get('colour')));
         },
         getFile: function(url, dataType) {
             var $t = this;
@@ -48,17 +51,31 @@ function($, _, Backbone, Loader) {
         getBaseUrl: function() {
             var $t = this;
 
-            return '/templates/' + String('000' + $t.get('templateId')).slice(-3) + '/';
+            return Global.get('clientHost') + '/templates/'
+                + String('000' + $t.get('templateId')).slice(-3) + '/';
         },
         getFileUrl: function(fileName) {
             var $t = this;
+
+            if(!fileName) {
+                fileName = '';
+            }
+
+            if(fileName.charAt(0) == '/') {
+                fileName = fileName.substr(1);
+            }
 
             return $t.getBaseUrl() + fileName;
         },
         getSettingUrl: function(setting) {
             var $t = this;
 
-            return $t.getBaseUrl() + $t.get(setting);
+            return $t.getFileUrl($t.get(setting));
+        },
+        getColour: function(name) {
+            var $t = this;
+
+            return $t.get('colour').get(name);
         }
     });
 });

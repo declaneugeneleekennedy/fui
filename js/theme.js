@@ -1,10 +1,9 @@
-define(['backbone', 'underscore', 'js/extendable', 'js/styler',
+define(['backbone', 'underscore', 'global', 'js/extendable', 'js/styler',
     'models/MultiColourModel', 'enums/ThemeEnum'],
-function(Backbone, _, Extendable, Styler, MultiColourModel, ThemeEnum) {
+function(Backbone, _, Global, Extendable, Styler, MultiColourModel, ThemeEnum) {
     return Extendable.extend({
         styler: null,
         template: null,
-        dependencies: [],
         initialize: function() {
             var $t = this;
 
@@ -19,7 +18,7 @@ function(Backbone, _, Extendable, Styler, MultiColourModel, ThemeEnum) {
 
                 $t.globalColours = new Backbone.Collection(globalColours);
             }
-            
+
             $t.applyTheme();
         },
         initializeColour: function(value, id) {
@@ -70,17 +69,27 @@ function(Backbone, _, Extendable, Styler, MultiColourModel, ThemeEnum) {
             return result;
         },
         applyTheme: function() {
-            console.log('Calling Theme.applyTheme() no-op');
-        },
-        addDependency: function(dependency) {
             var $t = this;
 
-            $t.dependencies.push(dependency);
+            if($t.stylesheets) {
+                _.each($t.stylesheets['static'], function(url) {
+                    $t.styler.addStylesheet($t.template.getFileUrl(url));
+                });
+
+                var themeVars = $t.getThemeVars();
+                _.each($t.stylesheets['dynamic'], function(url) {
+                    $t.addDependency($t.styler.addDynamicCss(
+                        $t.template.getFileUrl(url), themeVars));
+                });
+            }
         },
-        getDependencies: function() {
+        getThemeVars: function() {
+            console.log('Calling Theme.getThemeVars() no-op');
+        },
+        addDependency: function(promise) {
             var $t = this;
 
-            return $t.dependencies;
+            Global.get('assetQueue').add(promise);
         }
     });
 });

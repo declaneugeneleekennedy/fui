@@ -1,9 +1,18 @@
-define(['jquery', 'js/view', 'views/ContentViewFactory'],
-function($, View, ContentViewFactory) {
+define(['jquery', 'underscore', 'js/view', 'views/ContentViewFactory'],
+function($, _, View, ContentViewFactory) {
     return View.extend({
-        templateUrl: 'Include/Section.html',
+        templateUrl: 'html/Include/Section.html',
         tagName: 'div',
         className: 'section',
+        beforeLoad: function() {
+            var $t = this;
+
+            $t.contents = [];
+
+            $t.model.get('contents').each(function(content) {
+                $t.contents.push(ContentViewFactory.getInstance(content));
+            });
+        },
         render: function() {
             var $t = this;
 
@@ -21,10 +30,8 @@ function($, View, ContentViewFactory) {
 
             $t.$el.html($t.html($t.model.toJSON()));
 
-            $t.model.get('contents').each(function(content) {
-                var view = ContentViewFactory.getInstance(content);
-
-                $('.sectionBody', $t.$el).append(view.el);
+            _.each($t.contents, function(content) {
+                $('.sectionBody', $t.$el).append(content.el);
             });
         }
     });
