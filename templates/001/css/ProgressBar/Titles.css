@@ -49,11 +49,15 @@
     color:#666666;
     font-weight:bolder;
     text-decoration:none;
-    display:inline-block;
-    width:100%;
+    display:block;
     height:100%;
-    background-position: 50% 10px;
+    background-position: 50% 20px;
     background-repeat: no-repeat;
+    border-right: 1px solid #d4d4d4;
+}
+
+#progressBar ul li:last-child a {
+    border-right: none;
 }
 
 #progressBar ul li.active a {
@@ -63,7 +67,7 @@
 #progressBar ul li.active a:after {
     content: "";
     position: relative;
-    bottom: -26px;
+    bottom: -16px;
     left: 50%;
     margin-left: -8px;
     border-width: 9px 8px 0;
@@ -74,5 +78,5 @@
 }
 
 #progressBar ul li a .text {
-    margin-top:80px;
+    padding-top:90px;
 }

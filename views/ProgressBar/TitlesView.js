@@ -16,10 +16,13 @@ function(ProgressBarView) {
                 }).length) + '%'
             });
 
+            var lastVisible;
             $t.model.getPages().each(function(page) {
                 if(!page.get('pageIcons')) {
                     $t.addCss('#progressBar ul li#' + page.get('pageUrl'), {'display': 'none'});
                 } else {
+                    lastVisible = page.get('pageUrl');
+
                     if(page.get('pageIcons').get('unvisited')) {
                         $t.addCss('#progressBar ul li#' + page.get('pageUrl') + '.unvisited a', {
                             'background-image': 'url(' + $t.template.getFileUrl(page.get('pageIcons').get('unvisited')) + ')'
@@ -39,6 +42,12 @@ function(ProgressBarView) {
                     }
                 }
             });
+            
+            if(lastVisible) {
+                $t.addCss('#progressBar ul li#' + lastVisible + ' a', {
+                    'border-right': 'none'
+                });
+            }
         }
     });
 });
