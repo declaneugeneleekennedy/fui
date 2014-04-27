@@ -1,6 +1,6 @@
 define(['underscore', 'models/ContentModel'],
-function(_, ContentModel, Template) {
+function(_, ContentModel) {
     return ContentModel.extend({
-        defaults: _.defaults({}, ContentModel.prototype.extend)
+        defaults: _.defaults({}, ContentModel.prototype.defaults)
     });
 });

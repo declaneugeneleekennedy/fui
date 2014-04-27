@@ -24,12 +24,12 @@ function($, _, Global, View, ProgressBarViewFactory, ContactView, SectionView, B
             var $t = this;
 
             $t.$el.html($t.html({
-                title: $t.model.get('currentPage').get('pageTitle'),
+                title: $t.model.get('formTitle'),
                 pageTitle: $t.model.get('currentPage').get('pageTitle')
             }));
 
-            $nav    = $('#navigation', $t.$el);
-            $form   = $('form', $t.$el);
+            var $nav    = $('#navigation', $t.$el);
+            var $form   = $('form', $t.$el);
             
             $nav.append($t.contact.el);
             $nav.append($t.progress.el);

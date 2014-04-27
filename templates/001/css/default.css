@@ -56,7 +56,7 @@ ul.bulletPointList li span.bulletPoint {
 
 .container {
     border: 1px solid #ccc;
-    margin:0 5%;
+    margin:0 2%;
 }
 
 #headerContainer {
@@ -278,7 +278,7 @@ ul.bulletPointList li span.bulletPoint {
 
 .contentElement .singleLineInputBox .format7 span.element input {
     padding-left:21px;
-    width:231px;
+    width:300px;
 }
 
 .contentElement .singleLineInputBox .format7 span.element:before {
@@ -297,7 +297,7 @@ ul.bulletPointList li span.bulletPoint {
 
 .contentElement .singleLineInputBox .format8 span.element input {
     padding-left:21px;
-    width:231px;
+    width:300px;
 }
 
 .contentElement .singleLineInputBox .format8 span.element:before {
@@ -316,7 +316,7 @@ ul.bulletPointList li span.bulletPoint {
 
 .contentElement .singleLineInputBox .format9 span.element input {
     padding-left:21px;
-    width:231px;
+    width:300px;
 }
 
 .contentElement .singleLineInputBox .format9 span.element:before {
@@ -335,7 +335,7 @@ ul.bulletPointList li span.bulletPoint {
 
 .contentElement .singleLineInputBox .format10 span.element input {
     padding-left:21px;
-    width:231px;
+    width:300px;
 }
 
 .contentElement .singleLineInputBox .format10 span.element:before {
@@ -359,7 +359,7 @@ ul.bulletPointList li span.bulletPoint {
 }
 
 .contentElement .multipleChoice .horizontal label.option {                
-    width:130px;
+    width:120px;
     margin:10px;
     display:inline-table;
 }
@@ -545,6 +545,47 @@ ul.bulletPointList li span.bulletPoint {
     left:36px;
     top:8px;
  }
+
+ .address .parts:before {
+    border-color: #666666 transparent;
+    border-style: solid;
+    border-width: 9px 8px 0;
+    left: 4.8%;
+    position: relative;
+    top: 8px;
+    width: 0;
+    content: "";
+ }
+
+ .address .parts {
+    border: 1px solid #CCCCCC;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    margin: 20px 4%;
+    width: 92%;
+    background-color: #F4F4F4;
+ }
+
+ .address .parts h4:before {
+    border-color: #FFFFFF transparent;
+    border-style: solid;
+    border-width: 8px 7px 0;
+    content: "";
+    display: block;
+    left: 4%;
+    position: relative;
+    top: -37px;
+    width: 0;
+ }
+
+ .address .parts h4,
+ .address .parts p {
+    margin: 20px 1%;
+    width: 98%;
+ }
+
+ .address .parts .contentElement {}
 
 /*
  * Responsive overrides

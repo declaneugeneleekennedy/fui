@@ -11,11 +11,15 @@ function(ProgressBarView) {
                 $t.template.getFileUrl('css/ProgressBar/Titles.css'));
 
             $t.addCss('#progressBar.titles ul li', {
-                'width': (100 / $t.model.get('pages').where({display: true}).length) + '%'
+                'width': (100 / $t.model.get('pages').filter(function(model) {
+                    return model.get('display') && model.get('pageIcons')
+                }).length) + '%'
             });
 
             $t.model.getPages().each(function(page) {
-                if(page.get('pageIcons')) {
+                if(!page.get('pageIcons')) {
+                    $t.addCss('#progressBar ul li#' + page.get('pageUrl'), {'display': 'none'});
+                } else {
                     if(page.get('pageIcons').get('unvisited')) {
                         $t.addCss('#progressBar ul li#' + page.get('pageUrl') + '.unvisited a', {
                             'background-image': 'url(' + $t.template.getFileUrl(page.get('pageIcons').get('unvisited')) + ')'

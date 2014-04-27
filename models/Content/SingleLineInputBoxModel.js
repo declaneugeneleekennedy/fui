@@ -17,8 +17,9 @@ Input formats, see: https://brighton.atlassian.net/wiki/display/FMB/FormBanc+For
 13 = INPUT_FORMAT_ABN
 14 = INPUT_FORMAT_ADDRESS
 */
-define(['jquery', 'underscore', 'models/ContentModel'],
-function($, _, ContentModel, Template) {
+define(['jquery', 'underscore', 'models/ContentModel',
+    'enums/InputFormatEnum'],
+function($, _, ContentModel, InputFormatEnum) {
     return ContentModel.extend({
         defaults: _.defaults({
             question: '',
@@ -94,37 +95,37 @@ function($, _, ContentModel, Template) {
             value = $t.trim(value);
 
             switch($t.get('inputFormatId')) {
-                case 1:     // INPUT_FORMAT_LETTERS_ONLY
+                case InputFormatEnum.INPUT_FORMAT_LETTERS_ONLY:     // INPUT_FORMAT_LETTERS_ONLY
                     if(!/^[a-z]+$/i.test($t.trim(value))) {
                         $t.addError('Only letters are allowed');
                     };
                     break;
-                case 2:     // INPUT_FORMAT_NUMBERS_ONLY
+                case InputFormatEnum.INPUT_FORMAT_NUMBERS_ONLY:     // INPUT_FORMAT_NUMBERS_ONLY
                     if(!/^[0-9]+$/i.test(value)) {
                         $t.addError('Only numbers are allowed');
                     }
                     break;
-                case 3:     // INPUT_FORMAT_LETTERS_AND_NUMBERS
+                case InputFormatEnum.INPUT_FORMAT_LETTERS_AND_NUMBERS:     // INPUT_FORMAT_LETTERS_AND_NUMBERS
                     if(!/^[a-z0-9]+$/i.test(value)) {
                         $t.addError('Only letters and numbers are allowed');
                     };
                     break;
-                case 4:     // INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS
+                case InputFormatEnum.INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS:     // INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS
                     if(!/^[\x00-\x7F]+$/.test(value)) {
                         $t.addError('Only letters, numbers and symbols are allowed');
                     };
                     break;
-                case 5:     // INPUT_FORMAT_PERCENTAGE
+                case InputFormatEnum.INPUT_FORMAT_PERCENTAGE:     // INPUT_FORMAT_PERCENTAGE
                     if(!/^[0-9]+%$/.test(value)) {
                         $t.addError('Must be in the format 0%');
                     };
                     break;
-                case 6:     // INPUT_FORMAT_EMAIL
+                case InputFormatEnum.INPUT_FORMAT_EMAIL:     // INPUT_FORMAT_EMAIL
                     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
                         $t.addError('Not a valid email address');
                     };
                     break;
-                case 7:     // INPUT_FORMAT_DATE
+                case InputFormatEnum.INPUT_FORMAT_DATE:     // INPUT_FORMAT_DATE
                     var min = new Date($t.get('inputMinDate')),
                         max = new Date($t.get('inputMaxDate'));
 
@@ -146,7 +147,7 @@ function($, _, ContentModel, Template) {
                          }
                     }
                     break;
-                case 8:     // INPUT_FORMAT_PASSWORD
+                case InputFormatEnum.INPUT_FORMAT_PASSWORD:     // INPUT_FORMAT_PASSWORD
                     // @todo [dk] - check password strength
 
                     var compare;
@@ -163,22 +164,22 @@ function($, _, ContentModel, Template) {
                         }
                     });
                     break;
-                case 9:     // INPUT_FORMAT_LANDLINE_PHONE
+                case InputFormatEnum.INPUT_FORMAT_LANDLINE_PHONE:     // INPUT_FORMAT_LANDLINE_PHONE
                     if(!/^(\+61)*(\s)*(\()*([0-9]{2})*(\))*(\s)*[0-9]{4}(\s)*[0-9]{4}$/.test(value)) {
                         $t.addError('Not a valid phone number');
                     }
                     break;
-                case 10:    // INPUT_FORMAT_MOBILE_PHONE
+                case InputFormatEnum.INPUT_FORMAT_MOBILE_PHONE:    // INPUT_FORMAT_MOBILE_PHONE
                     if(!/^0[0-9]{3}(\s)*[0-9]{3}(\s)*[0-9]{3}$/.test(value)) {
                         $t.addError('Not a valid mobile phone number');
                     }
                     break;
-                case 11:    // INPUT_FORMAT_INTERNATIONAL_PHONE
+                case InputFormatEnum.INPUT_FORMAT_INTERNATIONAL_PHONE:    // INPUT_FORMAT_INTERNATIONAL_PHONE
                     if(!/^[0-9]{8,15}$/.test(value.replace(/[\s()+\-\.]|ext/gi, ''))) {
                         $t.addError('Not a valid international phone number');
                     }
                     break;
-                case 12:    // INPUT_FORMAT_TFN
+                case InputFormatEnum.INPUT_FORMAT_TFN:    // INPUT_FORMAT_TFN
                     value = $t.stripSpace(value);
 
                     var valid = true, weights = [1, 4, 3, 7, 5, 8, 6, 9, 10], total = 0, digit;
@@ -195,7 +196,7 @@ function($, _, ContentModel, Template) {
                         $t.addError('Not a valid Tax File Number');
                     }                        
                     break;
-                case 13:    // INPUT_FORMAT_ABN
+                case InputFormatEnum.INPUT_FORMAT_ABN:    // INPUT_FORMAT_ABN
                     value = $t.stripSpace(value);
                     var valid = true, weights = [10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19], total = 0;
 
@@ -207,8 +208,8 @@ function($, _, ContentModel, Template) {
                         $t.addError('Not a valid ABN');
                     }
                     break;
-                case 14:    // INPUT_FORMAT_ADDRESS
-                    // @todo [dk] - shit is cray
+                case InputFormatEnum.INPUT_FORMAT_ADDRESS:    // INPUT_FORMAT_ADDRESS
+                    // @deprecated This is now a content type
                     break;
             }
         },

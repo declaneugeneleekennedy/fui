@@ -41,13 +41,15 @@ function($, _, Global, View,
             var pageTitle = ($t.model.get('currentPage').get('enablePageTitle')) ?
                 $t.model.get('currentPage').get('pageTitle') : false;
 
+            console.log($t.model.toJSON());
+
             $t.$el.html($t.html({
                 title: $t.model.get('formTitle'),
                 pageTitle: pageTitle
             }));
 
-            $nav    = $t.$('#navigation');
-            $form   = $t.$('form');
+            var $nav    = $t.$('#navigation');
+            var $form   = $t.$('form');
             
             $nav.append($t.contact.el);
             $nav.append($t.progress.el);

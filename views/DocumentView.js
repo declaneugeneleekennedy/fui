@@ -3,10 +3,8 @@ function($, Backbone, Global, Queue, FormPageView, TagViewFactory) {
 	return Backbone.View.extend({
         initialize: function() {
             var $t = this;
-
-            if(!Global.has('assetQueue')) {
-                Global.set('assetQueue', new Queue);
-            }
+            
+            Global.set('assetQueue', new Queue);
 
             $.when($t.loadTheme()).then(function() {             
                 $t.render();
