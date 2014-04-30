@@ -1,12 +1,22 @@
-/* Dynamic Styles */
+/* General */
 
 body {
     font-family: <%= fontFamily %>;
     font-size: <%= fontSize %>em;
+    color: <%= bodyText %>;
+    background: <%= bodyBackground %>;
 }
 
 h1,h2,h3,h4,h5,h6 {
     font-family: <%= headingsFontFamily %>;
+}
+
+h2 {
+    colour: <%= h2Colour %>;
+}
+
+h1,h3,h4,h5,h6 {
+    color: <%= hColour %>;
 }
 
 #headerContainer {
@@ -18,15 +28,42 @@ h1,h2,h3,h4,h5,h6 {
     background-image: url(<%= formTitleImage %>);
 }
 
+/* Section */
+
+<%
+    var lightSec    = colour.get('sectionBarBackground').get('light');
+    var darkSec     = colour.get('sectionBarBackground').get('default');    
+%>
+
+.section h3 {
+    border: 1px solid <%= colour.get('sectionBarBackground').get('default') %>;
+    background-color: <%= lightSec %>;
+    background-image: -ms-linear-gradient(top, <%= lightSec %> 0%, <%= darkSec %> 100%);
+    background-image: -moz-linear-gradient(top, <%= lightSec %> 0%, <%= darkSec %> 100%);
+    background-image: -o-linear-gradient(top, <%= lightSec %> 0%, <%= darkSec %> 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <%= lightSec %>), color-stop(1, <%= darkSec %>));
+    background-image: -webkit-linear-gradient(top, <%= lightSec %> 0%, <%= darkSec %> 100%);
+    background-image: linear-gradient(to bottom, <%= lightSec %> 0%, <%= darkSec %> 100%);
+}
+
+/* Rounded */
+
 .rounded,
 .container,
 .section h3,
 .contentElement .input .errors,
-.contentElement .multipleChoice .input .options {    
+.contentElement .singleLineInputBox .input input,
+.contentElement .multipleChoice .input .options,
+.persona .next input,
+.buttons .next input,
+.buttons .previous input,
+.address .parts {    
     -webkit-border-radius: <%= radius %>;
     -moz-border-radius: <%= radius %>;
     border-radius: <%= radius %>;
 }
+
+/* Sprites */
 
 .sprite,
 .section h3:before,
@@ -36,7 +73,70 @@ h1,h2,h3,h4,h5,h6 {
 .contentElement .multipleChoice .input label.option input+span.text:before,
 .valid .multipleChoice .input:after,
 .invalid .multipleChoice .input:after,
+.persona .next:after,
 .buttons .next:after,
 .buttons .previous:before {
     background-image: url(<%= sprite %>);
+}
+
+/* Gradients */
+
+<%
+    var dark1   = (colour.get('override')) ? colour.get('override') : colour.get(0).get('dark');
+    var light1  = colour.get(0).get('light');
+
+    var dark2   = colour.get(1).get('dark');
+    var light2  = colour.get(1).get('light');
+%>
+
+.gradientDarkToLight1,
+.contentElement .multipleChoice .input label.option input:checked+img {
+    background-color: <%= dark1 %>;
+    background-image: -ms-linear-gradient(top, <%= dark1 %> 0%, <%= light1 %> 100%);
+    background-image: -moz-linear-gradient(top, <%= dark1 %> 0%, <%= light1 %> 100%);
+    background-image: -o-linear-gradient(top, <%= dark1 %> 0%, <%= light1 %> 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <%= dark1 %>), color-stop(1, <%= light1 %>));
+    background-image: -webkit-linear-gradient(top, <%= dark1 %> 0%, <%= light1 %> 100%);
+    background-image: linear-gradient(to bottom, <%= dark1 %> 0%, <%= light1 %> 100%);
+}
+
+.gradientLightToDark1 {
+    background-color: <%= light1 %>;
+    background-image: -ms-linear-gradient(top, <%= light1 %> 0%, <%= dark1 %> 100%);
+    background-image: -moz-linear-gradient(top, <%= light1 %> 0%, <%= dark1 %> 100%);
+    background-image: -o-linear-gradient(top, <%= light1 %> 0%, <%= dark1 %> 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <%= light1 %>), color-stop(1, <%= dark1 %>));
+    background-image: -webkit-linear-gradient(top, <%= light1 %> 0%, <%= dark1 %> 100%);
+    background-image: linear-gradient(to bottom, <%= light1 %> 0%, <%= dark1 %> 100%);    
+}
+
+.gradientDarkToLight2 {
+    background-color: <%= dark2 %>;
+    background-image: -ms-linear-gradient(top, <%= dark2 %> 0%, <%= light2 %> 100%);
+    background-image: -moz-linear-gradient(top, <%= dark2 %> 0%, <%= light2 %> 100%);
+    background-image: -o-linear-gradient(top, <%= dark2 %> 0%, <%= light2 %> 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <%= dark2 %>), color-stop(1, <%= light2 %>));
+    background-image: -webkit-linear-gradient(top, <%= dark2 %> 0%, <%= light2 %> 100%);
+    background-image: linear-gradient(to bottom, <%= dark2 %> 0%, <%= light2 %> 100%);    
+}
+
+.gradientLightToDark2,
+.contentElement .multipleChoice .input label.option input+img {
+    background-color: <%= light2 %>;
+    background-image: -ms-linear-gradient(top, <%= light2 %> 0%, <%= dark2 %> 100%);
+    background-image: -moz-linear-gradient(top, <%= light2 %> 0%, <%= dark2 %> 100%);
+    background-image: -o-linear-gradient(top, <%= light2 %> 0%, <%= dark2 %> 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, <%= light2 %>), color-stop(1, <%= dark2 %>));
+    background-image: -webkit-linear-gradient(top, <%= light2 %> 0%, <%= dark2 %> 100%);
+    background-image: linear-gradient(to bottom, <%= light2 %> 0%, <%= dark2 %> 100%);    
+}
+
+/* Multiple Choice */
+
+<%
+    var labelActive = (colour.get('override')) ? colour.get('override') : colour.get(0).get('default');
+%>
+
+.contentElement .multipleChoice .input label.option input:checked~span.text {
+    color: <%= labelActive %>;
 }

@@ -10,10 +10,8 @@
 
 body {
     padding-bottom: 40px;
-    color: #666666;
-    font-family: Arial,Helvetica,sans-serif;
-    background: #fff;
 }
+
 label,
 input,
 button,
@@ -23,26 +21,34 @@ textarea {
   font-weight: normal;
   line-height: 1.5em;
 }
+
 h1 {
     font-size: 1.6em;
 }
+
 h2 {
     font-size: 1.8em;
-    color: #a71f23;
     font-weight: normal;
 }
+
 h3 {
     font-size: 1.5em;
 }
+
 h4 {
     font-size: 1.3em;
 }
+
 h5,h6 {
     font-size: 1.1em;
 }
+
 h1,h3,h4,h5,h6 {
-    color: #0093a0;
     font-weight: normal;
+}
+
+p {
+    margin: 0 0 10px;
 }
 
 ul.bulletPointList {
@@ -97,15 +103,18 @@ ul.bulletPointList li span.bulletPoint {
     visibility:hidden;
 }
 
+.visible-phone {
+    display:none;
+    visibility:hidden;
+}
+
 /*
  * Form
  */
 
 #formContainer {
-    background:#fff;
     padding: 20px;
     margin-top:20px;
-    background-color:#fff;
 }
 
 /*
@@ -116,16 +125,8 @@ ul.bulletPointList li span.bulletPoint {
     width: 90%;
     height: 34px;
     margin: 20px 2%;
-    border: 1px solid #dce7ea;
     padding: 16px 1% 8px 5%;
     clear: both;
-    background-color: #eaf1f2;
-    background-image: -ms-linear-gradient(top, #eaf1f2 0%, #dce7ea 100%);
-    background-image: -moz-linear-gradient(top, #eaf1f2 0%, #dce7ea 100%);
-    background-image: -o-linear-gradient(top, #eaf1f2 0%, #dce7ea 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #eaf1f2), color-stop(1, #dce7ea));
-    background-image: -webkit-linear-gradient(top, #eaf1f2 0%, #dce7ea 100%);
-    background-image: linear-gradient(to bottom, #eaf1f2 0%, #dce7ea 100%);
 }
 
 .section h3:before {
@@ -213,9 +214,6 @@ ul.bulletPointList li span.bulletPoint {
     line-height: 25px;
     border: #33a9b3 1px solid;
     color: #666666;
-    -webkit-border-radius:4px;
-    -moz-border-radius:4px;
-    border-radius:4px;
     width:321px;
 }
 
@@ -359,7 +357,7 @@ ul.bulletPointList li span.bulletPoint {
 }
 
 .contentElement .multipleChoice .horizontal label.option {                
-    width:120px;
+    width:80px;
     margin:10px;
     display:inline-table;
 }
@@ -382,22 +380,13 @@ ul.bulletPointList li span.bulletPoint {
     text-align: center;
     border: 3px solid #ccc;
     margin: 0 auto;
-    background-image:linear-gradient(to bottom, #33a9b3 0%, #007680 100%);
     -webkit-border-radius: 500px;
     -moz-border-radius: 500px;
     border-radius: 500px;
 }
 
-.contentElement .multipleChoice .input label.option input:checked+img {
-    background-image:linear-gradient(to bottom, #86191c 0%, #b94c4f 100%);
-}
-
 .contentElement .multipleChoice .input label.option {
     color: #666666;
-}
-
-.contentElement .multipleChoice .input label.option input:checked~span.text {
-    color:#0093a0;
 }
 
 .contentElement .multipleChoice .input label.option img+span.text {
@@ -470,21 +459,42 @@ ul.bulletPointList li span.bulletPoint {
 }
 
 /*
+ * Identity Verification
+ */
+
+.identityVerification {
+    margin-top:40px;
+}
+
+.identityVerification .persona {
+    background-color: #f2fafa;
+    padding: 15px;
+    margin: 0 0 10px 0;
+    height: 45px;
+    line-height: 45px;
+    color: #0093a0;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    font-weight: normal;
+}
+
+/*
  * Buttons
  */
 
- .buttons {
+.buttons {
     margin-top:60px;
     height:80px;
- }
+}
 
- .buttons .next,
- .buttons .previous {
+.persona .next,
+.buttons .next,
+.buttons .previous {
     cursor: pointer;
- }
+}
 
- .buttons .next input,
- .buttons .previous input {
+.persona .next input,
+.buttons .next input,
+.buttons .previous input {
     text-shadow: none;
     font-family: Georgia,"Times New Roman",Times,serif;
     font-size: 1.5em;
@@ -492,9 +502,6 @@ ul.bulletPointList li span.bulletPoint {
     text-align: center;
     cursor: pointer;
     padding: 12px 30px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
     border-color: #0093a0;
     color: #ffffff;
     background-color: #33a9b3;
@@ -504,49 +511,53 @@ ul.bulletPointList li span.bulletPoint {
     background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #33a9b3), color-stop(1, #0093a0));
     background-image: -webkit-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
     background-image: linear-gradient(to bottom, #33a9b3 0%, #0093a0 100%);
- }
+}
 
- .buttons .next {
+.persona .next,
+.buttons .next {
     float:right;
     text-align: right;
- }
+}
 
- .buttons .next input {
+.persona .next input,
+.buttons .next input {
     padding-right: 42px;
- }
+}
 
- .buttons .previous {
+.buttons .previous {
     float:left;
     text-align:left;
  }
 
- .buttons .previous input {
+.buttons .previous input {
     padding-left:42px;
  }
 
- .buttons .next:after,
- .buttons .previous:before {
+.persona .next:after,
+.buttons .next:after,
+.buttons .previous:before {
     content: "";
     display:inline-block;
     position:relative;
     background-repeat: no-repeat;
     width:30px;
     height:30px;
- }
+}
 
- .buttons .next:after {
+.persona .next:after,
+.buttons .next:after {
     background-position:-31px -54px;
     left:-36px;
     top:8px;
- }
+}
 
- .buttons .previous:before {
+.buttons .previous:before {
     background-position:0px -54px;
     left:36px;
     top:8px;
- }
+}
 
- .address .parts:before {
+.address .parts:before {
     border-color: #666666 transparent;
     border-style: solid;
     border-width: 9px 8px 0;
@@ -555,19 +566,16 @@ ul.bulletPointList li span.bulletPoint {
     top: 8px;
     width: 0;
     content: "";
- }
+}
 
- .address .parts {
+.address .parts {
     border: 1px solid #CCCCCC;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    border-radius: 6px;
     margin: 20px 4%;
     width: 92%;
     background-color: #F4F4F4;
- }
+}
 
- .address .parts h4:before {
+.address .parts h4:before {
     border-color: #FFFFFF transparent;
     border-style: solid;
     border-width: 8px 7px 0;
@@ -577,21 +585,24 @@ ul.bulletPointList li span.bulletPoint {
     position: relative;
     top: -37px;
     width: 0;
- }
+}
 
- .address .parts h4,
- .address .parts p {
+.address .parts h4,
+.address .parts p {
     margin: 20px 1%;
     width: 98%;
- }
-
- .address .parts .contentElement {}
+}
 
 /*
  * Responsive overrides
  */
 
 @media (max-width: 719px) {
+    .non-mobile {
+        display:none;
+        visibility:hidden;
+    }
+
     #page {
       background: none;
     }

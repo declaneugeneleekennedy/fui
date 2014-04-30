@@ -28,15 +28,23 @@ function(Theme) {
         getThemeVars: function() {
             var $t = this;
 
+            console.log($t.template);
+
             return {
                 fontFamily:             $t.template.get('fontFamily'),
                 fontSize:               $t.template.get('fontSize') + 1,
                 headingsFontFamily:     $t.template.get('headingsFontFamily'),
                 headerBackgroundColour: $t.template.getColour('headerBackground'),
+                bodyText:               $t.template.getColour('bodyText'),
+                bodyBackground:         $t.template.getColour('bodyBackground'),
                 headerImage:            $t.template.getSettingUrl('headerImage'),
                 formTitleImage:         $t.template.getSettingUrl('formTitleImage'),
                 radius:                 $t.template.get('radius'),
-                sprite:                 $t.template.getSettingUrl('sprite')
+                sprite:                 $t.template.getSettingUrl('sprite'),
+                hColour:                $t.template.getColour(1).get('default'),
+                h2Colour:               ($t.template.getColour('override')) ?
+                    $t.template.getColour('override') : $t.template.getColour(0).get('default'),
+                colour:                $t.template.get('colour')
             };
         }
     });
