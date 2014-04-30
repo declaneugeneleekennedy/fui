@@ -1,9 +1,9 @@
 define(['underscore', 'models/ContentModel', 'models/ContentCollection',
-    'models/Content/SingleLineInputBoxModel', 'enums/InputFormatEnum',
-    'enums/ContentTypeEnum'],
+    'models/Content/SingleLineInputBoxModel', 'models/Content/CheckboxModel',
+    'enums/InputFormatEnum', 'enums/ContentTypeEnum'],
 function(_, ContentModel, ContentCollection,
-    SingleLineInputBoxModel, InputFormatEnum,
-    ContentTypeEnum) {
+    SingleLineInputBoxModel, CheckboxModel,
+    InputFormatEnum, ContentTypeEnum) {
     return ContentModel.extend({
         defaults: _.defaults({
             partsDefault: [
@@ -23,7 +23,7 @@ function(_, ContentModel, ContentCollection,
                     'contentTypeId': ContentTypeEnum.CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
                     'contentId': 'streetName',
                     'question': 'Street Name',
-                    'inputFormatId': InputFormatEnum.INPUT_FORMAT_LETTERS_ONLY
+                    'inputFormatId': InputFormatEnum.INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS
                 },
                 {
                     'contentTypeId': ContentTypeEnum.CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
@@ -35,7 +35,7 @@ function(_, ContentModel, ContentCollection,
                     'contentTypeId': ContentTypeEnum.CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
                     'contentId': 'suburb',
                     'question': 'Suburb',
-                    'inputFormatId': InputFormatEnum.INPUT_FORMAT_LETTERS_ONLY
+                    'inputFormatId': InputFormatEnum.INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS
                 },
                 {
                     'contentTypeId': ContentTypeEnum.CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
@@ -53,8 +53,7 @@ function(_, ContentModel, ContentCollection,
                     'inputMinLength': 3,
                     'inputMaxLength': 4
                 }
-            ],
-            displayParts: false
+            ]
 
         }, ContentModel.prototype.defaults),
         
@@ -66,8 +65,13 @@ function(_, ContentModel, ContentCollection,
                 'question':         $t.get('question'),
                 'suggestedInput':   $t.get('suggestedInput'),
                 'required':         $t.get('required'),
+                'display':          $t.get('display'),
                 'inputFormatId':    InputFormatEnum.INPUT_FORMAT_LETTERS_NUMBERS_AND_SYMBOLS
             }));
+
+            $t.get('main').on('change:value', function() {
+                $t.set('value', $t.get('main').get('value'));
+            });
 
             var parts = new ContentCollection;
 
@@ -79,11 +83,37 @@ function(_, ContentModel, ContentCollection,
             });
 
             $t.set('parts', parts);
+
+            $t.set('confirm', new CheckboxModel({
+                'question': 'Yes, this is the correct address'
+            }));
+
+            $t.get('confirm').on('change:value', function() {
+                $t.validateParts();
+            });
         },
 
-        validateValue: function(value, form) {
-            
-        }
+        validateParts: function() {
+            var $t = this;
 
+            var hasErrors = false;
+            $t.get('parts').each(function(part) {
+                part.validate();
+
+                if(part.hasErrors()) {
+                    hasErrors = true;
+                }
+            });
+
+            if(!hasErrors) {
+                $t.buildAddress();
+            }
+        },
+
+        buildAddress: function() {
+            var $t = this;
+
+            var address = '';
+        }
     });
 });
