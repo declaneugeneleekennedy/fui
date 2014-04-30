@@ -20,6 +20,8 @@ function($, _, Loader, Global, Backbone, Styler, Queue) {
                 $t.html = _.template($t.html);
 
                 $t.render();
+
+                $t.afterRender();
             });
         },
         addStylesheet: function(url) {
@@ -34,6 +36,9 @@ function($, _, Loader, Global, Backbone, Styler, Queue) {
         },
         beforeLoad: function() {
             console.log('Calling View.beforeLoad() no-op');
+        },
+        afterRender: function() {
+            console.log('Calling View.afterRender() no-op');
         },
         getHtml: function(url) {
             var $t = this;

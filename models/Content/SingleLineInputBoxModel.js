@@ -45,9 +45,6 @@ function($, _, ContentModel, InputFormatEnum) {
             var $t = this;
 
             switch(id) {
-                case 7:
-                    return 'date';
-                    break;
                 case 8:
                     return 'password';
                     break;

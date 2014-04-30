@@ -44,6 +44,11 @@ function($, _, Backbone, DisplayRuleModel) {
             var $t = this;
             $t.get('errors').push(message);
         },
+        hasErrors: function() {
+            var $t = this;
+
+            return ($t.get('errors').length > 0);
+        },
         validateValue: function(value, form) {
             console.log('Calling ContentModel.validateValue no-op with value %s', value);
         },

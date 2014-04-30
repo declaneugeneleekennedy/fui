@@ -1,3 +1,18 @@
 <div class="identityVerification">
-    <h4><%= summaryPageIntroMsg %></h4>
+    <%= summaryPageIntroMsg %>
+    <h4>Individual Applicant(s)</h4>
+    <%
+        var applicant;
+        for(var i = 0; i < applicants.length; ++i) {
+            applicant = applicants[i];
+    %>
+    <div class="persona">
+        <span class="name">Placeholder Name<%= applicant.nameText %></span>
+        <span class="next">
+            <input type="button" name="persona<%= applicant.persona %>" value="Verify" />
+        </span>
+    </div>
+    <%
+        }
+    %>
 </div>
