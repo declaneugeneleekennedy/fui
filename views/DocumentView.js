@@ -19,7 +19,7 @@ function($, Backbone, Global, Queue, FormPageView, TagViewFactory) {
                 .getFileUrl('theme.js');
 
             require([themeUrl], function(Theme) {
-                new Theme({
+                $t.theme = new Theme({
                     template: Global.get('template')
                 });
                 
@@ -41,6 +41,8 @@ function($, Backbone, Global, Queue, FormPageView, TagViewFactory) {
                 
                 $('body').html($form.el);
                 $(window).scrollTop(0);
+
+                $t.theme.afterRender();
             });
         },
         setTitle: function(title) {

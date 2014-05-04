@@ -15,10 +15,17 @@ function($, _, Global, View, ProgressBarViewFactory, ContactView, SectionView, B
             $t.sections = [];
 
             $t.model.get('currentPage').get('sections').each(function(section) {
-                $t.sections.push(new SectionView({ model: section }));
+                $t.sections.push(new SectionView({
+                    model:          section,
+                    isFirst:        ($t.sections.length == 0),
+                    isFirstPage:    ($t.model.get('currentPage') == $t.model.getFirstPage())
+                }));
             });
 
-            $t.buttons = new ButtonsView({ model: $t.model });
+            $t.buttons = new ButtonsView({
+                model:       $t.model,
+                isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
+            });
         },
         render: function() {
             var $t = this;

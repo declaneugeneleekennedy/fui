@@ -15,6 +15,14 @@ function($, ContentView, InputFormatEnum) {
                         showOn: 'focus'
                     });
             }
+
+            if($t.model.get('confirmationLabel')) {
+                var conf = $t.model.get('name') + 'Confirmation';
+                $('input[name="' + conf + '"]').on('blur', function() {
+                    $t.model.set('confirmationValue', $('input[name="' + conf + '"]').val());
+                    $t.model.trigger('change:value');
+                });
+            }
         },
 
         setValue: function(e) {

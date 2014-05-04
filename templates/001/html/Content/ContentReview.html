@@ -1,12 +1,13 @@
 <div class="contentReview">
+    <h4><%= question %></h4>
     <%
         var content;
-        for(var i = 0; i < models.length; ++i) {
-            content = contents[i];
+        for(var i = 0; i < contents.models.length; ++i) {
+            content = contents.models[i];
     %>
     <div class="review">
-        <span class="name">content.question</span>
-        <span class="value">content.value</span>
+        <span class="name"><%= content.question %></span>
+        <span class="value"><%= content.value %></span>
     </div>
     <%
         }

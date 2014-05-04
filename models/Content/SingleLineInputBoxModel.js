@@ -80,9 +80,11 @@ function($, _, ContentModel, InputFormatEnum) {
         checkConfirmation: function(value) {
             var $t = this;
 
+            if(!$t.get('confirmationValue')) {
+                return;
+            }
+
             if($t.get('confirmationValue') != value) {
-                console.log(value, 'Main Value');
-                console.log($t.get('confirmation'), 'Confirmation Value');
                 $t.addError('Values must match');
             }
         },
@@ -167,7 +169,7 @@ function($, _, ContentModel, InputFormatEnum) {
                     }
                     break;
                 case InputFormatEnum.INPUT_FORMAT_MOBILE_PHONE:    // INPUT_FORMAT_MOBILE_PHONE
-                    if(!/^0[0-9]{3}(\s)*[0-9]{3}(\s)*[0-9]{3}$/.test(value)) {
+                    if(!/^(\+61)*(\s)*(\()*([0-9]{3})*(\))*(\s)*[0-9]{3}(\s)*[0-9]{3}$/.test(value)) {
                         $t.addError('Not a valid mobile phone number');
                     }
                     break;

@@ -3,7 +3,9 @@ function(Backbone, DisplayRuleModel) {
     return Backbone.Model.extend({
         defaults: {
             displayRule: null,
-            name: []
+            name: [],
+            nameText: '',
+            verified: false
         },
         initialize: function() {
             var $t = this;

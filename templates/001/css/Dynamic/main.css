@@ -12,7 +12,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h2 {
-    colour: <%= h2Colour %>;
+    color: <%= h2Colour %>;
 }
 
 h1,h3,h4,h5,h6 {
@@ -54,9 +54,9 @@ h1,h3,h4,h5,h6 {
 .contentElement .input .errors,
 .contentElement .singleLineInputBox .input input,
 .contentElement .multipleChoice .input .options,
-.persona .next input,
-.buttons .next input,
-.buttons .previous input,
+.next button,
+.previous button,
+.save button,
 .address .parts {    
     -webkit-border-radius: <%= radius %>;
     -moz-border-radius: <%= radius %>;
@@ -73,9 +73,9 @@ h1,h3,h4,h5,h6 {
 .contentElement .multipleChoice .input label.option input+span.text:before,
 .valid .multipleChoice .input:after,
 .invalid .multipleChoice .input:after,
-.persona .next:after,
-.buttons .next:after,
-.buttons .previous:before {
+.save:after,
+.next:after,
+.previous:before {
     background-image: url(<%= sprite %>);
 }
 

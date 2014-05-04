@@ -36,7 +36,7 @@ function($, _, Global, View,
         render: function() {
             var $t = this;
 
-            $t.setTitle($t.model.get('currentPage').get('pageTitle'));
+            // $t.setTitle($t.model.get('currentPage').get('pageTitle'));
 
             var pageTitle = ($t.model.get('currentPage').get('enablePageTitle')) ?
                 $t.model.get('currentPage').get('pageTitle') : false;

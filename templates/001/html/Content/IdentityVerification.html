@@ -3,13 +3,17 @@
     <h4>Individual Applicant(s)</h4>
     <%
         var applicant;
-        for(var i = 0; i < applicants.length; ++i) {
-            applicant = applicants[i];
+        for(var i = 0; i < displayApplicants.length; ++i) {
+            applicant = displayApplicants[i];
     %>
-    <div class="persona">
-        <span class="name">Placeholder Name<%= applicant.nameText %></span>
+    <div class="contentElement persona" id="persona<%= applicant.persona %>">
+        <span class="name"><%= applicant.nameText %></span>
         <span class="next">
-            <input type="button" name="persona<%= applicant.persona %>" value="Verify" />
+            <input
+                type="button"
+                name="persona<%= applicant.persona %>"
+                data-persona="<%= applicant.persona %>"
+                value="Verify" />
         </span>
     </div>
     <%

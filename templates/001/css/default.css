@@ -129,6 +129,11 @@ ul.bulletPointList li span.bulletPoint {
     clear: both;
 }
 
+.section.first h3 {
+    display:none;
+    visibility:hidden;
+}
+
 .section h3:before {
     content:"";
     width:30px;
@@ -194,10 +199,32 @@ ul.bulletPointList li span.bulletPoint {
     position:absolute;
     display:inline-block;
     border: #ff4200 1px solid;
-    padding:5px;
+    padding:10px;
     margin-left:10px;
     color: #ff4200;
     background-color: #ffece6;
+}
+
+.contentElement .input .errors:before {
+    border-color: transparent #ff4200;
+    border-style: solid;
+    border-width: 5px 8px 6px 0;
+    left: -8px;
+    top: 12px;
+    position: absolute;
+    width: 0;
+    content: "";
+}
+
+.contentElement .input .errors:after {
+    border-color: transparent #ffece6;
+    border-style: solid;
+    border-width: 4px 7px 5px 0;
+    content: "";
+    left: -6px;
+    position: absolute;
+    top: 13px;
+    width: 0;
 }
 
 /*
@@ -398,6 +425,7 @@ ul.bulletPointList li span.bulletPoint {
 .contentElement .multipleChoice .input label.option input+span.text {
     display: block;
     text-indent: 10px;
+    width:180px;
 }
 
 .contentElement .multipleChoice .input label.option input+span.text:before {
@@ -475,6 +503,17 @@ ul.bulletPointList li span.bulletPoint {
     color: #0093a0;
     font-family: Georgia,"Times New Roman",Times,serif;
     font-weight: normal;
+    clear:both;
+}
+
+.identityVerification .persona iframe {
+    width: 100%;
+    height: 600px;
+    margin-top: 20px;
+    clear: both;
+    display: block;
+    float: left;
+    border: #0093a0 1px solid;
 }
 
 /*
@@ -484,25 +523,26 @@ ul.bulletPointList li span.bulletPoint {
 .buttons {
     margin-top:60px;
     height:80px;
+    text-align:center;
 }
 
-.persona .next,
-.buttons .next,
-.buttons .previous {
+.next,
+.previous,
+.save {
     cursor: pointer;
 }
 
-.persona .next input,
-.buttons .next input,
-.buttons .previous input {
+.next button,
+.previous button,
+.save button {
     text-shadow: none;
     font-family: Georgia,"Times New Roman",Times,serif;
     font-size: 1.5em;
     line-height: 20px;
     text-align: center;
     cursor: pointer;
-    padding: 12px 30px;
-    border-color: #0093a0;
+    padding: 16px 30px;
+    border:none;
     color: #ffffff;
     background-color: #33a9b3;
     background-image: -ms-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
@@ -513,29 +553,28 @@ ul.bulletPointList li span.bulletPoint {
     background-image: linear-gradient(to bottom, #33a9b3 0%, #0093a0 100%);
 }
 
-.persona .next,
-.buttons .next {
+.next {
     float:right;
     text-align: right;
 }
 
-.persona .next input,
-.buttons .next input {
+.save button,
+.next button {
     padding-right: 42px;
 }
 
-.buttons .previous {
+.previous {
     float:left;
     text-align:left;
  }
 
-.buttons .previous input {
+.previous button {
     padding-left:42px;
  }
 
-.persona .next:after,
-.buttons .next:after,
-.buttons .previous:before {
+.save:after,
+.next:after,
+.previous:before {
     content: "";
     display:inline-block;
     position:relative;
@@ -544,18 +583,58 @@ ul.bulletPointList li span.bulletPoint {
     height:30px;
 }
 
-.persona .next:after,
-.buttons .next:after {
+.next:after {
     background-position:-31px -54px;
-    left:-36px;
+    left:-40px;
     top:8px;
 }
 
-.buttons .previous:before {
+.previous:before {
     background-position:0px -54px;
-    left:36px;
+    left:40px;
     top:8px;
 }
+
+.save:after {
+    background-position: -124px -54px;
+    top:12px;
+    left:-40px;
+}
+
+.save button {
+    padding:6px 42px 6px 6px;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+    vertical-align: middle;
+    color: #666666;
+    background-color: #f5f5f5;
+    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+    background-repeat: repeat-x;
+    border: 1px solid #cccccc;
+    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    border-bottom-color: #b3b3b3;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: 1px 1px 3px 0 #F4F4F4;
+}
+
+.save button span {
+    display:block;
+    text-align:left;
+}
+
+.save button .subtitle {
+    font-size:0.6em;
+}
+
+/* Address content type */
 
 .address .parts:before {
     border-color: #666666 transparent;

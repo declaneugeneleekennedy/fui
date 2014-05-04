@@ -5,19 +5,18 @@ function(_, Global, ContentView) {
         beforeLoad: function() {
             var $t = this;
 
-            var models = [];
+            $t.model.get('contents').models = [];
 
-            _.each($t.model.get('contents'), function(contentId) {
+            _.each($t.model.get('contents').contentIds, function(contentId) {
                 var model = Global.get('form').getContents().findWhere({
                     contentId: contentId
                 });
 
                 if(model) {
-                    models.push(model.toJSON());
+                    $t.model.get('contents').models
+                        .push(model.toJSON());
                 }
             });
-
-            $t.model.set('models', models);
         }
     });
 });

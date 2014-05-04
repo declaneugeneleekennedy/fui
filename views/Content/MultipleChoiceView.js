@@ -4,19 +4,44 @@ function($, _, ContentView, ResponseTypeEnum, OutputStyleEnum) {
     return ContentView.extend({
         templateUrl: 'html/Content/MultipleChoice.html',
         events: {
-            'click input': 'setValue'
+            'click input': 'setValue',
+            'change': 'setValue'
         },
         setValue: function(e) {
             var $t = this;
 
-            var single = ($t.model.get('responseType') ==
+            var value = $t.getValue();
+
+            if(value != $t.model.get('value')) {
+                $t.model.set('value', value);
+            }
+        },
+        getValue: function() {
+            var $t = this;
+
+            var isSingle = ($t.model.get('responseType') ==
                 ResponseTypeEnum.RESPONSE_TYPE_SINGLE);
 
-            var value = (single) ? null : [];
+            var selector, test;
+            if($t.model.get('output') == OutputStyleEnum.OUTPUT_STYLE_VERTICAL) {
+                selector    = 'select[name="' + $t.model.get('name') + '"] option';
+                test        = ':selected';
+                
+            } else {
+                selector    = 'input[name="' + $t.model.get('name') + '"]';
+                test        = ':checked';
+            }
 
-            $('input[name="' + $t.model.get('name') + '"]', $t.$el).each(function() {                
-                if($(this).is(':checked')) {
-                    if(single) {
+            return $t.getInputValue(isSingle, selector, test);
+        },
+        getInputValue: function(isSingle, selector, test) {
+            var $t = this;
+
+            var value = (isSingle) ? null : [];
+
+            $(selector, $t.$el).each(function() {                
+                if($(this).is(test)) {
+                    if(isSingle) {
                         value = $(this).val();
                     } else {
                         value.push($(this).val());
@@ -24,9 +49,7 @@ function($, _, ContentView, ResponseTypeEnum, OutputStyleEnum) {
                 }
             });
 
-            if(value != $t.model.get('value')) {
-                $t.model.set('value', value);
-            }
+            return value;
         },
         beforeLoad: function() {
             var $t = this;

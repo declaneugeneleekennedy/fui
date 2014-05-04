@@ -76,15 +76,18 @@ function(Backbone, _, Global, Extendable, Styler, MultiColourModel, ThemeEnum) {
                     $t.styler.addStylesheet($t.template.getFileUrl(url));
                 });
 
-                var themeVars = $t.getThemeVars();
+                var themeVars = $t.getCssVars();
                 _.each($t.stylesheets['dynamic'], function(url) {
                     $t.addDependency($t.styler.addDynamicCss(
                         $t.template.getFileUrl(url), themeVars));
                 });
             }
         },
-        getThemeVars: function() {
-            console.log('Calling Theme.getThemeVars() no-op');
+        afterRender: function() {
+            console.log('Calling Theme.afterRender() no-op');
+        },
+        getCssVars: function() {
+            console.log('Calling Theme.getCssVars() no-op');
         },
         addDependency: function(promise) {
             var $t = this;

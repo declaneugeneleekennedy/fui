@@ -5,23 +5,28 @@ function($, View) {
         tagName: 'div',
         className: 'buttons',
         events: {
-            'click .next': 'nextPage',
-            'click .previous': 'previousPage'
+            'click .next button': 'nextPage',
+            'click .previous button': 'previousPage',
+            'click .save button': 'saveForm'
         },
         render: function() {
             var $t = this;
 
             $t.$el.html($t.html({buttons: $t.getButtons()}));
+
+            if($t.options.isFirstPage) {
+                $t.$el.hide();
+            }
         },
         getButtons: function() {
             var $t = this, buttons = [], template = Global.get('template');
 
-            if($t.model.get('currentPage') != $t.model.get('pages').at(0)) {
+            if($t.model.get('currentPage') != $t.model.getFirstPage()) {
                 buttons.push($t.getButton('previous', template.get('btnLabelPrevious')));
             }
 
-            if($t.model.get('saveProgressEnabled')) {
-                buttons.push($t.getButton('save', template.get('btnLabelSave')));
+            if($t.model.get('enableCompleteLater') && $t.model.get('currentPage') != $t.model.getFirstPage()) {
+                buttons.push($t.getButton('save', template.get('btnLabelSave'), 'Save My Application'));
             }
 
             if($t.model.get('currentPage') == $t.model.get('pages').at($t.model.get('pages').length - 1)) {
@@ -32,24 +37,27 @@ function($, View) {
 
             return buttons;
         },
-        getButton: function(className, value) {
+        getButton: function(className, value, subtitle) {
             return {
                 className: className,
-                value: value
+                value: value,
+                subtitle: subtitle
             };
         },
-        nextPage: function() {
+        nextPage: function(e) {
             var $t = this;
 
-            if($t.model.get('currentPage').validate($t.model)) {
-                var nextPage = $t.model.getNextPage();
-                if(nextPage) {
-                    $t.model.set('currentPageUrl', nextPage.get('pageUrl'));
-                }
+            e.preventDefault();
+
+            var nextPage = $t.model.getNextPage();
+            if(nextPage) {
+                $t.model.set('currentPageUrl', nextPage.get('pageUrl'));
             }
         },
-        previousPage: function() {
+        previousPage: function(e) {
             var $t = this;
+
+            e.preventDefault();
 
             var previousPage = $t.model.getPreviousPage();
             if(previousPage) {

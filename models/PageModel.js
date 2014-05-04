@@ -12,7 +12,8 @@ function(Backbone, SectionCollection, DisplayRuleModel, PageIconsModel) {
             sections: [],
             display: true,
             displayRule: [],
-            visited: false
+            visited: false,
+            valid: false
         },
         initialize: function() {
             var $t = this;

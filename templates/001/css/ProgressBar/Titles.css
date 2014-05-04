@@ -34,6 +34,15 @@
     display:none;
 }
 
+#progressBar ul li.inactive {
+    background-color: #fff;
+    background-image: none;
+}
+
+#progressBar ul li.inactive .text {
+    color:#0093a0;
+}
+
 #progressBar ul li.active {
     background-color: #33a9b3;
     background-image: -ms-linear-gradient(top, #33a9b3 0%, #0093a0 100%);

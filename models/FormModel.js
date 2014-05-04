@@ -1,14 +1,15 @@
 define(
 ['jquery', 'underscore', 'backbone',
-    'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection'],
+    'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection',
+    'models/ApplicationModel'],
 function($, _, Backbone,
     PageCollection, SectionCollection, ContentCollection,
-    TaggedValueModelFactory, TaggedValueMapCollection
+    ApplicationModel
 ) {
     return Backbone.Model.extend({
         idAttribute: 'formUrl',
         defaults: {
-            applicationId:          null,
+            application:            null,
             formVerId:              1,
             formTitle:              null,
             formUrl:                null,
@@ -26,11 +27,16 @@ function($, _, Backbone,
         initialize: function() {
             var $t = this;
 
-            $t.set('pages', new PageCollection($t.get('pages')));
+            $t.set('pages',         new PageCollection($t.get('pages')));
+            $t.set('application',   new ApplicationModel);
 
-            if(!$t.isMapped) {
-                $t.mapEvents();
-            }
+            var $p = $t.get('application').fetch();
+
+            $.when($p).then(function() {
+                $t.updateContents($t.get('application'));
+            });
+
+            $t.mapEvents();
         },
         getPages: function() {
             var $t = this;
@@ -138,16 +144,37 @@ function($, _, Backbone,
 
             // page change triggers
             $t.bind('change:currentPageUrl', function() {
-                var currentPage = $t.get('pages')
-                    .findWhere({ pageUrl: $t.get('currentPageUrl') });
+                // perform validation if there is a currentPage to validate
+                if($t.get('currentPage')) {
+                    $t.get('currentPage').set('valid', $t.get('currentPage').validate($t));
 
-                if(currentPage) {
-                    $t.set('currentPage', currentPage);
+                    // if the page isn't valid then change back the current URL and exit
+                    if(!$t.get('currentPage').get('valid')) {
+                        $t.set({ 'currentPageUrl': $t.get('currentPage')
+                            .get('pageUrl') }, { silent: true });
+                        return;
+                    }
+
+                    $t.submit();
+                }
+
+                // ensure that the new page is the first incomplete page
+                /*var page = $t.getFirstPage();
+
+                while(page.get('valid')) {
+                    page = $t.getNextPage(page);
+                }*/
+
+                var page = $t.getPages().findWhere({
+                    pageUrl: $t.get('currentPageUrl')
+                });
+
+                if(page) {
+                    $t.set('currentPage', page);
                 }
             });
 
             $t.bind('change:currentPage', function() {
-                // silent to prevent loops
                 $t.get('currentPage').set('visited', true);
                 $t.set({ 'currentPageUrl': $t.get('currentPage').get('pageUrl') }, {silent: true});
             });
@@ -158,7 +185,6 @@ function($, _, Backbone,
 
             // bind handlers            
             $t.getContents().each(function(content) {
-                // @todo [dk] - set saved values
                 content.trigger('change:value');
 
                 // bind validation events
@@ -168,6 +194,40 @@ function($, _, Backbone,
             });
 
             $t.isMapped = true;  
+        },
+        updateContents: function(application) {
+            var $t = this;
+
+            var applicationValue;
+            $t.getContents().each(function(content) {
+                applicationValue = application.get('values').findWhere({
+                    contentId: content.get('contentId')
+                });
+
+                if(applicationValue) {
+                    content.set('value', applicationValue.get('value'));
+                }
+            });
+        },
+        submit: function() {
+            var $t = this;
+
+            $t.getContents().each(function(content) {
+                if(!$t.get('application').get('values')
+                    .findWhere({ contentId: content.get('contentId') })
+                ) {
+                    $t.get('application').get('values').add({
+                        contentId:  content.get('contentId'),
+                        value:      content.get('value')
+                    });
+                } else {
+                    $t.get('application').get('values')
+                        .findWhere({ contentId: content.get('contentId') })
+                        .set('value', content.get('value'));
+                }
+            });
+
+            return $t.get('application').save();
         }
     });
 });

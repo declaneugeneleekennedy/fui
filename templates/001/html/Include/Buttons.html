@@ -1,6 +1,15 @@
 
 <% for(var i = 0; i < buttons.length; ++i) { %>
 <span class="<%= buttons[i].className %>">
-    <input type="button" value="<%= buttons[i].value %>" />
+    <button>
+        <span class="text"><%= buttons[i].value %></span>
+        <%
+            if(buttons[i].subtitle) {
+        %>
+        <span class="subtitle"><%= buttons[i].subtitle %></span>
+        <%
+            }
+        %>
+    </button>
 </span>
 <% }; %>

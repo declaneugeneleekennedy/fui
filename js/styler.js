@@ -25,7 +25,7 @@ function($, _, Loader, Extendable) {
             $.when($p).then(function(text) {
                 var compiled = _.template(text);
 
-                $t.addRawCss(compiled(variables));
+                $t.addRawCss(compiled(variables).replace(/\s+/g, ' '));
             });
 
             return $p;

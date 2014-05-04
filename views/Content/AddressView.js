@@ -37,7 +37,7 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
 
             $parts.append($t.confirm.el);
 
-            //$parts.hide();
+            $parts.hide();
         },
 
         afterRender: function() {

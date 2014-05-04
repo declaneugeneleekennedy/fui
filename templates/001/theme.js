@@ -1,5 +1,11 @@
-define(['js/theme'],
-function(Theme) {
+define(['jquery', 'underscore', 'js/theme',
+    'templates/001/js/html5',
+    'templates/001/js/jquery/inputmask',
+    'templates/001/js/jquery/inputmask-ext',
+    'templates/001/js/jquery/inputmask-ext-date',
+    'templates/001/js/jquery/inputmask-ext-numeric',
+    'templates/001/js/jquery/selectboxit'],
+function($, _, Theme) {
     return Theme.extend({
         globalColours: {
             1: {
@@ -22,13 +28,11 @@ function(Theme) {
             }
         },
         stylesheets: {
-            'static': ['css/default.css'],
+            'static': ['css/default.css', 'css/selectboxit.css'],
             'dynamic': ['css/Dynamic/main.css']
         },
-        getThemeVars: function() {
+        getCssVars: function() {
             var $t = this;
-
-            console.log($t.template);
 
             return {
                 fontFamily:             $t.template.get('fontFamily'),
@@ -46,6 +50,21 @@ function(Theme) {
                     $t.template.getColour('override') : $t.template.getColour(0).get('default'),
                 colour:                $t.template.get('colour')
             };
+        },
+        afterRender: function() {
+            var $t = this;
+
+            var masks = {
+                7: 'dd/mm/yyyy',
+                9: '+61 (09) 9999 9999',
+                10: '+61 (499) 999 999'
+            };
+
+            _.each(masks, function(mask, inputFormatId) {
+                $('input[data-input-format="' + inputFormatId + '"]').inputmask(mask);
+            });
+
+            $('.input.vertical select').selectBoxIt();
         }
     });
 });

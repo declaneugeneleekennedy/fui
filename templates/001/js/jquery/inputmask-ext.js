@@ -8,7 +8,7 @@ Version: 0.0.0
 Optional extensions on the jquery.inputmask base
 */
 // [dk] AMD added for require
-define(['jquery', 'asset/js/jquery/inputmask'], function ($) {
+define(['jquery', 'templates/001/js/jquery/inputmask'], function ($) {
     //extra definitions
     $.extend($.inputmask.defaults.definitions, {
         'A': { //auto uppercasing
