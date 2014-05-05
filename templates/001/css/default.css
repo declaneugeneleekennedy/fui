@@ -672,6 +672,10 @@ ul.bulletPointList li span.bulletPoint {
     width: 98%;
 }
 
+.ui-autocomplete {
+    z-index: 100;
+}
+
 /*
  * Responsive overrides
  */

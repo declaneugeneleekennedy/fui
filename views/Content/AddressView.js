@@ -43,28 +43,15 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
         afterRender: function() {
             var $t = this;
 
-            $('input[name="' + $t.model.get('main').get('name') + '"]', $t.$el).autocomplete({
-                source: function( request, response ) {
-                    $.ajax({
-                        url: "//poc1.vermilian.com/queryAddress.php?searchText=" + request.term,
-                        dataType: "json",
-                        data: {
-                            featureClass: "P",
-                            style: "full",
-                            maxRows: 12,
-                            name_startsWith: request.term
-                        },
-                        success: function( data ) {
-                            response( $.map( data.addresses, function( item ) {
-
-                                return {
-                                    label: item.canonical,
-                                    value: item.canonical
-                                }
-                            }));
-                        }
-                    });
-                }
+            $('input[name="' + $t.model.get('main').get('name') + '"]', $t.$el).one('focus', function() {
+                $(this).autocomplete({
+                    source: function(request, response) {
+                        var $p = $t.model.queryAddress(request.term)
+                            .done(function(data) {
+                                response(_.pluck(data.addresses, 'canonical'));
+                            });
+                    }
+                });
             });
         },
 
@@ -75,6 +62,7 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.removeClass('invalid');
 
             $('.parts', $t.$el).hide();
+            $('.clarify', $t.$el).hide();
         },
 
         invalid: function() {
@@ -83,7 +71,8 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.addClass('invalid');
             $t.main.$el.removeClass('valid');
 
-            $('.parts', $t.$el).show();
+            var sel = ($t.model.get('lastMatches')) ? 'clarify' : 'parts';
+            $('.' + sel, $t.$el).show();
         },
 
         resetValid: function() {
@@ -93,6 +82,7 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.removeClass('invalid');
 
             $('.parts', $t.$el).hide();
+            $('.clarify', $t.$el).hide();
         }
     });
 });

@@ -140,3 +140,10 @@ h1,h3,h4,h5,h6 {
 .contentElement .multipleChoice .input label.option input:checked~span.text {
     color: <%= labelActive %>;
 }
+
+.selectboxit {
+    background-color:transparent;
+    background-image: none;
+    border: 1px solid <%= colour.get(1).get('default') %>;
+    box-shadow: none;
+}
