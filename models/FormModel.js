@@ -213,6 +213,10 @@ function($, _, Backbone,
             var $t = this;
 
             $t.getContents().each(function(content) {
+                if(!content.get('value')) {
+                    return;
+                }
+
                 if(!$t.get('application').get('values')
                     .findWhere({ contentId: content.get('contentId') })
                 ) {

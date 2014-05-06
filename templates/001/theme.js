@@ -64,7 +64,9 @@ function($, _, Theme) {
                 $('input[data-input-format="' + inputFormatId + '"]').inputmask(mask);
             });
 
-            $('.input.vertical select').selectBoxIt();
+            $('.input.vertical select').selectBoxIt({
+                downArrowIcon: 'selectboxitArrow'
+            });
         }
     });
 });

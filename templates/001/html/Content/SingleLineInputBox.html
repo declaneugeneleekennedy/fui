@@ -13,22 +13,3 @@
         </span>
     </div>
 </div>
-
-<%
-    if(confirmationLabel) {
-        var $c = $e + 'Confirmation';
-%>
-<div class="singleLineInputBox <%= inputType %> confirm">
-    <label class="question" for="<%= $c %>">
-        <span class="text"><%= confirmationLabel %></span>
-    </label>
-
-    <div class="input <%= $f %>">
-        <span class="element">
-            <input type="<%= inputType %>" name="<%= $c %>" id="<%= $c %>" value="<%= value %>" placeholder="<%= suggestedInput %>" data-input-format="<%= inputFormatId %>" />
-        </span>
-    </div>
-</div>
-<%
-    }
-%>

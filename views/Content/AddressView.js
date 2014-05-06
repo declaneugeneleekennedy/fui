@@ -31,6 +31,8 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
 
             $main.append($t.main.el);
 
+            $('.confirm', $t.$el).hide();
+
             _.each($t.parts, function(part) {
                 $parts.append(part.el);
             });
@@ -61,6 +63,7 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.addClass('valid');
             $t.main.$el.removeClass('invalid');
 
+            $('.confirm', $t.$el).hide();
             $('.parts', $t.$el).hide();
             $('.clarify', $t.$el).hide();
         },
@@ -70,6 +73,8 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
 
             $t.main.$el.addClass('invalid');
             $t.main.$el.removeClass('valid');
+
+            $('.confirm', $t.$el).show();
 
             var sel = ($t.model.get('lastMatches')) ? 'clarify' : 'parts';
             $('.' + sel, $t.$el).show();
@@ -81,6 +86,7 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.removeClass('valid');
             $t.main.$el.removeClass('invalid');
 
+            $('.confirm', $t.$el).hide();
             $('.parts', $t.$el).hide();
             $('.clarify', $t.$el).hide();
         }

@@ -75,7 +75,8 @@ h1,h3,h4,h5,h6 {
 .invalid .multipleChoice .input:after,
 .save:after,
 .next:after,
-.previous:before {
+.previous:before,
+.selectboxitArrow {
     background-image: url(<%= sprite %>);
 }
 
@@ -146,4 +147,18 @@ h1,h3,h4,h5,h6 {
     background-image: none;
     border: 1px solid <%= colour.get(1).get('default') %>;
     box-shadow: none;
+}
+
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus,
+.selectboxit-btn.selectboxit-enabled:active {
+    background-color:transparent;
+}
+
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+    background-repeat:no-repeat;
+    background-position:-42px -122px;
+    width:20px;
+    height:20px;
+    top:5px;    
 }

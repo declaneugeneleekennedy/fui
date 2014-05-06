@@ -58,8 +58,12 @@ function($, _, ContentModel, InputFormatEnum) {
 
             $t.checkLength(value);
 
-            if($t.get('confirmationLabel')) {
-                $t.checkConfirmation(value);
+            if($t.get('mustMatch')) {
+                if($t.get('mustMatch').get('value') &&
+                    $t.get('value') != $t.get('mustMatch').get('value')
+                ) {
+                    $t.addError('Values must match');
+                }
             }
 
             $t.checkFormat(value);
@@ -75,17 +79,6 @@ function($, _, ContentModel, InputFormatEnum) {
 
             if(max != -1 && value.length > max) {
                 $t.addError('Must not exceed ' + max + ' characters');
-            }
-        },
-        checkConfirmation: function(value) {
-            var $t = this;
-
-            if(!$t.get('confirmationValue')) {
-                return;
-            }
-
-            if($t.get('confirmationValue') != value) {
-                $t.addError('Values must match');
             }
         },
         checkFormat: function(value) {

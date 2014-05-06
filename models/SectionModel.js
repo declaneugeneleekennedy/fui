@@ -17,9 +17,26 @@ function(_, Backbone, DisplayRuleModel, ContentModelFactory, ContentCollection) 
 
             $t.set('displayRule',   new DisplayRuleModel($t.get('displayRule')));
 
-            var contents = new ContentCollection;
+            var model, confirm, contents = new ContentCollection;
+
             _.each($t.get('contents'), function(content) {
-                contents.add(ContentModelFactory.getInstance(content));
+                model = ContentModelFactory.getInstance(content);
+
+                contents.add(model);
+
+                // add a confirmation field if required
+                if(model.get('confirmationLabel')) {
+                    confirm = ContentModelFactory.getInstance(_.defaults({
+                        contentId:          model.get('contentId') + 'Confirmation',
+                        question:           model.get('confirmationLabel'),
+                        mustMatch:          model,
+                        confirmationLabel:  ''
+                    }, model.attributes));
+
+                    model.set('mustMatch', confirm);
+
+                    contents.add(confirm);
+                }
             });
 
             $t.set('contents', contents);
