@@ -42,7 +42,12 @@ function($, _, Backbone, DisplayRuleModel) {
         },
         addError: function(message) {
             var $t = this;
-            $t.get('errors').push(message);
+
+            var newErrors = $t.get('errors');
+
+            newErrors.push(message)
+            
+            $t.set('errors', newErrors);
         },
         hasErrors: function() {
             var $t = this;

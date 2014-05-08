@@ -10,6 +10,9 @@ function($, ContentView) {
             var $t = this;
 
             var $input = $('input[name="' + $t.model.get('name') + '"]');
+
+            $input.prop('checked', !$input.prop('checked'));
+
             if($input.is(':checked')) {
                 $t.model.set('value', $input.value);
             } else {

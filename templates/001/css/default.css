@@ -395,12 +395,12 @@ ul.bulletPointList li span.bulletPoint {
     float:left;
 }
 
-.contentElement .multipleChoice .input label.option input {
+.input label.option input {
     display:none;
     visibility: hidden;
 }
 
-.contentElement .multipleChoice .input label.option input+img {
+.input label.option input+img {
     display:block;
     width:75px;
     height:75px;
@@ -412,45 +412,45 @@ ul.bulletPointList li span.bulletPoint {
     border-radius: 500px;
 }
 
-.contentElement .multipleChoice .input label.option {
+.input label.option {
     color: #666666;
 }
 
-.contentElement .multipleChoice .input label.option img+span.text {
+label.option img+span.text {
     display:block;
     clear:both;
     text-align:center;
 }
 
-.contentElement .multipleChoice .input label.option input+span.text {
+label.option input+span.text {
     display: block;
     text-indent: 10px;
     width:180px;
 }
 
-.contentElement .multipleChoice .input label.option input+span.text:before {
+label.option input+span.text:before {
     content: "";
     float:left;
     background-repeat:no-repeat;
 }
 
-.contentElement .multipleChoice .input label.option input[type="radio"]+span.text:before {
+label.option input[type="radio"]+span.text:before {
     width:21px;
     height:21px;
     background-position:-21px -122px;
 }
 
-.contentElement .multipleChoice .input label.option input[type="radio"]:checked+span.text:before {
+label.option input[type="radio"]:checked+span.text:before {
     background-position: 0 -122px;
 }
 
-.contentElement .multipleChoice .input label.option input[type="checkbox"]+span.text:before {
+label.option input[type="checkbox"]+span.text:before {
     width:26px;
     height:26px;
     background-position:-26px -91px;
 }
 
-.contentElement .multipleChoice .input label.option input[type="checkbox"]:checked+span.text:before {
+label.option input[type="checkbox"]:checked+span.text:before {
     background-position: 0 -91px;
 }
 
@@ -636,7 +636,7 @@ ul.bulletPointList li span.bulletPoint {
 
 /* Address content type */
 
-.address .parts:before {
+.address .confirm:before {
     border-color: #666666 transparent;
     border-style: solid;
     border-width: 9px 8px 0;
@@ -647,14 +647,14 @@ ul.bulletPointList li span.bulletPoint {
     content: "";
 }
 
-.address .parts {
+.address .confirm {
     border: 1px solid #CCCCCC;
     margin: 20px 4%;
     width: 92%;
     background-color: #F4F4F4;
 }
 
-.address .parts h4:before {
+.address .confirm h4:before {
     border-color: #FFFFFF transparent;
     border-style: solid;
     border-width: 8px 7px 0;
@@ -666,10 +666,36 @@ ul.bulletPointList li span.bulletPoint {
     width: 0;
 }
 
-.address .parts h4,
-.address .parts p {
+.address .confirm h4,
+.address .confirm p {
     margin: 20px 1%;
     width: 98%;
+}
+
+.address .confirm .clarify,
+.address .confirm .parts {
+    display:none;
+}
+
+.address .confirm .clarify .addressOptions {
+    background: white;
+    width: 60%;
+    padding: 10px 0;
+    height: 160px;
+    overflow-y: scroll;
+    list-style-type: none;
+    overflow-x: hidden;
+    border: #33a9b3 1px solid;
+}
+
+.address .confirm .clarify .addressOptions li {
+    padding: 4px 10px;
+    cursor:pointer;
+}
+
+.address .confirm .clarify .addressOptions li:hover {
+    background-color:#0088cc;
+    color:white;
 }
 
 .ui-autocomplete {

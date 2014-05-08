@@ -5,7 +5,7 @@
             "//formbanc.dev.com": ""
         },
         "frameworkHostMap": {
-            "//formbanc.dev.com": "//ui.formbanc.dev.com"
+            "//formbanc.dev.com": "//ui.dev.com"
         },
         "dataHostMap": {
             "//formbanc.dev.com": "//formbanc.dev.com/data"

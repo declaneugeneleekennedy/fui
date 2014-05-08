@@ -89,9 +89,10 @@ function($, _, ContentModel, ContentCollection,
                 'question': 'Yes, this is the correct address'
             }));
 
-            $t.get('confirm').on('change:value', function() {
-                $t.validateParts();
-            });
+            $t.set('deny', new CheckboxModel({
+                'question': 'No',
+                'required': true
+            }));
         },
 
         queryAddress: function(term) {
@@ -121,29 +122,6 @@ function($, _, ContentModel, ContentCollection,
             if(_.indexOf($t.get('lastMatches'), value) == -1) {
                 $t.addError('Address could not be found');
             }
-        },
-
-        validateParts: function() {
-            var $t = this;
-
-            var hasErrors = false;
-            $t.get('parts').each(function(part) {
-                part.validate();
-
-                if(part.hasErrors()) {
-                    hasErrors = true;
-                }
-            });
-
-            if(!hasErrors) {
-                $t.buildAddress();
-            }
-        },
-
-        buildAddress: function() {
-            var $t = this;
-
-            var address = '';
         }
     });
 });

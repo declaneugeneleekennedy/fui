@@ -53,6 +53,14 @@ function($, _, Global, View, ContentViewFactory) {
 
                 $('.next button', $t.$el).click(function(e) {
                     e.preventDefault();
+
+                    var scrollTarget;
+                    $('.section').each(function(i, el) {
+                        if(!$(el).hasClass('first')) {
+                            scrollTarget = $(el).attr('id');
+                            return false;
+                        }
+                    })
                     
                     $('.section').removeClass('collapse');
                     $('.section.first').addClass('collapse')
@@ -60,6 +68,10 @@ function($, _, Global, View, ContentViewFactory) {
 
                     // don't like putting this here
                     $('.buttons').show();
+                    
+                    if(scrollTarget) {
+                        $t.scrollTo(scrollTarget);
+                    }
                 });
             }
         }

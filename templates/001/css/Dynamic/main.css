@@ -57,7 +57,8 @@ h1,h3,h4,h5,h6 {
 .next button,
 .previous button,
 .save button,
-.address .parts {    
+.address .confirm,
+.address .confirm .clarify .addressOptions {    
     -webkit-border-radius: <%= radius %>;
     -moz-border-radius: <%= radius %>;
     border-radius: <%= radius %>;
@@ -68,9 +69,10 @@ h1,h3,h4,h5,h6 {
 .sprite,
 .section h3:before,
 .required label.question span.text:before,
-.contentElement .singleLineInputBox .input span.element:before,
-.contentElement .singleLineInputBox .input span.element:after,
-.contentElement .multipleChoice .input label.option input+span.text:before,
+.singleLineInputBox .input span.element:before,
+.singleLineInputBox .input span.element:after,
+.multipleChoice .input label.option input+span.text:before,
+.checkbox .input label.option input+span.text:before,
 .valid .multipleChoice .input:after,
 .invalid .multipleChoice .input:after,
 .save:after,

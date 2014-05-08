@@ -1,9 +1,8 @@
 <div class="checkbox">
-    <label class="question" for="<%= name %>">
-        <span class="text"><%= question %></span>
-    </label>
-
     <div class="input">
-        <input type="checkbox" name="<%= name %>" value="<%= onValue %>" />
+        <label class="option" for="<%= name %>">
+            <input type="checkbox" name="<%= name %>" value="<%= onValue %>" />
+            <span class="text"><%= question %></span>
+        </label>
     </div>
 </div>

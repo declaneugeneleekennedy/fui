@@ -9,6 +9,10 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
         beforeLoad: function() {
             var $t = this;
 
+            $t.model.on('change:value', function() {
+                $t.setMainInput($t.model.get('value'));
+            });
+
             $t.main     = new SingleLineInputBoxView({ model: $t.model.get('main') });
             $t.parts    = [];
 
@@ -17,6 +21,46 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             });
 
             $t.confirm = new CheckboxView({ model: $t.model.get('confirm') });
+
+            $t.confirm.model.on('change:value', function() {
+                $t.scrollTo($t.model.get('main').get('name'));
+
+                var $p = $t.model.queryAddress(
+                    $t.model.get('parts').pluck('value').join(' '));
+
+                $.when($p).then(function(data) {
+                    if(!data.addresses.length || data.addresses.length > 1) {                        
+                        $t.resetParts();
+                        $t.invalid();
+                    } else {
+                        $t.setMainInput(data.addresses[0].canonical);
+                        $t.valid();
+                    }
+                });
+            });
+
+            $t.deny = new CheckboxView({ model: $t.model.get('deny') });
+
+            $t.deny.model.on('change:value', function() {
+                $t.showParts();
+            });
+        },
+
+        setMainInput: function(value) {
+            var $t = this;
+
+            $('input', $t.main.$el)
+                .val(value);
+        },
+
+        resetParts: function() {
+            var $t = this;
+
+            _.each($t.parts, function(part) {
+                $('input', part.$el).val('');
+            });
+
+            $('input', $t.confirm).prop('checked', false);
         },
 
         render: function() {
@@ -26,8 +70,9 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
 
             $t.$el.html($t.html());
 
-            var $main   = $('.main',    $t.$el);
-            var $parts  = $('.parts',   $t.$el);
+            var $main       = $('.main',    $t.$el);
+            var $clarify    = $('.clarify', $t.$el);
+            var $parts      = $('.parts',   $t.$el);
 
             $main.append($t.main.el);
 
@@ -38,8 +83,6 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             });
 
             $parts.append($t.confirm.el);
-
-            $parts.hide();
         },
 
         afterRender: function() {
@@ -63,21 +106,58 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
             $t.main.$el.addClass('valid');
             $t.main.$el.removeClass('invalid');
 
+            $t.main.hideErrors();
+            $t.main.model.clearErrors();
+
             $('.confirm', $t.$el).hide();
-            $('.parts', $t.$el).hide();
-            $('.clarify', $t.$el).hide();
         },
 
         invalid: function() {
             var $t = this;
 
+            $t.resetValid();
+
             $t.main.$el.addClass('invalid');
             $t.main.$el.removeClass('valid');
 
+            $t.main.model.set('errors', $t.model.get('errors'));
+
+            $t.main.displayErrors();
+
             $('.confirm', $t.$el).show();
 
-            var sel = ($t.model.get('lastMatches')) ? 'clarify' : 'parts';
-            $('.' + sel, $t.$el).show();
+            if($t.model.get('lastMatches').length) {
+                $t.showClarify();
+            } else {
+                $t.showParts();
+            }
+        },
+
+        showClarify: function() {
+            var $t = this;
+
+            var $list = $('.clarify .addressOptions', $t.$el);
+
+            $list.empty();
+
+            _.each($t.model.get('lastMatches'), function(address) {
+                $list.append($(document.createElement('li'))
+                    .text(address)
+                    .click(function() {
+                        $t.model.get('main').set('value', address);
+                        $t.setMainInput(address);
+                    }));
+            });
+
+            $('.clarify', $t.$el).append($t.deny.el);
+
+            $('.clarify', $t.$el).show();
+        },
+
+        showParts: function() {
+            var $t = this;
+
+            $('.parts', $t.$el).show();
         },
 
         resetValid: function() {
@@ -85,6 +165,9 @@ function($, _, ContentView, SingleLineInputBoxView, CheckboxView) {
 
             $t.main.$el.removeClass('valid');
             $t.main.$el.removeClass('invalid');
+
+            $t.main.hideErrors();
+            $t.main.model.clearErrors();
 
             $('.confirm', $t.$el).hide();
             $('.parts', $t.$el).hide();

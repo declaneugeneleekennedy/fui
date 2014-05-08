@@ -59,6 +59,11 @@ function($, _, Loader, Global, Backbone, Styler, Queue) {
             }
 
             return $t.template;
+        },
+        scrollTo: function(id, duration) {
+            $('body,html').animate({
+                'scrollTop': $('#' + id).offset().top
+            }, duration);
         }
     });
 });

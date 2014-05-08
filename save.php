@@ -3,12 +3,16 @@
 
     $input = json_decode(file_get_contents('php://input'));
 
-    if($input) {
-        $input->{'applicationId'}   = 1;
-        $_SESSION['application']    = $input;
+    if(!array_key_exists('application', $_SESSION)) {
+    	$_SESSION['application'] = (object) array(
+    		'applicationId' => 1,
+    		'values' => array()
+    	);
     }
 
-    if($_SESSION['application']) {
-        echo json_encode($_SESSION['application']);
+    if($input && $input->values) {
+        $_SESSION['application']->values = $input->values;
     }
+    
+    echo json_encode($_SESSION['application']);
 ?>
