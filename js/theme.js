@@ -12,7 +12,7 @@ function(Backbone, _, Global, Extendable, Styler, MultiColourModel, ThemeEnum) {
             if($t.globalColours) {
                 var globalColours = [];
 
-                _.each($t.globalColours, function(value, id) {
+                _.each($t.globalColours[$t.template.get('theme')], function(value, id) {
                     globalColours.push($t.initializeColour(value, id));
                 });
 
@@ -23,15 +23,9 @@ function(Backbone, _, Global, Extendable, Styler, MultiColourModel, ThemeEnum) {
         },
         initializeColour: function(value, id) {
             var $t = this;
-
-            if(_.isString(value)) {
-                value = {
-                    'default': value
-                };
-            } else {
-                if(value.alternative.charAt(0) != '#') {
-                    value.alternative = $t.generateAlternative(value);
-                }
+                
+            if(value.alternative && value.alternative.charAt(0) != '#') {
+                value.alternative = $t.generateAlternative(value);
             }
 
             value.id = id;

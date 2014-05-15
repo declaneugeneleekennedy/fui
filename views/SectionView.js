@@ -60,18 +60,25 @@ function($, _, Global, View, ContentViewFactory) {
                             scrollTarget = $(el).attr('id');
                             return false;
                         }
-                    })
-                    
-                    $('.section').removeClass('collapse');
-                    $('.section.first').addClass('collapse')
-                        .removeClass('first');
+                    });
+
+                    $('.section .sectionBody').show(250, function() {
+                        $('.section').removeClass('collapse');
+                    }); 
+
+                    $('.first .sectionBody')
+                        .hide(250, function() {
+                            $('.section.first')
+                                .removeClass('first')
+                                .addClass('collapse');
+
+                            if(scrollTarget) {
+                                $t.scrollTo(scrollTarget, 100);
+                            }
+                        });
 
                     // don't like putting this here
                     $('.buttons').show();
-                    
-                    if(scrollTarget) {
-                        $t.scrollTo(scrollTarget);
-                    }
                 });
             }
         }

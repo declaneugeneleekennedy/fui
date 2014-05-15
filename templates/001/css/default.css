@@ -37,6 +37,7 @@ h3 {
 
 h4 {
     font-size: 1.3em;
+    line-height: 30px;
 }
 
 h5,h6 {
@@ -198,15 +199,11 @@ ul.bulletPointList li span.bulletPoint {
 .contentElement .input .errors {
     position:absolute;
     display:inline-block;
-    border: #ff4200 1px solid;
     padding:10px;
     margin-left:10px;
-    color: #ff4200;
-    background-color: #ffece6;
 }
 
 .contentElement .input .errors:before {
-    border-color: transparent #ff4200;
     border-style: solid;
     border-width: 5px 8px 6px 0;
     left: -8px;
@@ -217,7 +214,6 @@ ul.bulletPointList li span.bulletPoint {
 }
 
 .contentElement .input .errors:after {
-    border-color: transparent #ffece6;
     border-style: solid;
     border-width: 4px 7px 5px 0;
     content: "";
@@ -239,19 +235,7 @@ ul.bulletPointList li span.bulletPoint {
     height: 31px;
     padding:2px;
     line-height: 25px;
-    border: #33a9b3 1px solid;
-    color: #666666;
     width:321px;
-}
-
-.valid .singleLineInputBox .input input {
-    border:#a9c93a 1px solid;
-    color:#a9c93a;
-}
-
-.invalid .singleLineInputBox .input input {
-    border:#ff4200 1px solid;
-    color:#ff4200;
 }
 
 .contentElement .singleLineInputBox .input span.element:before,
@@ -379,6 +363,11 @@ ul.bulletPointList li span.bulletPoint {
  * Multiple Choice
  */
 
+.contentElement .multipleChoice .horizontal .select {
+    display:none;
+    visibility:hidden;
+}
+
 .contentElement .multipleChoice .input label {
     cursor:pointer;
 }
@@ -412,11 +401,7 @@ ul.bulletPointList li span.bulletPoint {
     border-radius: 500px;
 }
 
-.input label.option {
-    color: #666666;
-}
-
-label.option img+span.text {
+label.option span.text {
     display:block;
     clear:both;
     text-align:center;
@@ -459,13 +444,9 @@ label.option input[type="checkbox"]:checked+span.text:before {
     border:transparent 1px solid;
 }
 
-.invalid .multipleChoice .input .options {
-    border-color:#ff4200;
-    background-color:#ffece6;
-}
-
-.invalid .multipleChoice .input .options span.text {
-    color:#ff4200;
+.contentElement .multipleChoice .vertical .options {
+    display:none;
+    visibility:hidden;
 }
 
 .valid .multipleChoice .input:after,
@@ -486,6 +467,20 @@ label.option input[type="checkbox"]:checked+span.text:before {
     background-position: -323px -147px;
 }
 
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus,
+.selectboxit-btn.selectboxit-enabled:active {
+    background-color:transparent;
+}
+
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+    background-repeat:no-repeat;
+    background-position:-42px -122px;
+    width:20px;
+    height:20px;
+    top:5px;    
+}
+
 /*
  * Identity Verification
  */
@@ -495,12 +490,10 @@ label.option input[type="checkbox"]:checked+span.text:before {
 }
 
 .identityVerification .persona {
-    background-color: #f2fafa;
     padding: 15px;
     margin: 0 0 10px 0;
     height: 45px;
     line-height: 45px;
-    color: #0093a0;
     font-family: Georgia,"Times New Roman",Times,serif;
     font-weight: normal;
     clear:both;
@@ -513,7 +506,6 @@ label.option input[type="checkbox"]:checked+span.text:before {
     clear: both;
     display: block;
     float: left;
-    border: #0093a0 1px solid;
 }
 
 /*
@@ -543,14 +535,6 @@ label.option input[type="checkbox"]:checked+span.text:before {
     cursor: pointer;
     padding: 16px 30px;
     border:none;
-    color: #ffffff;
-    background-color: #33a9b3;
-    background-image: -ms-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
-    background-image: -moz-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
-    background-image: -o-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #33a9b3), color-stop(1, #0093a0));
-    background-image: -webkit-linear-gradient(top, #33a9b3 0%, #0093a0 100%);
-    background-image: linear-gradient(to bottom, #33a9b3 0%, #0093a0 100%);
 }
 
 .next {
@@ -605,24 +589,7 @@ label.option input[type="checkbox"]:checked+span.text:before {
     padding:6px 42px 6px 6px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     vertical-align: middle;
-    color: #666666;
-    background-color: #f5f5f5;
-    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
     background-repeat: repeat-x;
-    border: 1px solid #cccccc;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    border-bottom-color: #b3b3b3;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: 1px 1px 3px 0 #F4F4F4;
 }
 
 .save button span {
@@ -637,7 +604,6 @@ label.option input[type="checkbox"]:checked+span.text:before {
 /* Address content type */
 
 .address .confirm:before {
-    border-color: #666666 transparent;
     border-style: solid;
     border-width: 9px 8px 0;
     left: 4.8%;
@@ -648,14 +614,11 @@ label.option input[type="checkbox"]:checked+span.text:before {
 }
 
 .address .confirm {
-    border: 1px solid #CCCCCC;
     margin: 20px 4%;
     width: 92%;
-    background-color: #F4F4F4;
 }
 
 .address .confirm h4:before {
-    border-color: #FFFFFF transparent;
     border-style: solid;
     border-width: 8px 7px 0;
     content: "";
@@ -685,7 +648,6 @@ label.option input[type="checkbox"]:checked+span.text:before {
     overflow-y: scroll;
     list-style-type: none;
     overflow-x: hidden;
-    border: #33a9b3 1px solid;
 }
 
 .address .confirm .clarify .addressOptions li {
@@ -693,68 +655,42 @@ label.option input[type="checkbox"]:checked+span.text:before {
     cursor:pointer;
 }
 
-.address .confirm .clarify .addressOptions li:hover {
-    background-color:#0088cc;
-    color:white;
-}
-
 .ui-autocomplete {
     z-index: 100;
 }
 
-/*
- * Responsive overrides
- */
+/* datepicker */
 
-@media (max-width: 719px) {
-    .non-mobile {
-        display:none;
-        visibility:hidden;
-    }
+.ui-datepicker .ui-datepicker-title select {
+    font-size: 0.8em;
+}
 
-    #page {
-      background: none;
-    }
+#ui-datepicker-div {
+  width: 13em;
+  margin: -35px 0 0 310px;
+}
 
-    #headerContainer {
-        padding-top:20px;
-    }
+#ui-datepicker-div.ui-widget-content {
+  line-height: 1em;
+}
 
-    #headerContainer .container {
-        height:90px;
-    }
+#ui-datepicker-div .ui-datepicker-prev, #ui-datepicker-div .ui-datepicker-next {
+  display:none;
+}
 
-    #headerContainer .container .header {
-        height:70px;
-    }
+#ui-datepicker-div .ui-widget-header {
+  border:none;
+}
 
-    .navbar ul {
-        float:none;
-    }
+#ui-datepicker-div .ui-state-default, #ui-datepicker-div .ui-widget-content .ui-state-default, #ui-datepicker-div .ui-widget-header .ui-state-default {
+  background: none;
+  border: none;
+}
 
-    .navbar ul li {
-        float:none;
-        padding:0;
-    }
+.ui-datepicker td span, .ui-datepicker td a {
+  text-align: center;
+}
 
-    .navbar ul li.active {
-        width:100%;   
-        text-align:center;     
-    }
-
-    .navbar ul li.inactive {
-        display:none;
-        visibility:hidden;        
-    }
-
-    .contentElement .input {
-        margin-left:0;
-        width:100%;
-        clear:both;
-    }
-
-    .contentElement label.question {
-        display:block;
-        width:100%;
-    }
+.ui-datepicker .ui-datepicker-title {
+  margin: 0;
 }

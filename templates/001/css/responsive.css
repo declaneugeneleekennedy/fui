@@ -1,0 +1,164 @@
+/*
+ * Responsive overrides
+ */
+
+@media (max-width: 719px) {
+    .non-mobile {
+        display:none;
+        visibility:hidden;
+    }
+
+    #page {
+        background: white;
+    }
+
+    #headerContainer {
+        padding-top:20px;
+        height:160px;
+        background-image: none;
+        background-color: white;
+    }
+
+    #headerContainer .container {
+        height:90px;
+        margin:0;
+        border:none;
+    }
+
+    #headerContainer .container .header {
+        height:70px;
+    }
+
+    #progressBar {
+        margin:0;
+        width:100%;
+    }
+
+    #progressBar ul {
+        float:none;
+        height:50px;
+    }
+
+    #progressBar ul li {
+        float:none;
+        padding:0;
+        display:none;
+        visibility:hidden;
+        border:none;
+    }
+
+    #progressBar ul li.active {
+        width:100%;
+        display:block;
+        visibility:visible;
+        text-align:center;
+    }
+
+    #progressBar ul li.active a {
+        background-image:none;
+        background-position: -1000px -1000px;
+    }
+
+    #progressBar ul li.active a:after {
+        content:none;
+    }
+
+    #progressBar ul li a .text {
+        padding-top:15px;
+    }
+
+    #headerContainer .container .contact {
+        display:none;
+        visibility:hidden;
+    }
+
+    #formContainer {
+        border:none;
+        padding:0;
+        margin:0;
+    }
+
+    #formContainer h2 {
+        display:none;
+        visibility:hidden;
+    }
+
+    .section h3 {
+        padding-left:16%;
+        width:78%;
+    }
+
+    .section h3:before {
+        margin:0 -6%;
+    }
+
+    .sectionBody .next {
+        width:100%;
+    }
+
+    .sectionBody .next button {
+        margin:0 2%;
+        width:96%;
+    }
+
+    .sectionBody .next:after {
+        left: -40px;
+        top: -40px;
+    }
+
+    .contentElement .input {
+        margin-left:0;
+        width:100%;
+        clear:both;
+    }
+
+    .contentElement label.question {
+        display:block;
+        width:100%;
+    }
+
+    .input label.option input+img {
+        display:none;
+        visibility:hidden;
+    }
+
+    label.option input[type="checkbox"]+img+span.text:before {
+        width:26px;
+        height:26px;
+        content:"";
+        content: "";
+        position: relative;
+        top: 8px;
+        margin-right: 4px;
+        display:inline-block;
+        background-position:-26px -91px;
+    }
+
+    label.option input[type="checkbox"]:checked+img+span.text:before {
+        background-position: 0 -91px;
+    }
+
+    .contentElement .multi .horizontal .options {
+        border: #33a9b3 1px solid;
+    }
+
+    .contentElement .single .horizontal .options {
+        display:none;
+        visibility:hidden;
+    }
+
+    .contentElement .single .horizontal .select {
+        display:block;
+        visibility:visible;
+    }
+
+    .contentElement .multipleChoice .horizontal label.option {  
+        width:100%;
+        height:30px;
+        display:block;
+    }
+
+    .contentElement .multipleChoice .horizontal label.option .text {
+        text-align:left;
+    }
+}

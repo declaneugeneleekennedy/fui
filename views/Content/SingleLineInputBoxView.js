@@ -9,12 +9,6 @@ function($, ContentView, InputFormatEnum) {
         afterRender: function() {
             var $t = this;
 
-            if($t.model.get('inputFormatId') == InputFormatEnum.INPUT_FORMAT_DATE) {
-                $('input[name="' + $t.model.get('name') + '"]', $t.$el).one('focus', function() {
-                    $(this).datepicker().trigger('focus');
-                });
-            }
-
             if($t.model.get('confirmationLabel')) {
                 var conf = $t.model.get('name') + 'Confirmation';
                 $('input[name="' + conf + '"]').on('blur', function() {
