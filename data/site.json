@@ -2,13 +2,16 @@
     "main": {
         "defaultSection": "home",
         "clientPathMap": {
-            "//formbanc.dev.com": ""
+            "//formbanc.dev.com": "",
+            "//fui.declaneugeneleekennedy.com": ""
         },
         "frameworkHostMap": {
-            "//formbanc.dev.com": "//ui.dev.com"
+            "//formbanc.dev.com": "//ui.dev.com",
+            "//fui.declaneugeneleekennedy.com": "//ui.declaneugeneleekennedy.com"
         },
         "dataHostMap": {
-            "//formbanc.dev.com": "//formbanc.dev.com/data"
+            "//formbanc.dev.com": "//formbanc.dev.com/data",
+            "//fui.declaneugeneleekennedy.com": "//fui.declaneugeneleekennedy.com/data"
         }
     },
     "view": {
