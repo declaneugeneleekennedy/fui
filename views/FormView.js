@@ -1,7 +1,7 @@
-define(['jquery', 'underscore', 'global', 'js/view',
+define(['jquery', 'underscore', 'js/view',
     'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
     'views/ButtonsView'],
-function($, _, Global, View,
+function($, _, View,
     ProgressBarViewFactory, ContactView, SectionView,
     ButtonsView
 ) {
@@ -12,44 +12,34 @@ function($, _, Global, View,
         beforeLoad: function() {
             var $t = this;
 
-            // navigation views
-            $t.contact     = new ContactView({ model: $t.model });
-            $t.progress    = ProgressBarViewFactory.getInstance($t.model);
+            $t.contact  = new ContactView({ model: $t.model });
+            $t.progress = ProgressBarViewFactory.getInstance($t.model);
 
-            // section views
             $t.sections = [];
 
             $t.model.get('currentPage').get('sections').each(function(section) {
-                var options = {
-                    model: section
-                };
-
-                options.collapsible = ($t.model.get('currentPage') == $t.model.getFirstPage());
-                options.collapsed   = !($t.model.get('currentPage').get('sections').first() == section);
-
-                $t.sections.push(new SectionView(options));
+                $t.sections.push(new SectionView({
+                    model:          section,
+                    isFirst:        ($t.sections.length == 0),
+                    isFirstPage:    ($t.model.get('currentPage') == $t.model.getFirstPage())
+                }));
             });
 
-            // buttons view
-            $t.buttons = new ButtonsView({ model: $t.model });
+            $t.buttons = new ButtonsView({
+                model:       $t.model,
+                isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
+            });
         },
         render: function() {
             var $t = this;
 
-            // $t.setTitle($t.model.get('currentPage').get('pageTitle'));
-
-            var pageTitle = ($t.model.get('currentPage').get('enablePageTitle')) ?
-                $t.model.get('currentPage').get('pageTitle') : false;
-
-            console.log($t.model.toJSON());
-
             $t.$el.html($t.html({
                 title: $t.model.get('formTitle'),
-                pageTitle: pageTitle
+                pageTitle: $t.model.get('currentPage').get('pageTitle')
             }));
 
-            var $nav    = $t.$('#navigation');
-            var $form   = $t.$('form');
+            var $nav    = $('#navigation', $t.$el);
+            var $form   = $('form', $t.$el);
             
             $nav.append($t.contact.el);
             $nav.append($t.progress.el);

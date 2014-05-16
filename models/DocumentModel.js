@@ -1,6 +1,8 @@
-define(['jquery', 'global', 'backbone', 'loader',
-    'models/FormModel', 'models/TemplateModel'],
-function($, Global, Backbone, Loader, FormModel, TemplateModel) {
+define(['jquery', 'backbone', 'loader',
+    'models/FormModelFactory', 'models/TemplateModelFactory'],
+function($, Backbone, Loader,
+    FormModelFactory, TemplateModelFactory
+) {
     return Backbone.Model.extend({
         id: 'static.json',    // @todo [dk] replace with real ID
         urlRoot: '/data',   // @todo [dk] replace with real root
@@ -19,6 +21,8 @@ function($, Global, Backbone, Loader, FormModel, TemplateModel) {
 
             $.when($p).then(function(result) {
                 $t.set($t.parse(result));
+
+                $t.get('form').set('currentPageUrl', $t.get('pageUrl'));
             });
 
             return $p;
@@ -26,18 +30,9 @@ function($, Global, Backbone, Loader, FormModel, TemplateModel) {
         parse: function(result) {
             var $t = this;
 
-            if(!Global.get('form')) {
-                Global.set('form', new FormModel(result.form));
-                Global.get('form').set('currentPageUrl', $t.get('pageUrl'));
-            }
-
-            if(!Global.get('template')) {
-                Global.set('template', new TemplateModel(result.template));
-            }
-
             return {
-                form:       Global.get('form'),
-                template:   Global.get('template')
+                form:       FormModelFactory.getInstance(result.form),
+                template:   TemplateModelFactory.getInstance(result.template)
             }
         }
     });

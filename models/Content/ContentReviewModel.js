@@ -1,5 +1,5 @@
-define(['underscore', 'global', 'models/ContentModel', 'models/ContentCollection'],
-function(_, Global, ContentModel, ContentCollection) {
+define(['underscore', 'models/ContentModel', 'models/ContentCollection'],
+function(_, ContentModel, ContentCollection) {
     return ContentModel.extend({
         defaults: _.defaults({
             contents: []

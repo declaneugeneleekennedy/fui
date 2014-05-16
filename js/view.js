@@ -1,28 +1,23 @@
 define(['jquery', 'underscore', 'loader',
-    'global', 'backbone', 'js/styler','js/queue'],
-function($, _, Loader, Global, Backbone, Styler, Queue) {
+    'backbone', 'js/styler','js/queue',
+    'models/TemplateModelFactory'],
+function($, _, Loader,
+    Backbone, Styler, Queue,
+    TemplateModelFactory
+) {
+    var htmlQueue   = new Queue;
+
     return Backbone.View.extend({
         styler: new Styler({ id: 'view' }),
         templateUrl: null,
         html: null,
+        htmlQueue: htmlQueue,
         initialize: function() {
             var $t = this;
 
             $t.beforeLoad();
 
-            var $p = $t.getHtml($t.templateUrl);
-
-            $.when($p).then(function() {
-                if(!$t.html) {
-                    $t.html = '<!-- ? -->';
-                }
-
-                $t.html = _.template($t.html);
-
-                $t.render();
-
-                $t.afterRender();
-            });
+            $t.addHtmlDependency($t.templateUrl);
         },
         addStylesheet: function(url) {
             var $t = this;
@@ -40,22 +35,35 @@ function($, _, Loader, Global, Backbone, Styler, Queue) {
         afterRender: function() {
             console.log('Calling View.afterRender() no-op');
         },
-        getHtml: function(url) {
+        addHtmlDependency: function(url) {
             var $t = this;
 
             var $p = $t.getTemplate().getHtmlFile(url);
 
             $.when($p).then(function(html) {
-                $t.html = html;
+                if(!html) {
+                    html = '<!-- ? -->';
+                }
+
+                $t.html = _.template(html);
+
+                $t.render();
+
+                $t.afterRender();
             });
 
-            return Global.get('assetQueue').add($p);
+            return $t.htmlQueue.add($p);
+        },
+        loadHtml: function() {
+            var $t = this;
+
+            return $t.htmlQueue.load();
         },
         getTemplate: function() {
             var $t = this;
 
             if(!$t.template) {
-                $t.template = Global.get('template');
+                $t.template = TemplateModelFactory.getInstance();
             }
 
             return $t.template;

@@ -1,26 +1,33 @@
-define(['jquery', 'backbone', 'global', 'js/queue', 'views/FormPageView', 'views/TagViewFactory'],
-function($, Backbone, Global, Queue, FormPageView, TagViewFactory) {
+define(['jquery', 'backbone', 'views/FormView',
+    'views/TagViewFactory', 'models/TemplateModelFactory'],
+function($, Backbone, FormView,
+    TagViewFactory, TemplateModelFactory
+) {
 	return Backbone.View.extend({
         initialize: function() {
             var $t = this;
-            
-            Global.set('assetQueue', new Queue);
+
+            $t.setTitle($t.model.get('form')
+                .get('currentPage').get('pageTitle'));
+
+            $t.form = new FormView({ model: $t.model.get('form') });
 
             $.when($t.loadTheme()).then(function() {             
-                $t.render();
+                $t.applyTheme();
             });
         },
         loadTheme: function() {
             var $t = this;
 
-            var $d = $.Deferred();
+            var $d = $.Deferred(),
+                $template = TemplateModelFactory
+                    .getInstance();
 
-            var themeUrl = Global.get('template')
-                .getFileUrl('theme.js');
+            var themeUrl = $template.getFileUrl('theme.js');
 
             require([themeUrl], function(Theme) {
                 $t.theme = new Theme({
-                    template: Global.get('template')
+                    template: $template
                 });
                 
                 $d.resolve();
@@ -28,18 +35,20 @@ function($, Backbone, Global, Queue, FormPageView, TagViewFactory) {
 
             return $d.promise();
         },
+        applyTheme: function() {
+            var $t = this;
+
+            $.when($t.form.loadHtml()).then(function() {
+                $t.render();
+            });
+        },
         render: function() {
             var $t = this;
 
-            $t.setTitle($t.model.get('form')
-                .get('currentPage').get('pageTitle'));
-
-            var $form = new FormPageView({ model: $t.model.get('form') });
-
-            $.when(Global.get('assetQueue').load()).then(function() {
-                TagViewFactory.replaceTags($form.$el);
+            $.when($t.theme.applyTheme()).then(function() {
+                TagViewFactory.replaceTags($t.form.$el);
                 
-                $('body').html($form.el);
+                $('body').html($t.form.el);
                 $(window).scrollTop(0);
 
                 $t.theme.afterRender();

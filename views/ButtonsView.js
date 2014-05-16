@@ -9,30 +9,39 @@ function($, View) {
             'click .previous button': 'previousPage',
             'click .save button': 'saveForm'
         },
+        elementClasses: {
+            1: 'single',
+            2: 'double',
+            3: 'triple'
+        },
         render: function() {
             var $t = this;
 
-            $t.$el.html($t.html({buttons: $t.getButtons()}));
+            var buttons = $t.getButtons();
+
+            $t.$el.html($t.html({buttons: buttons}));
 
             if($t.options.isFirstPage) {
                 $t.$el.hide();
             }
+
+            $t.$el.addClass($t.elementClasses[buttons.length]);
         },
         getButtons: function() {
-            var $t = this, buttons = [], template = Global.get('template');
+            var $t = this, buttons = [];
 
             if($t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('previous', template.get('btnLabelPrevious')));
+                buttons.push($t.getButton('previous', $t.getTemplate().get('btnLabelPrevious')));
             }
 
             if($t.model.get('enableCompleteLater') && $t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('save', template.get('btnLabelSave'), 'Save My Application'));
+                buttons.push($t.getButton('save', $t.getTemplate().get('btnLabelSave'), 'Save My Application'));
             }
 
             if($t.model.get('currentPage') == $t.model.get('pages').at($t.model.get('pages').length - 1)) {
-                buttons.push($t.getButton('complete', template.get('btnLabelComplete')));
+                buttons.push($t.getButton('complete', $t.getTemplate().get('btnLabelComplete')));
             } else {
-                buttons.push($t.getButton('next', template.get('btnLabelNext')));
+                buttons.push($t.getButton('next', $t.getTemplate().get('btnLabelNext')));
             }
 
             return buttons;

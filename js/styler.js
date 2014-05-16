@@ -1,9 +1,15 @@
-define(['jquery', 'underscore', 'loader', 'js/extendable'],
-function($, _, Loader, Extendable) {
+define(['jquery', 'underscore', 'loader',
+    'js/extendable', 'js/queue'],
+function($, _, Loader,
+    Extendable, Queue
+) {
+    var cssQueue = new Queue;
+
     return Extendable.extend({
         loader: new Loader,
         id: null,
         element: null,
+        cssQueue: cssQueue,
         addStylesheet: function(url) {
             if($('head link[href="' + url + '"]').length == 0) {
                 $('head').append($(document.createElement('link')).attr({
@@ -28,7 +34,12 @@ function($, _, Loader, Extendable) {
                 $t.addRawCss(compiled(variables).replace(/\s+/g, ' '));
             });
 
-            return $p;
+            return $t.addDependency($p);
+        },
+        addDependency: function(promise) {
+            var $t = this;
+
+            return $t.cssQueue.add(promise);
         },
         addRawCss: function(text) {
             var $t = this;

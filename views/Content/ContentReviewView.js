@@ -1,5 +1,6 @@
-define(['underscore', 'global', 'views/ContentView'],
-function(_, Global, ContentView) {
+define(['underscore', 'global', 'views/ContentView',
+    'models/FormModelFactory'],
+function(_, Global, ContentView, FormModelFactory) {
     return ContentView.extend({
         templateUrl: 'html/Content/ContentReview.html',
         beforeLoad: function() {
@@ -8,9 +9,10 @@ function(_, Global, ContentView) {
             $t.model.get('contents').models = [];
 
             _.each($t.model.get('contents').contentIds, function(contentId) {
-                var model = Global.get('form').getContents().findWhere({
-                    contentId: contentId
-                });
+                var model = FormModelFactory.getInstance()
+                    .getContents().findWhere({
+                        contentId: contentId
+                    });
 
                 if(model) {
                     $t.model.get('contents').models

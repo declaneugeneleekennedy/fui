@@ -1,5 +1,8 @@
-define(['jquery', 'underscore', 'global', 'views/ContentView'],
-function($, _, Global, ContentView) {
+define(['jquery', 'underscore', 'views/ContentView',
+    'models/FormModelFactory'],
+function($, _, ContentView,
+    FormModelFactory
+) {
     return ContentView.extend({
         templateUrl: 'html/Content/IdentityVerification.html',
         events: {
@@ -9,14 +12,14 @@ function($, _, Global, ContentView) {
         beforeLoad: function() {
             var $t = this;
 
-            var displayApplicants = [];
+            var displayApplicants = [], $form = FormModelFactory.getInstance();
 
             $t.model.get('applicants').each(function(applicant) {
-                if(applicant.get('displayRule').check(Global.get('form'))) {
+                if(applicant.get('displayRule').check($form)) {
                     var name = [];
 
                     _.each(applicant.get('name'), function(contentId) {
-                        name.push(Global.get('form').getContents().findWhere({
+                        name.push($form.getContents().findWhere({
                             'contentId': contentId
                         }).get('value'));
                     });
@@ -44,7 +47,7 @@ function($, _, Global, ContentView) {
 
             var $p = $t.model.getWindowParams(
                 $(e.currentTarget).attr('data-persona'),
-                Global.get('form').get('application')
+                FormModelFactory.getInstance().get('application')
             );
 
             $.when($p).then(function(data) {

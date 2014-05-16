@@ -1,5 +1,8 @@
-define(['jquery', 'underscore', 'global', 'js/view', 'views/ContentViewFactory'],
-function($, _, Global, View, ContentViewFactory) {
+define(['jquery', 'underscore', 'js/view',
+    'views/ContentViewFactory'],
+function($, _, View,
+    ContentViewFactory
+) {
     return View.extend({
         templateUrl: 'html/Include/Section.html',
         tagName: 'div',
@@ -49,7 +52,7 @@ function($, _, Global, View, ContentViewFactory) {
                     .attr('class', 'next')
                     .append($(document.createElement('button'))
                         .append($(document.createElement('span'))
-                        .attr('class', 'text').text(Global.get('template').get('btnLabelNext')))));
+                        .attr('class', 'text').text($t.getTemplate().get('btnLabelNext')))));
 
                 $('.next button', $t.$el).click(function(e) {
                     e.preventDefault();

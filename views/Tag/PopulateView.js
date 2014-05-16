@@ -1,5 +1,5 @@
-define(['global', 'views/TagView'],
-function(Global, TagView) {
+define(['views/TagView', 'models/FormModelFactory'],
+function(TagView, FormModelFactory) {
     return TagView.extend({
         patterns: {
             defaultValue: /^\{.+\|.+\|(.+)\}$/i,
@@ -8,7 +8,7 @@ function(Global, TagView) {
         evaluate: function() {
             var $t = this;
 
-            var $form   = Global.get('form'),
+            var $form   = FormModelFactory.getInstance(),
                 $val    = $t.model.get('defaultValue');
 
             if($form) {
