@@ -7,8 +7,10 @@ function(ProgressBarView) {
         applyStyle: function() {
             var $t = this;
 
-            $t.addStylesheet(
-                $t.template.getFileUrl('css/ProgressBar/Titles.css'));
+            $t.styler.addDynamicCss(
+                $t.template.getFileUrl('css/ProgressBar/Titles.css'), {
+                    colour: $t.template.get('colour')
+                });
 
             $t.addCss('#progressBar.titles ul li', {
                 'width': (100 / $t.model.get('pages').filter(function(model) {

@@ -126,21 +126,17 @@ ul.bulletPointList li span.bulletPoint {
     width: 90%;
     height: 34px;
     margin: 20px 2%;
-    padding: 16px 1% 8px 5%;
+    padding: 16px 4% 8px 1%;
     clear: both;
-}
-
-.section.first h3 {
-    display:none;
-    visibility:hidden;
 }
 
 .section h3:before {
     content:"";
     width:30px;
     height:30px;
-    position:absolute;
-    margin:-2px -3%;
+    float:left;
+    display:block;
+    margin-right:20px;
     background-position: -217px -54px;
 }
 
@@ -409,8 +405,6 @@ label.option span.text {
 
 label.option input+span.text {
     display: block;
-    text-indent: 10px;
-    width:180px;
 }
 
 label.option input+span.text:before {
@@ -437,6 +431,11 @@ label.option input[type="checkbox"]+span.text:before {
 
 label.option input[type="checkbox"]:checked+span.text:before {
     background-position: 0 -91px;
+}
+
+label.option input[type="checkbox"]+span.text span,
+label.option input[type="radio"]+span.text span {
+    margin-left:10px;
 }
 
 .contentElement .multipleChoice .input .options {
@@ -519,9 +518,13 @@ label.option input[type="checkbox"]:checked+span.text:before {
 }
 
 .next,
-.previous,
-.save {
+.previous {
     cursor: pointer;
+    display:block;
+}
+
+.save {
+    display:inline-block;
 }
 
 .next button,
@@ -530,10 +533,11 @@ label.option input[type="checkbox"]:checked+span.text:before {
     text-shadow: none;
     font-family: Georgia,"Times New Roman",Times,serif;
     font-size: 1.5em;
-    line-height: 20px;
     text-align: center;
     cursor: pointer;
-    padding: 16px 30px;
+    display:block;
+    width:150px;
+    height:50px;
     border:none;
 }
 
@@ -542,59 +546,52 @@ label.option input[type="checkbox"]:checked+span.text:before {
     text-align: right;
 }
 
-.save button,
-.next button {
-    padding-right: 42px;
-}
-
 .previous {
     float:left;
     text-align:left;
  }
 
-.previous button {
-    padding-left:42px;
- }
-
-.save:after,
-.next:after,
-.previous:before {
+.save button:after,
+.next button:after,
+.previous button:before {
     content: "";
     display:inline-block;
-    position:relative;
     background-repeat: no-repeat;
     width:30px;
     height:30px;
 }
 
-.next:after {
+.next button:after {
     background-position:-31px -54px;
-    left:-40px;
-    top:8px;
+    float:right;
+    margin-right:5px;
 }
 
-.previous:before {
+.previous button:before {
     background-position:0px -54px;
-    left:40px;
-    top:8px;
+    float:left;
+    margin-left:5px;
 }
 
-.save:after {
+.save button:after {
     background-position: -124px -54px;
-    top:12px;
-    left:-40px;
+    margin-right:5px;
 }
 
 .save button {
-    padding:6px 42px 6px 6px;
+    padding:6px;
     text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
     vertical-align: middle;
     background-repeat: repeat-x;
+    line-height:20px;
+    width:200px;
 }
 
 .save button span {
     display:block;
-    text-align:left;
+    text-align:center;
+    float:left;
+    width:140px;
 }
 
 .save button .subtitle {
