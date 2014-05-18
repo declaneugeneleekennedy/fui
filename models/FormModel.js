@@ -196,13 +196,18 @@ function($, _, Backbone,
                 model.get('displayRule').bindTo($t, model);
             });
 
-            // bind handlers            
-            $t.getContents().each(function(content) {
-                content.trigger('change:value');
+            // bind handlers     
+            $t.get('pages').each(function(page) {
+                page.get('sections').each(function(section) {
+                    section.get('contents').each(function(content) {
+                        content.trigger('change:value');
 
-                // bind validation events
-                content.bind('change:value', function() {
-                    content.validate($t);
+                        // bind validation events
+                        content.on('change:value', function() {
+                            content.validate($t);
+                            page.set('valid', page.validate());
+                        });
+                    });
                 });
             });
 

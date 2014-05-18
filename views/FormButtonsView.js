@@ -6,6 +6,13 @@ function($, ButtonsView) {
             'click .previous button': 'previousPage',
             'click .save button': 'savePage'
         },
+        beforeLoad: function() {
+            var $t = this;
+
+            $t.model.get('currentPage').on('change:valid', function() {
+                $t.render();
+            });
+        },
         getButtons: function() {
             var $t = this, buttons = [];
 

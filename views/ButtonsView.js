@@ -21,10 +21,6 @@ function($, View) {
             }
 
             $t.$el.addClass($t.elementClasses[buttons.length]);
-
-            $t.model.get('currentPage').on('change:valid', function() {
-                $t.render();
-            });
         },
         getButtons: function() {
             console.log('Calling ButtonsView.getButtons() no-op');

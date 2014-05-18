@@ -44,7 +44,10 @@ function(Backbone, SectionCollection, DisplayRuleModel, PageIconsModel) {
                         return;
                     }
 
-                    content.validate(form)
+                    // if no form is supplied, just check the current status
+                    if(form) {
+                        content.validate(form);
+                    }
 
                     if(content.get('valid') === false) {
                         valid = false;
