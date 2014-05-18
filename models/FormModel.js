@@ -1,10 +1,10 @@
 define(
 ['jquery', 'underscore', 'backbone',
     'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection',
-    'models/ApplicationModel'],
+    'models/ApplicationModel', 'models/SavePageModel'],
 function($, _, Backbone,
     PageCollection, SectionCollection, ContentCollection,
-    ApplicationModel
+    ApplicationModel, SavePageModel
 ) {
     return Backbone.Model.extend({
         idAttribute: 'formUrl',
@@ -16,16 +16,21 @@ function($, _, Backbone,
             progressBarEnabled:     false,
             progressBarFormat:      null,
             totalPersona:           1,
-            saveAllowed:            false,
-            signaturePanelEnabled:  false,
+            enableCompleteLater:    false,
+            enableSignaturePanel:   false,
             pages:                  [],
             currentPageIndex:       1,
             currentPageUrl:         null,
-            currentPage:            null
+            currentPage:            null,
+            savePage:               null
         },
         isMapped: false,
         initialize: function() {
             var $t = this;
+
+            if($t.get('enableCompleteLater')) {
+                $t.set('savePage', new SavePageModel)
+            }
 
             $t.set('pages',         new PageCollection($t.get('pages')));
             $t.set('application',   new ApplicationModel);
@@ -144,6 +149,14 @@ function($, _, Backbone,
 
             // page change triggers
             $t.bind('change:currentPageUrl', function() {
+                // if complete later just go there immediately
+                if($t.get('savePage') &&
+                    $t.get('currentPageUrl') == $t.get('savePage').get('pageUrl')
+                ) {
+                    $t.set('currentPage', $t.get('savePage'));
+                    return;
+                }
+
                 // perform validation if there is a currentPage to validate
                 if($t.get('currentPage')) {
                     $t.get('currentPage').set('valid', $t.get('currentPage').validate($t));

@@ -1,12 +1,17 @@
 
-<% for(var i = 0; i < buttons.length; ++i) { %>
-<span class="<%= buttons[i].className %>">
-    <button>
-        <span class="text"><%= buttons[i].value %></span>
+<%
+    var button, disabled;
+    for(var i = 0; i < buttons.length; ++i) {
+        button = buttons[i];
+        disabled = (button.enabled) ? '' : ' disabled="disabled"';
+%>
+<span class="<%= button.className %>">
+    <button<%= disabled %>>
+        <span class="text"><%= button.text %></span>
         <%
-            if(buttons[i].subtitle) {
+            if(button.subtitle) {
         %>
-        <span class="subtitle"><%= buttons[i].subtitle %></span>
+        <span class="subtitle"><%= button.subtitle %></span>
         <%
             }
         %>

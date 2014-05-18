@@ -6,7 +6,7 @@ function($, _, ContentView,
     return ContentView.extend({
         templateUrl: 'html/Content/IdentityVerification.html',
         events: {
-            'mouseup input[type="button"]': 'appendFrame'
+            'click button': 'appendFrame'
         },
         activeFrame: null,
         beforeLoad: function() {
@@ -27,18 +27,33 @@ function($, _, ContentView,
                     applicant.set('nameText', name.join(' '));
 
                     applicant.on('change:verified', function() {
-                        applicant.set('valid', true);
-                        $t.render();
+                        $form.get('currentPage').validate();
                     });
 
                     displayApplicants.push(applicant.toJSON());
                 }
             });
 
+            // DEBUG
+            displayApplicants = [{
+                persona: 1,
+                nameText: 'Juan Doe'
+            },
+            {
+                persona: 2,
+                nameText: 'Jane Doe'
+            },
+            {
+                persona: 3,
+                nameText: 'John Doe'
+            }];
+
             $t.model.set('displayApplicants', displayApplicants);
         },
         appendFrame: function(e) {
             var $t = this;
+
+            e.preventDefault();
 
             if($t.activeFrame) {
                 $t.activeFrame.remove();
@@ -84,18 +99,39 @@ function($, _, ContentView,
                 });
 
                 $('#persona' + $(e.currentTarget).attr('data-persona'))
+                    .addClass('active')
                     .append($t.activeFrame);
+
+                $('#persona' + $t.activeFrame.attr('data-persona') +
+                    ' button span.text').text('In Progress');
 
                 dummy.submit();
 
                 $(document).on('verificationError', function() {
+                    $('#persona' + $t.activeFrame.attr('data-persona'))
+                        .removeClass('active');
+
+                    $('#persona' + $t.activeFrame.attr('data-persona') +
+                        ' button span.text').text('Verify');
+
                     alert('Verification could not be completed');
                 });
 
                 $(document).on('verificationSuccess', function() {
                     $t.model.setVerified($t.activeFrame.attr('data-persona'));
+                    console.log($t.model.get('applicants'));
                     $('#persona' + $t.activeFrame.attr('data-persona'))
+                        .removeClass('active')
                         .addClass('valid');
+
+                    $('#persona' + $t.activeFrame.attr('data-persona') +
+                        ' button span.text').text('Completed');
+
+                    $('#persona' + $t.activeFrame.attr('data-persona') + ' button')
+                        .prop('disabled', true);
+
+                    $('input[name="' + $t.model.get('name') +
+                        '[' + $t.activeFrame.attr('data-persona') + ']"]').val(1);
 
                     $t.activeFrame.remove();
                 });

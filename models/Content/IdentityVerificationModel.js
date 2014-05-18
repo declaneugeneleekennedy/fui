@@ -75,7 +75,13 @@ function($, _, Loader, ContentModel,
             }
 
             return null;
+        },
+        validate: function() {
+            var $t = this;
 
+            return $t.get('applicants').every(function(applicant) {
+                return applicant.get('verified');
+            });
         }
     });
 });

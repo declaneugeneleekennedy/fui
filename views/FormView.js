@@ -1,9 +1,9 @@
 define(['jquery', 'underscore', 'js/view',
     'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
-    'views/ButtonsView'],
+    'views/FormButtonsView', 'views/SaveButtonsView'],
 function($, _, View,
     ProgressBarViewFactory, ContactView, SectionView,
-    ButtonsView
+    FormButtonsView, SaveButtonsView
 ) {
     return View.extend({
         templateUrl: 'html/Page/Form.html',
@@ -25,10 +25,18 @@ function($, _, View,
                 }));
             });
 
-            $t.buttons = new ButtonsView({
-                model:       $t.model,
-                isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
-            });
+            if($t.model.get('savePage') &&
+                $t.model.get('savePage') == $t.model.get('currentPage')
+            ) {
+                $t.buttons = new SaveButtonsView({
+                    model: $t.model
+                });
+            } else {
+                $t.buttons = new FormButtonsView({
+                    model:       $t.model,
+                    isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
+                });
+            }
         },
         render: function() {
             var $t = this;
@@ -47,7 +55,7 @@ function($, _, View,
             _.each($t.sections, function(section) {
                 $form.append(section.el);
             });
-
+            
             $form.append($t.buttons.el);
         }
     });

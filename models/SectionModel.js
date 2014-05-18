@@ -5,7 +5,7 @@ function(_, Backbone, DisplayRuleModel, ContentModelFactory, ContentCollection) 
     return Backbone.Model.extend({
         idAttribute: 'sectionId',
         defaults: {    
-            sectionTitle: 'Section',
+            sectionTitle: null,
             persona: 1,
             displayRule: {},
             contents: [],

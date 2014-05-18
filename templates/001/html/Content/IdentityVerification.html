@@ -9,12 +9,11 @@
     <div class="contentElement persona" id="persona<%= applicant.persona %>">
         <span class="name"><%= applicant.nameText %></span>
         <span class="next">
-            <input
-                type="button"
-                name="persona<%= applicant.persona %>"
-                data-persona="<%= applicant.persona %>"
-                value="Verify" />
+            <button data-persona="<%= applicant.persona %>">
+                <span class="text">Verify</span>
+            </button>
         </span>
+        <input type="hidden" name="<%= name %>[<%= applicant.persona %>]" />
     </div>
     <%
         }

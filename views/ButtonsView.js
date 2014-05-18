@@ -4,11 +4,6 @@ function($, View) {
         templateUrl: 'html/Include/Buttons.html',
         tagName: 'div',
         className: 'buttons',
-        events: {
-            'click .next button': 'nextPage',
-            'click .previous button': 'previousPage',
-            'click .save button': 'saveForm'
-        },
         elementClasses: {
             1: 'single',
             2: 'double',
@@ -26,52 +21,25 @@ function($, View) {
             }
 
             $t.$el.addClass($t.elementClasses[buttons.length]);
+
+            $t.model.get('currentPage').on('change:valid', function() {
+                $t.render();
+            });
         },
         getButtons: function() {
-            var $t = this, buttons = [];
-
-            if($t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('previous', $t.getTemplate().get('btnLabelPrevious')));
-            }
-
-            if($t.model.get('enableCompleteLater') && $t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('save', $t.getTemplate().get('btnLabelSave'), 'Save My Application'));
-            }
-
-            if($t.model.get('currentPage') == $t.model.get('pages').at($t.model.get('pages').length - 1)) {
-                buttons.push($t.getButton('complete', $t.getTemplate().get('btnLabelComplete')));
-            } else {
-                buttons.push($t.getButton('next', $t.getTemplate().get('btnLabelNext')));
-            }
-
-            return buttons;
+            console.log('Calling ButtonsView.getButtons() no-op');
         },
-        getButton: function(className, value, subtitle) {
+        getButton: function(className, text, subtitle, enabled) {
+            if(enabled == undefined) {
+                enabled = true;
+            }
+
             return {
                 className: className,
-                value: value,
-                subtitle: subtitle
+                text: text,
+                subtitle: subtitle,
+                enabled: enabled
             };
-        },
-        nextPage: function(e) {
-            var $t = this;
-
-            e.preventDefault();
-
-            var nextPage = $t.model.getNextPage();
-            if(nextPage) {
-                $t.model.set('currentPageUrl', nextPage.get('pageUrl'));
-            }
-        },
-        previousPage: function(e) {
-            var $t = this;
-
-            e.preventDefault();
-
-            var previousPage = $t.model.getPreviousPage();
-            if(previousPage) {
-                $t.model.set('currentPageUrl', previousPage.get('pageUrl'));
-            }
         }
     });
 });
