@@ -26,13 +26,13 @@ function(ProgressBarView) {
                     lastVisible = page.get('pageUrl');
 
                     if(page.get('pageIcons').get('unvisited')) {
-                        $t.addCss('#progressBar ul li#' + page.get('pageUrl') + '.unvisited a', {
+                        $t.addCss('#progressBar ul li#' + page.get('pageUrl') + ' a', {
                             'background-image': 'url(' + $t.template.getFileUrl(page.get('pageIcons').get('unvisited')) + ')'
                         });
                     }
 
                     if(page.get('pageIcons').get('inactive')) {
-                        $t.addCss('#progressBar ul li#' + page.get('pageUrl') + '.inactive a', {
+                        $t.addCss('#progressBar ul li#' + page.get('pageUrl') + '.completed a', {
                             'background-image': 'url(' + $t.template.getFileUrl(page.get('pageIcons').get('inactive')) + ')'
                         });
                     }

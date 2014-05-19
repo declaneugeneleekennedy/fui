@@ -48,12 +48,8 @@ function($, View) {
                 classes.push('active');
             }
 
-            if(page.get('valid')) {
-                classes.push('inactive');
-            }
-
-            if(!page.get('visited')) {
-                classes.push('unvisited');
+            if(page.get('valid') && page.get('visited')) {
+                classes.push('completed');
             }
 
             classes.push((page.get('display')) ? 'unlocked' : 'locked');

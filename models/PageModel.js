@@ -13,7 +13,7 @@ function(Backbone, SectionCollection, DisplayRuleModel, PageIconsModel) {
             display: true,
             displayRule: [],
             visited: false,
-            valid: false
+            valid: true
         },
         initialize: function() {
             var $t = this;
@@ -28,6 +28,15 @@ function(Backbone, SectionCollection, DisplayRuleModel, PageIconsModel) {
             if(!$t.get('progressBarTitle')) {
                 $t.set('progressBarTitle', $t.get('pageTitle'));
             }
+
+            // only set page to invalid if necessary
+            $t.get('sections').each(function(section) {
+                section.get('contents').each(function(content) {
+                    if(content.get('required') && !content.get('valid')) {
+                        $t.set('valid', false);
+                    }
+                });
+            });
         },
         validate: function(form) {
             var $t = this;
@@ -51,6 +60,12 @@ function(Backbone, SectionCollection, DisplayRuleModel, PageIconsModel) {
 
                     if(content.get('valid') === false) {
                         valid = false;
+                    } else {
+                        if(content.get('valid') == null
+                            && content.get('required')
+                        ) {
+                            valid = false;
+                        }
                     }
                 });
             });

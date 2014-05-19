@@ -69,7 +69,7 @@ ul.bulletPointList li span.bulletPoint {
 #headerContainer {
     padding-top: 180px;
     background-repeat: no-repeat;
-    background-position: top right;
+    background-position: right 12% top;
 }
 
 #headerContainer h1 {

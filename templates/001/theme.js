@@ -100,7 +100,7 @@ function($, _, Theme) {
             });
 
             $('input[data-input-format="7"]').datepicker({
-                dateFormat: 'dd/mm/yy',
+                dateFormat: 'dd/mm/yyyy',
                 onSelect: function() {
                     $(this).trigger('blur');
                 },

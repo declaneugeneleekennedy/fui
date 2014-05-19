@@ -63,7 +63,13 @@ function($, _, ContentView, ResponseTypeEnum, OutputStyleEnum) {
             var hasIcons = $t.hasIcons($t.model.get('options'));
 
             _.each($t.model.get('options'), function(option) {
-                option.checked = (option.value == $t.model.get('value'));
+                console.log($t.model.get('value'));
+                if(_.isArray($t.model.get('value'))) {
+                    option.checked =
+                        (_.indexOf($t.model.get('value'), option.value) != -1);
+                } else {
+                    option.checked = option.value == $t.model.get('value');    
+                }
 
                 if(hasIcons) {
                     if(!option.optionIcon) {

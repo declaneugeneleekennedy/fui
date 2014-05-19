@@ -24,7 +24,6 @@ function($, _, Backbone,
             currentPage:            null,
             savePage:               null
         },
-        isMapped: false,
         initialize: function() {
             var $t = this;
 
@@ -171,13 +170,6 @@ function($, _, Backbone,
                     $t.submit();
                 }
 
-                // ensure that the new page is the first incomplete page
-                /*var page = $t.getFirstPage();
-
-                while(page.get('valid')) {
-                    page = $t.getNextPage(page);
-                }*/
-
                 var page = $t.getPages().findWhere({
                     pageUrl: $t.get('currentPageUrl')
                 });
@@ -211,7 +203,18 @@ function($, _, Backbone,
                 });
             });
 
-            $t.isMapped = true;  
+            if($t.get('savePage')) {
+                var page = $t.get('savePage');
+
+                page.get('sections').each(function(section) {
+                    section.get('contents').each(function(content) {
+                        content.on('change:value', function() {
+                            content.validate(null);
+                            page.set('valid', page.validate());
+                        });
+                    });
+                });
+            }
         },
         updateContents: function(application) {
             var $t = this;

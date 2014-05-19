@@ -34,13 +34,13 @@
     display:none;
 }
 
-#progressBar ul li.inactive {
+#progressBar ul li.completed {
     background-color: #fff;
     background-image: none;
 }
 
-#progressBar ul li.inactive .text {
-    color:#0093a0;
+#progressBar ul li.completed .text {
+    color:<%= colour.get(1).get('default') %> ;
 }
 
 #progressBar ul li.active {
@@ -69,7 +69,7 @@
     border-right: none;
 }
 
-#progressBar ul li.active a {
+#progressBar ul li.active .text {
     color:white;
 }
 

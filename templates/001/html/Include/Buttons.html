@@ -3,10 +3,9 @@
     var button, disabled;
     for(var i = 0; i < buttons.length; ++i) {
         button = buttons[i];
-        disabled = (button.enabled) ? '' : ' disabled="disabled"';
 %>
 <span class="<%= button.className %>">
-    <button<%= disabled %>>
+    <button>
         <span class="text"><%= button.text %></span>
         <%
             if(button.subtitle) {

@@ -22,19 +22,30 @@ function($, View) {
 
             $t.$el.addClass($t.elementClasses[buttons.length]);
         },
+        afterRender: function() {
+            var $t = this;
+
+            $t.model.get('currentPage').on('change:valid', function() {
+                var $b = $('.next button, .complete button', $t.$el);
+
+                if(this.get('valid')) {
+                    $b.removeAttr('disabled');
+                } else {
+                    $b.attr('disabled', 'disabled');
+                }
+            });
+
+            $t.model.get('currentPage')
+                .trigger('change:valid');
+        },
         getButtons: function() {
             console.log('Calling ButtonsView.getButtons() no-op');
         },
-        getButton: function(className, text, subtitle, enabled) {
-            if(enabled == undefined) {
-                enabled = true;
-            }
-
+        getButton: function(className, text, subtitle) {
             return {
                 className: className,
                 text: text,
-                subtitle: subtitle,
-                enabled: enabled
+                subtitle: subtitle
             };
         }
     });

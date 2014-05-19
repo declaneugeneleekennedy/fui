@@ -6,38 +6,31 @@ function($, ButtonsView) {
             'click .previous button': 'previousPage',
             'click .save button': 'savePage'
         },
-        beforeLoad: function() {
-            var $t = this;
-
-            $t.model.get('currentPage').on('change:valid', function() {
-                $t.render();
-            });
-        },
         getButtons: function() {
             var $t = this, buttons = [];
 
             if($t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('previous', $t.getTemplate().get('btnLabelPrevious')));
+                buttons.push(
+                    $t.getButton('previous', 
+                        $t.getTemplate().get('btnLabelPrevious')));
             }
 
             if($t.model.get('enableCompleteLater') && $t.model.get('currentPage') != $t.model.getFirstPage()) {
-                buttons.push($t.getButton('save', $t.getTemplate().get('btnLabelSave'), 'Save My Application'));
+                buttons.push(
+                    $t.getButton('save', 
+                        $t.getTemplate().get('btnLabelSave'), 'Save My Application'));
             }
 
-            if($t.model.get('currentPage') == $t.model.get('pages').at($t.model.get('pages').length - 1)) {
-                buttons.push($t.getButton(
-                    'complete',
-                    $t.getTemplate().get('btnLabelComplete'),
-                    null,
-                    $t.model.get('currentPage').get('valid')
-                ));
+            if($t.model.get('currentPage') ==
+                $t.model.get('pages').at($t.model.get('pages').length - 1)
+            ) {
+                buttons.push(
+                    $t.getButton('complete',
+                        $t.getTemplate().get('btnLabelComplete')));
             } else {
-                buttons.push($t.getButton(
-                    'next',
-                    $t.getTemplate().get('btnLabelNext'),
-                    null,
-                    $t.model.get('currentPage').get('valid')
-                ));
+                buttons.push(
+                    $t.getButton('next',
+                        $t.getTemplate().get('btnLabelNext')));
             }
 
             return buttons;
