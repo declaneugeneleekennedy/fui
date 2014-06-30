@@ -8,6 +8,7 @@ function($, _, Backbone,
 ) {
     return Backbone.Model.extend({
         idAttribute: 'formUrl',
+        urlRoot: dataHost + '/form',
         defaults: {
             application:            null,
             formVerId:              1,
@@ -24,21 +25,14 @@ function($, _, Backbone,
             currentPage:            null,
             savePage:               null
         },
-        initialize: function() {
+        initialize: function(attributes, options) {
             var $t = this;
 
             if($t.get('enableCompleteLater')) {
-                $t.set('savePage', new SavePageModel)
+                $t.set('savePage', new SavePageModel);
             }
 
-            $t.set('pages',         new PageCollection($t.get('pages')));
-            $t.set('application',   new ApplicationModel);
-
-            var $p = $t.get('application').fetch();
-
-            $.when($p).then(function() {
-                $t.updateContents($t.get('application'));
-            });
+            $t.set('pages', new PageCollection($t.get('pages')));
 
             $t.mapEvents();
         },
@@ -166,8 +160,6 @@ function($, _, Backbone,
                             .get('pageUrl') }, { silent: true });
                         return;
                     }
-
-                    $t.submit();
                 }
 
                 var page = $t.getPages().findWhere({
@@ -215,6 +207,12 @@ function($, _, Backbone,
                     });
                 });
             }
+
+            $t.on('change:application', function(form) {
+                if(form.get('application').get('values').length) {
+                    $t.updateContents(form.get('application'));
+                }
+            });
         },
         updateContents: function(application) {
             var $t = this;
@@ -252,7 +250,13 @@ function($, _, Backbone,
                 }
             });
 
-            return $t.get('application').save();
+            var $p = $t.get('application').save();
+
+            $.when($p).then(function() {
+                $t.trigger('change:application', $t);
+            });
+
+            return $p;
         }
     });
 });

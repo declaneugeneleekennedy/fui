@@ -39,6 +39,11 @@ function($, _, Extendable) {
 
             return $t.deferred.promise();
         },
+        promise: function() {
+            var $t = this;
+
+            return $t.deferred.promise();
+        },
         reset: function() {
             var $t = this;
 

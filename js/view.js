@@ -12,8 +12,10 @@ function($, _, Loader,
         templateUrl: null,
         html: null,
         htmlQueue: htmlQueue,
-        initialize: function() {
+        initialize: function(options) {
             var $t = this;
+
+            $t.options = options;
 
             $t.beforeLoad();
 

@@ -9,8 +9,8 @@
         paths: {
             framework:  frameworkHost + '/js',
             vpl:        frameworkHost + '/js/vpl',
-            underscore: frameworkHost + '/js/underscore/underscore-min',
-            backbone:   frameworkHost + '/js/backbone/backbone-min',
+            underscore: frameworkHost + '/js/underscore/underscore-1.6.0',
+            backbone:   frameworkHost + '/js/backbone/backbone-1.1.2',
 
             loader:     clientHost + '/js/loader',
             router:     clientHost + '/js/router',

@@ -19,6 +19,25 @@ function($, ButtonsView) {
             e.preventDefault();
 
             window.history.back();
+        },
+        saveForm: function(e) {
+            var $t = this;
+
+            e.preventDefault();
+
+            var $c = $t.model.get('savePage').get('sections').at(0).get('contents').findWhere({
+                contentId: 'saveEmail'
+            });
+
+            console.log($c);
+
+            if($c) {
+                $t.model.get('application').set('email', $c.get('value'));
+
+                $.when($t.model.submit()).then(function() {
+                    console.log('Complete Later Token: %s', $t.model.get('application').id);
+                });
+            }
         }
     });
 });

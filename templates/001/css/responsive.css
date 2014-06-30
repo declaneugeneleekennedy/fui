@@ -99,6 +99,25 @@
         clear:both;
     }
 
+    .contentElement .input .errors {
+        margin-top: -45px;
+        margin-left: -55%;
+    }
+
+    .contentElement .input .errors:before {
+        border-width: 9px 8px 0;
+        border-style: solid;
+        left:50%;
+        top:99%;
+    }
+
+    .contentElement .input .errors:after {
+        border-width: 9px 8px 0;
+        border-style: solid;
+        left:50%;
+        top:98%;
+    }
+
     .contentElement label.question {
         display:block;
         width:100%;

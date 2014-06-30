@@ -343,4 +343,12 @@ label.option input[type="radio"]:checked+span.text span {
         color:<%= colour.get(1).get('default') %>;
         border-bottom:<%= colour.get(1).get('default') %> 1px dotted;
     }
+
+    .contentElement .input .errors:before {
+        border-color: <%= globalColours.get(4).get('default') %> transparent;
+    }
+
+    .contentElement .input .errors:after {
+        border-color: <%= globalColours.get(4).get('alternative') %> transparent;
+    }
 }

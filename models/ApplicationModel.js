@@ -1,9 +1,10 @@
 define(['backbone', 'models/ApplicationValueCollection'],
 function(Backbone, ApplicationValueCollection) {
     return Backbone.Model.extend({
-        urlRoot: '/save.php',
-        idAttribute: 'applicationId',
+        urlRoot: dataHost + '/application',
+        idAttribute: 'applicationToken',
         defaults: {
+            email: null,            
             values: null
         },
         initialize: function() {
@@ -11,10 +12,10 @@ function(Backbone, ApplicationValueCollection) {
 
             $t.set('values', new ApplicationValueCollection($t.get('values')));
         },
-        parse: function(response) {
+        parse: function(result) {
             return {
-                values:         new ApplicationValueCollection(response.values),
-                applicationId:  response.applicationId
+                applicationToken: result.applicationToken,
+                values: new ApplicationValueCollection(result.values)
             };
         }
     });

@@ -11,7 +11,7 @@ function($, Backbone, DocumentModel, DocumentView) {
         routes: {
             '': 'home',            
             ':formUrl': 'formRoot',
-            ':formUrl/:pageUrl': 'formPage'
+            ':formUrl/:pageUrl(/:token)': 'formPage'
         },
 
         home: function() {
@@ -36,12 +36,13 @@ function($, Backbone, DocumentModel, DocumentView) {
             });
         },
 
-        formPage: function(formUrl, pageUrl) {
+        formPage: function(formUrl, pageUrl, applicationToken) {
             var $t = this;
 
             var model = new DocumentModel({
-                formUrl: formUrl,
-                pageUrl: pageUrl
+                formUrl:            formUrl,
+                pageUrl:            pageUrl,
+                applicationToken:   applicationToken
             });
 
             var $p = model.fetch();

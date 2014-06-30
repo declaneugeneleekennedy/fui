@@ -4,11 +4,11 @@ function(_, Backbone) {
         tagName: 'span',
         className: 'tag',
         patterns: {},
-        initialize: function() {
+        initialize: function(options) {
             var $t = this;
 
             $t.model = new Backbone.Model({
-                tag: $t.options.tag
+                tag: options.tag
             });
 
             _.each($t.patterns, function(pattern, property) {
