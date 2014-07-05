@@ -63,7 +63,6 @@ function($, _, ContentView, ResponseTypeEnum, OutputStyleEnum) {
             var hasIcons = $t.hasIcons($t.model.get('options'));
 
             _.each($t.model.get('options'), function(option) {
-                console.log($t.model.get('value'));
                 if(_.isArray($t.model.get('value'))) {
                     option.checked =
                         (_.indexOf($t.model.get('value'), option.value) != -1);

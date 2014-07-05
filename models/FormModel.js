@@ -1,10 +1,10 @@
 define(
 ['jquery', 'underscore', 'backbone',
     'models/PageCollection', 'models/SectionCollection', 'models/ContentCollection',
-    'models/ApplicationModel', 'models/SavePageModel'],
+    'models/ApplicationModel', 'models/SavePageModel', 'models/SaveCompletePageModel'],
 function($, _, Backbone,
     PageCollection, SectionCollection, ContentCollection,
-    ApplicationModel, SavePageModel
+    ApplicationModel, SavePageModel, SaveCompletePageModel
 ) {
     return Backbone.Model.extend({
         idAttribute: 'formUrl',
@@ -23,13 +23,16 @@ function($, _, Backbone,
             currentPageIndex:       1,
             currentPageUrl:         null,
             currentPage:            null,
-            savePage:               null
+            savePage:               null,
+            saveCompletePage:       null,
+            resumeFormUrl:          null
         },
         initialize: function(attributes, options) {
             var $t = this;
 
             if($t.get('enableCompleteLater')) {
-                $t.set('savePage', new SavePageModel);
+                $t.set('savePage',          new SavePageModel);
+                $t.set('saveCompletePage',  new SaveCompletePageModel);
             }
 
             $t.set('pages', new PageCollection($t.get('pages')));
@@ -141,12 +144,20 @@ function($, _, Backbone,
             var $t = this;
 
             // page change triggers
-            $t.bind('change:currentPageUrl', function() {
+            $t.on('change:currentPageUrl', function() {
                 // if complete later just go there immediately
                 if($t.get('savePage') &&
                     $t.get('currentPageUrl') == $t.get('savePage').get('pageUrl')
                 ) {
                     $t.set('currentPage', $t.get('savePage'));
+                    return;
+                }
+
+                // ditto
+                if($t.get('saveCompletePage') &&
+                    $t.get('currentPageUrl') == $t.get('saveCompletePage').get('pageUrl')
+                ) {
+                    $t.set('currentPage', $t.get('saveCompletePage'));
                     return;
                 }
 
@@ -167,11 +178,12 @@ function($, _, Backbone,
                 });
 
                 if(page) {
-                    $t.set('currentPage', page);
+                    $t.set('resumeFormUrl', $t.get('currentPageUrl'));
+                    $t.set('currentPage',   page);
                 }
             });
 
-            $t.bind('change:currentPage', function() {
+            $t.on('change:currentPage', function() {
                 $t.get('currentPage').set('visited', true);
                 $t.set({ 'currentPageUrl': $t.get('currentPage').get('pageUrl') }, {silent: true});
             });
@@ -207,14 +219,8 @@ function($, _, Backbone,
                     });
                 });
             }
-
-            $t.on('change:application', function(form) {
-                if(form.get('application').get('values').length) {
-                    $t.updateContents(form.get('application'));
-                }
-            });
         },
-        updateContents: function(application) {
+        setContentsFromApplication: function(application) {
             var $t = this;
 
             var applicationValue;
@@ -224,7 +230,26 @@ function($, _, Backbone,
                 });
 
                 if(applicationValue) {
-                    content.set('value', applicationValue.get('value'));
+                    content.set('value', applicationValue.get('value'), { silent: true });
+                    content.trigger('change:value')
+                }
+            });
+
+            var pageUrls = $t.getPages().pluck('pageUrl');
+            $t.getPages().each(function(page) {
+                page.set('valid', page.validate($t));
+
+                /**
+                 * Looks complicated, but it just takes an array of all page URLs in the form and
+                 * uses the current page URL to create an array of URLs which come after the current
+                 * page. If the page being validated is valid and is not in this array, it is
+                 * assumed to have been visited during a previous session.
+                 */
+                if(page.get('valid') &&
+                    _.rest(pageUrls, pageUrls.indexOf($t.get('currentPageUrl')))
+                    .indexOf(page.get('pageUrl')) == -1
+                ) {
+                    page.set('visited', true);
                 }
             });
         },

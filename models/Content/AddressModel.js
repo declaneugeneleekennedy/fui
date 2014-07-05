@@ -62,6 +62,7 @@ function($, _, ContentModel, ContentCollection,
             var $t = this;
 
             $t.set('main', new SingleLineInputBoxModel({
+                'value':            $t.get('value'),
                 'contentId':        $t.get('contentId'),
                 'question':         $t.get('question'),
                 'suggestedInput':   $t.get('suggestedInput'),

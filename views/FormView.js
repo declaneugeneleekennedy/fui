@@ -1,9 +1,11 @@
 define(['jquery', 'underscore', 'js/view',
     'views/ProgressBarViewFactory', 'views/ContactView', 'views/SectionView',
-    'views/FormButtonsView', 'views/SaveButtonsView'],
+    'views/Buttons/DefaultView', 'views/Buttons/SavePageView',
+    'views/Buttons/SaveCompletePageView', 'views/Buttons/FinalPageView'],
 function($, _, View,
     ProgressBarViewFactory, ContactView, SectionView,
-    FormButtonsView, SaveButtonsView
+    ButtonsDefaultView, ButtonsSavePageView,
+    ButtonsSaveCompletePageView, ButtonsFinalPageView
 ) {
     return View.extend({
         templateUrl: 'html/Page/Form.html',
@@ -25,18 +27,29 @@ function($, _, View,
                 }));
             });
 
-            if($t.model.get('savePage') &&
-                $t.model.get('savePage') == $t.model.get('currentPage')
-            ) {
-                $t.buttons = new SaveButtonsView({
-                    model: $t.model
-                });
-            } else {
-                $t.buttons = new FormButtonsView({
-                    model:       $t.model,
-                    isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
-                });
+            $t.buttons = new ($t.getButtonsView())({
+                model: $t.model,
+                isFirstPage: ($t.model.get('currentPage') == $t.model.getFirstPage())
+            });
+        },
+        getButtonsView: function() {
+            var $t = this;
+
+            if($t.model.get('savePage')) {
+                if($t.model.get('savePage') == $t.model.get('currentPage')) {
+                    return ButtonsSavePageView;
+                }
+
+                if($t.model.get('saveCompletePage') == $t.model.get('currentPage')) {
+                    return ButtonsSaveCompletePageView;
+                }
             }
+
+            if($t.model.getLastPage() == $t.model.get('currentPage')) {
+                return ButtonsFinalPageView;
+            }
+
+            return ButtonsDefaultView;
         },
         render: function() {
             var $t = this;

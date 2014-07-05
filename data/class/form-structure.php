@@ -1113,7 +1113,7 @@
                                         'contentTypeId' => CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
                                         'attribs'       => array(
                                             'question'      => 'Please enter your work telephone number',
-                                            'suggestedInput'=> '+61 (0_) ____ ____',
+                                            'suggestedInput'=> '+61 (_) ____ ____',
                                             'required'      => false,
                                             'inputFormatId' => INPUT_FORMAT_LANDLINE_PHONE,
                                         )
@@ -1123,7 +1123,7 @@
                                         'contentTypeId' => CONTENT_TYPE_SINGLE_LINE_INPUT_BOX,
                                         'attribs'       => array(
                                             'question'      => 'Please enter your home telephone number',
-                                            'suggestedInput'=> '+61 (0_) ____ ____',
+                                            'suggestedInput'=> '+61 (_) ____ ____',
                                             'required'      => false,
                                             'inputFormatId' => INPUT_FORMAT_LANDLINE_PHONE,
                                         )

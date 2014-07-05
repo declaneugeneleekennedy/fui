@@ -746,3 +746,10 @@ label.option input[type="radio"]+span.text span {
 .ui-datepicker .ui-datepicker-title {
   margin: 0;
 }
+
+select.ui-datepicker-month,
+select.ui-datepicker-year {
+    background-color:#fff;
+    border:#ccc 1px solid;
+    padding:2px;
+}

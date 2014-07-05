@@ -32,10 +32,10 @@ function($, _, Loader,
             $t.styler.addCss(selector, rules);
         },
         beforeLoad: function() {
-            console.log('Calling View.beforeLoad() no-op');
+            
         },
         afterRender: function() {
-            console.log('Calling View.afterRender() no-op');
+            
         },
         addHtmlDependency: function(url) {
             var $t = this;

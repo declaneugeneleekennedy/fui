@@ -157,7 +157,7 @@ function($, _, ContentModel, InputFormatEnum) {
                     });
                     break;
                 case InputFormatEnum.INPUT_FORMAT_LANDLINE_PHONE:     // INPUT_FORMAT_LANDLINE_PHONE
-                    if(!/^(\+61)*(\s)*(\()*([0-9]{2})*(\))*(\s)*[0-9]{4}(\s)*[0-9]{4}$/.test(value)) {
+                    if(!/^(\+61)*(\s)*(\()*([0-9]+)*(\))*(\s)*[0-9]{4}(\s)*[0-9]{4}$/.test(value)) {
                         $t.addError('Not a valid phone number');
                     }
                     break;

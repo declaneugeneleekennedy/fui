@@ -58,7 +58,9 @@ h1,h3,h4,h5,h6 {
 .previous button,
 .save button,
 .address .confirm,
-.address .confirm .clarify .addressOptions {    
+.address .confirm .clarify .addressOptions,
+select.ui-datepicker-month,
+select.ui-datepicker-year {    
     -webkit-border-radius: <%= radius %>;
     -moz-border-radius: <%= radius %>;
     border-radius: <%= radius %>;

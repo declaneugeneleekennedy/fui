@@ -22,33 +22,39 @@ function($, Backbone, Loader, Queue,
         fetch: function() {
             var $t = this;
 
-            var $q = new Queue;
+            var $d = $.Deferred();
 
-            var $p = $t.loader.load($t.url());
-
-            $.when($p).then(function(result) {
+            $.when($t.loader.load($t.url())).then(function(result) {
                 $t.set('form', 
                     FormModelFactory.getInstance(result.form));
 
+                $t.get('form').set('currentPageUrl', $t.get('pageUrl'));
+
                 $t.set('template', 
                     TemplateModelFactory.getInstance(result.template));
+
+                if(!$t.get('form').get('application')) {
+                    $t.get('form').set('application', new ApplicationModel);
+                }
+
+                if(!$t.get('applicationToken')) {
+                    $d.resolve();
+                    return;
+                }
+
+                $t.get('form').get('application')
+                    .set('applicationToken', $t.get('applicationToken'));
+
+                $.when($t.get('form').get('application').fetch()).then(function() {
+                    $t.get('form')
+                        .setContentsFromApplication(
+                            $t.get('form').get('application'));
+                        
+                    $d.resolve();
+                });
             });
 
-            $q.add($p);
-
-            var app = new ApplicationModel();
-
-            if($t.get('applicationToken')) {
-                app.set('applicationToken', $t.get('applicationToken'));
-                $q.add(app.fetch());
-            }
-
-            $.when($q.promise()).then(function() {
-                $t.get('form').set('application', app);
-                $t.get('form').set('currentPageUrl', $t.get('pageUrl'));
-            });
-
-            return $q.load();
+            return $d.promise();
         }
     });
 });

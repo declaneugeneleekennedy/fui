@@ -23,7 +23,7 @@ function(_, Backbone) {
             $t.$el.html($t.evaluate());
         },
         evaluate: function() {
-            console.log('Calling TagView.evaluate() no-op');
+            
         }
     });
 });

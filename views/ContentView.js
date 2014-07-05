@@ -32,6 +32,10 @@ function($, View) {
                     }
                 }
             });
+
+            if($t.model.get('value')) {
+                $t.model.trigger('change:valid');
+            }
         },
         valid: function() {
             var $t = this;
@@ -90,7 +94,7 @@ function($, View) {
             }
         },
         setValue: function(e) {
-            console.log('Calling ContentView.setValue() no-op');
+            
         }
     });
 });

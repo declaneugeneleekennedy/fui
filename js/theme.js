@@ -80,10 +80,10 @@ function(Backbone, _, Extendable,
             return $t.styler.cssQueue.load();
         },
         afterRender: function() {
-            console.log('Calling Theme.afterRender() no-op');
+            
         },
         getCssVars: function() {
-            console.log('Calling Theme.getCssVars() no-op');
+            
         }
     });
 });

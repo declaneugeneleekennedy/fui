@@ -17,7 +17,7 @@ function($, _, Backbone, DisplayRuleModel) {
             inputs: []
         },
         setExtendedAttributes: function() {
-            console.log('Calling ContentModel.setExtendedAttributes no-op');
+            
         },
         initialize: function() {
             var $t = this;
@@ -55,7 +55,7 @@ function($, _, Backbone, DisplayRuleModel) {
             return ($t.get('errors').length > 0);
         },
         validateValue: function(value, form) {
-            console.log('Calling ContentModel.validateValue no-op with value %s', value);
+            
         },
         validate: function(form, allowEmpty) {
             var $t = this;
@@ -75,7 +75,7 @@ function($, _, Backbone, DisplayRuleModel) {
 
             $t.set('valid', ($t.get('errors').length == 0));
 
-            console.log($t.get('errors'), 'Validation Errors');
+            
         }
     });
 });

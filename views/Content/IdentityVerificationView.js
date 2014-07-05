@@ -12,11 +12,12 @@ function($, _, ContentView,
         beforeLoad: function() {
             var $t = this;
 
-            var displayApplicants = [], $form = FormModelFactory.getInstance();
+            var displayApplicants = [],
+                $form = FormModelFactory.getInstance();
 
             $t.model.get('applicants').each(function(applicant) {
                 if(applicant.get('displayRule').check($form)) {
-                    var name = [];
+                    var name = [], applicantJSON = {};
 
                     _.each(applicant.get('name'), function(contentId) {
                         name.push($form.getContents().findWhere({
@@ -24,29 +25,18 @@ function($, _, ContentView,
                         }).get('value'));
                     });
 
-                    applicant.set('nameText', name.join(' '));
+                    applicantJSON.nameText  = name.join(' ');
+                    applicantJSON.persona   = applicant.get('persona');
 
                     applicant.on('change:verified', function() {
                         $form.get('currentPage').validate();
                     });
 
-                    displayApplicants.push(applicant.toJSON());
+                    displayApplicants.push(applicantJSON);
                 }
             });
 
-            // DEBUG
-            displayApplicants = [{
-                persona: 1,
-                nameText: 'Juan Doe'
-            },
-            {
-                persona: 2,
-                nameText: 'Jane Doe'
-            },
-            {
-                persona: 3,
-                nameText: 'John Doe'
-            }];
+            
 
             $t.model.set('displayApplicants', displayApplicants);
         },
@@ -81,9 +71,11 @@ function($, _, ContentView,
 
                 $t.activeFrame = $(document.createElement('iframe')).attr({
                     'id': 'iframe' + $(e.currentTarget).attr('data-persona'),
+                    'name': 'iframe' + $(e.currentTarget).attr('data-persona'),
                     'data-persona': $(e.currentTarget).attr('data-persona')
                 });
 
+                // data must be posted, so create an invisible form
                 var dummy = $(document.createElement('form')).attr({
                     action: data['iframe-url'],
                     method: 'post',
@@ -119,7 +111,7 @@ function($, _, ContentView,
 
                 $(document).on('verificationSuccess', function() {
                     $t.model.setVerified($t.activeFrame.attr('data-persona'));
-                    console.log($t.model.get('applicants'));
+                    
                     $('#persona' + $t.activeFrame.attr('data-persona'))
                         .removeClass('active')
                         .addClass('valid');

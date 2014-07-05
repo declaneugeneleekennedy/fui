@@ -19,15 +19,14 @@ function($, Backbone, FormView,
         loadTheme: function() {
             var $t = this;
 
-            var $d = $.Deferred(),
-                $template = TemplateModelFactory
-                    .getInstance();
+            var $d = $.Deferred();
 
-            var themeUrl = $template.getFileUrl('theme.js');
+            var themeUrl = $t.model.get('template')
+                .getFileUrl('theme.js');
 
             require([themeUrl], function(Theme) {
                 $t.theme = new Theme({
-                    template: $template
+                    template: $t.model.get('template')
                 });
                 
                 $d.resolve();
@@ -48,7 +47,9 @@ function($, Backbone, FormView,
             $.when($t.theme.applyTheme()).then(function() {
                 TagViewFactory.replaceTags($t.form.$el);
                 
-                $('body').html($t.form.el);
+                $('body').empty()
+                    .append($t.form.$el);
+                    
                 $(window).scrollTop(0);
 
                 $t.theme.afterRender();

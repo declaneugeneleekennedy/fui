@@ -4,7 +4,7 @@ function(Backbone, ApplicationValueCollection) {
         urlRoot: dataHost + '/application',
         idAttribute: 'applicationToken',
         defaults: {
-            email: null,            
+            email:  null,       
             values: null
         },
         initialize: function() {

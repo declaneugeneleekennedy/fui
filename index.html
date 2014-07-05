@@ -10,12 +10,16 @@
         <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css">
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
 
+        <!--[if lte IE 7]>
+            <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js#startInNewWindow=true,startOpened=true"></script>
+        <![endif]-->
+
         <script type="text/javascript">
             var SiteConfig, clientHost, frameworkHost, dataHost;
 
             $(document).ready(function() {
                 var promise = $.ajax({
-                    url: 'data/site.json',
+                    url: '/data/site.json',
                     method: 'get',
                     dataType: 'json'
                 });

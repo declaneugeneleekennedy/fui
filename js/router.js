@@ -15,7 +15,7 @@ function($, Backbone, DocumentModel, DocumentView) {
         },
 
         home: function() {
-            console.log('Executing Router.home()');
+            
         },
 
         formRoot: function(formUrl) {

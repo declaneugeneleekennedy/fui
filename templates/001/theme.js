@@ -91,7 +91,7 @@ function($, _, Theme) {
 
             var masks = {
                 7: 'dd/mm/yyyy',
-                9: '+61 (09) 9999 9999',
+                9: '+61 (9) 9999 9999',
                 10: '+61 (499) 999 999'
             };
 
@@ -111,7 +111,7 @@ function($, _, Theme) {
             });
 
             // selectboxit
-            $('.multipleChoice select').selectBoxIt({
+            $('.multipleChoice select, .ui-datepicker-title select').selectBoxIt({
                 downArrowIcon: 'selectboxitArrow'
             });
         }

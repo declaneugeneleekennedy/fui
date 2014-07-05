@@ -20,11 +20,11 @@ function($, _, PopulateView) {
             var html = element.html();
 
             _.each(html.match($t.basePattern), function(tag) {
-                console.log('Tag found: %s', tag);
+                
 
                 var type = $t.getType(tag);
 
-                console.log('Found %s tag', type);
+                
 
                 if(type && classes[type]) {
                     element.find(':contains(' + tag + ')').contents().filter(function() {

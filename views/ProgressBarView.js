@@ -27,7 +27,7 @@ function($, View) {
             $t.applyStyle();
         },
         applyStyle: function() {
-            console.log('Calling ProgressBarView.applyStyle() no-op');
+            
         },
         getFormatClass: function() {
             var $t = this;

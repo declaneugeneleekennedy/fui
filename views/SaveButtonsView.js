@@ -29,13 +29,18 @@ function($, ButtonsView) {
                 contentId: 'saveEmail'
             });
 
-            console.log($c);
-
             if($c) {
                 $t.model.get('application').set('email', $c.get('value'));
 
                 $.when($t.model.submit()).then(function() {
-                    console.log('Complete Later Token: %s', $t.model.get('application').id);
+                    console.log('Resume URL: %s', (
+                        'http://' + window.location.hostname
+                        + '/#' + $t.model.get('formUrl')
+                        + '/' + $t.model.get('resumeFormUrl')
+                        + '/' + $t.model.get('application').get('applicationToken')
+                    ));
+                    
+                    $t.model.set('currentPage', $t.model.get('saveCompletePage'));
                 });
             }
         }

@@ -39,7 +39,7 @@ function($, View) {
                 .trigger('change:valid');
         },
         getButtons: function() {
-            console.log('Calling ButtonsView.getButtons() no-op');
+            
         },
         getButton: function(className, text, subtitle) {
             return {

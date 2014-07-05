@@ -4,14 +4,14 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('input[name="success"]').click(function() {
-                console.log('Triggering verificationSuccess');
+                
 
                 window.top.$(window.top.document).trigger('verificationSuccess');
             });
 
 
             $('input[name="error"]').click(function() {
-                console.log('Triggering verificationError');
+                
 
                 window.top.$(window.top.document).trigger('verificationError');
             });
