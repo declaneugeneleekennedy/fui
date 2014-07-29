@@ -231,7 +231,7 @@ function($, _, Backbone,
 
                 if(applicationValue) {
                     content.set('value', applicationValue.get('value'), { silent: true });
-                    content.trigger('change:value')
+                    content.trigger('change:value');
                 }
             });
 

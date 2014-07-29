@@ -34,8 +34,9 @@ function($, ButtonsView) {
 
                 $.when($t.model.submit()).then(function() {
                     console.log('Resume URL: %s', (
-                        'http://' + window.location.hostname
-                        + '/#' + $t.model.get('formUrl')
+                        window.location.protocol + '//'
+                        + window.location.hostname
+                        + '/' + $t.model.get('formUrl')
                         + '/' + $t.model.get('resumeFormUrl')
                         + '/' + $t.model.get('application').get('applicationToken')
                     ));
