@@ -130,11 +130,11 @@ function($, _, ContentModel, InputFormatEnum) {
                     }
 
                     if(current) {
-                         if(current < min) {
+                         if($t.get('inputMinDate') != -1 && current < min) {
                             $t.addError('Date must be after ' + $t.get('inputMinDate'));
                          }
 
-                         if(current > max) {
+                         if($t.get('inputMaxDate') != -1 && current > max) {
                             $t.addError('Date must be before ' + $t.get('inputMaxDate'));
                          }
                     }
