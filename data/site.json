@@ -6,8 +6,8 @@
             "//fui.declaneugeneleekennedy.com": ""
         },
         "frameworkHostMap": {
-            "//formbanc.dev.com": "//ui.dev.com",
-            "//fui.declaneugeneleekennedy.com": "//ui.declaneugeneleekennedy.com"
+            "//formbanc.dev.com": "//fui.dev.com",
+            "//fui.declaneugeneleekennedy.com": "//fui.declaneugeneleekennedy.com"
         },
         "dataHostMap": {
             "//formbanc.dev.com": "//formbanc.dev.com/data",
@@ -26,7 +26,7 @@
         "home": {
             "view": "HomeView"
         },
-        
+
         ":formUrl": {
             "view": "FormView",
             "args": ["formUrl"]
